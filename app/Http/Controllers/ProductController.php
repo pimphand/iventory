@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -10,22 +11,54 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $product = [
-            'name' => 'Product Name',
-            'price' => 10000,
-            'description' => 'Product Description',
-        ];
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
 
-        $qrCode = QrCode::format('png')->size(400)->generate(json_encode($product));
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
 
-        $data = [
-            'product' => $product,
-            'qrCode' => base64_encode($qrCode),
-        ];
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
 
-        return view('welcome', compact('data'));
+        // Total records
+        $totalRecords = Product::select('count(*) as allcount')->count();
+        $totalRecordswithFilter = Product::select('count(*) as allcount')->where('name', 'like', '%' . $searchValue . '%')->count();
+
+        // Fetch records
+        $records = Product::orderBy($columnName, $columnSortOrder)
+            ->where('name', 'like', '%' . $searchValue . '%')
+            ->skip($start)
+            ->take($rowperpage)
+            ->get();
+
+        $data_arr = array();
+
+        foreach ($records as $record) {
+            $id = $record->id;
+            $nip = $record->name;
+
+            $data_arr[] = array(
+                "id" => $id,
+                "name" => $nip,
+            );
+        }
+
+        $response = array(
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordswithFilter,
+            "aaData" => $data_arr
+        );
+
+        return $response;
+        exit;
     }
 
     /**
@@ -33,7 +66,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('welcome');
     }
 
     /**
