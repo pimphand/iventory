@@ -33,7 +33,8 @@
       </div>
       <div class="col-4">
         <h1 class="mb-4" id="scan-result">QR Code Generator</h1>
-        <h1>QR Code Generator</h1>
+        <h1 class="mb-4" id="count">QR Code Generator</h1>
+        {{-- <h1>QR Code Generator</h1>
 
         <p>Product Name: {{ $data['product']['name'] }}</p>
         <p>Product Price: {{ $data['product']['price'] }}</p>
@@ -41,7 +42,7 @@
 
         <img src="data:image/png;base64,{{ $data['qrCode'] }}" alt="QR Code">
         {!! QrCode::format('svg')->size(300)->mergeString(asset('laravel.png'),
-        .3)->generate(json_encode($data['product'])); !!}
+        .3)->generate(json_encode($data['product'])); !!} --}}
       </div>
     </div>
   </div>
@@ -54,10 +55,11 @@
   </script>
   <script>
     $(document).ready(function() {
-        function onScanSuccess(decodedText, decodedResult) {
+      function onScanSuccess(decodedText, decodedResult) {
           // handle the scanned code as you like, for example:
           console.log(`Code matched = ${decodedText}`, decodedResult);
-          $("#scan-result").text(decodedText);
+          let data = `<p>${decodedText}</p> <br>`
+          $("#scan-result").append(data);
         }
 
         function onScanFailure(error) {
