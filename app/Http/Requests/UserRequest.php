@@ -2,7 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -11,7 +15,7 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +25,30 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+
+        $rules = [];
+        switch ($this->method()) {
+            case 'PUT':
+                $id =  request()->route()->parameter('user.id');
+                $rules = [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($id)],
+                    'phone' => ['required', 'string', 'max:255', Rule::unique(User::class)->ignore($id)],
+                    'username' => ['required', 'string', 'max:255',],
+                    'password' => ['nullable', Rules\Password::defaults()],
+                ];
+                break;
+
+            case 'POST':
+                $rules = [
+                    'name' => ['required', 'string', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+                    'phone' => ['required', 'string', 'max:255', 'unique:' . User::class],
+                    'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
+                    'password' => ['required', Rules\Password::defaults()],
+                ];
+                break;
+        }
+        return $rules;
     }
 }
