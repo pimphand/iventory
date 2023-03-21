@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name',50);
             $table->string('telepon',20);
             $table->string('jabatan',50);
-            $table->string('role',20);
+            $table->json('role_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
