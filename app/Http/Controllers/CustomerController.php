@@ -74,7 +74,7 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-        $customer = Customer::create($request->validate());
+        $customer = Customer::create($request->validated());
         if (!$customer) {
             return response([
                 "success" => false,
@@ -99,7 +99,7 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-        $customer->update($request->validate());
+        $customer->update($request->validated());
         if (!$customer) {
             return response([
                 "success" => false,
