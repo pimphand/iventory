@@ -117,7 +117,7 @@
                 }
 
                 init() {
-                    $(`#${this.tableId}`).DataTable({
+                    let row = $(`#${this.tableId}`).DataTable({
                         processing: true,
                         serverSide: true,
                         ajax: this.url,
@@ -125,15 +125,16 @@
                     });
                 }
 
-                create(data) {
+                create(data,url) {
                     // Mengirim data ke backend untuk melakukan create
                     // Setelah berhasil, melakukan refresh pada tabel
                     $.ajax({
-                        url: '',
+                        url: url,
                         method: 'POST',
                         data: data,
                         success: () => {
                             $(`#${this.tableId}`).DataTable().ajax.reload();
+                            $('#modal-form').modal('hide');
                         }
                     });
                 }
@@ -153,15 +154,16 @@
                     });
                 }
 
-                update(id, data) {
+                update(data,url) {
                     // Mengirim data ke backend untuk melakukan update
                     // Setelah berhasil, melakukan refresh pada tabel
                     $.ajax({
-                        url: '',
+                        url: url,
                         method: 'PUT',
-                        data: { id: id, ...data },
+                        data: data,
                         success: () => {
                             $(`#${this.tableId}`).DataTable().ajax.reload();
+                            $('#modal-form').modal('hide');
                         }
                     });
                 }
@@ -178,7 +180,7 @@
                         }
                     });
                 }
-                }
+            }
         </script>
         @yield('js')
 </body>
