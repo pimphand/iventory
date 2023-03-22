@@ -89,6 +89,8 @@
         <!-- SIDE-MENU JS -->
         <script src="{{ asset('admin') }}/plugins/sidemenu/sidemenu.js"></script>
 
+        @stack('js-vendor')
+
         <!-- SIDEBAR JS -->
         <script src="{{ asset('admin') }}/plugins/sidebar/sidebar.js"></script>
 
@@ -106,9 +108,79 @@
 
         <!-- Switcher js -->
         <script src="{{ asset('admin') }}/switcher/js/switcher.js"></script>
+        <script>
+            class DataTable {
+                constructor(tableId, url, columns) {
+                    this.tableId = tableId;
+                    this.url = url;
+                    this.columns = columns;
+                }
 
+                init() {
+                    $(`#${this.tableId}`).DataTable({
+                        processing: true,
+                        serverSide: true,
+                        ajax: this.url,
+                        columns: this.columns
+                    });
+                }
+
+                create(data) {
+                    // Mengirim data ke backend untuk melakukan create
+                    // Setelah berhasil, melakukan refresh pada tabel
+                    $.ajax({
+                        url: '',
+                        method: 'POST',
+                        data: data,
+                        success: () => {
+                            $(`#${this.tableId}`).DataTable().ajax.reload();
+                        }
+                    });
+                }
+
+                read(id) {
+                    // Mengambil data dari backend berdasarkan ID
+                    $.ajax({
+                        url: '',
+                        method: 'GET',
+                        data: { id: id },
+                        success: (data) => {
+                            // Menampilkan data pada modal atau form
+                            $('#modal').modal('show');
+                            $('#name').val(data.name);
+                            // ...
+                        }
+                    });
+                }
+
+                update(id, data) {
+                    // Mengirim data ke backend untuk melakukan update
+                    // Setelah berhasil, melakukan refresh pada tabel
+                    $.ajax({
+                        url: '',
+                        method: 'PUT',
+                        data: { id: id, ...data },
+                        success: () => {
+                            $(`#${this.tableId}`).DataTable().ajax.reload();
+                        }
+                    });
+                }
+
+                delete(id) {
+                    // Mengirim data ke backend untuk melakukan delete
+                    // Setelah berhasil, melakukan refresh pada tabel
+                    $.ajax({
+                        url: '',
+                        method: 'DELETE',
+                        data: { id: id },
+                        success: () => {
+                            $(`#${this.tableId}`).DataTable().ajax.reload();
+                        }
+                    });
+                }
+                }
+        </script>
         @yield('js')
-
 </body>
 
 </html>

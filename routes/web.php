@@ -34,7 +34,8 @@ Route::middleware('auth')->group(function () {
 
     /** Bongkar Muat /Unloading */
     // Route::view('unloading', 'pages.unloading.list')->name('unloading');
-    Route::get('/unloading', [UnloadingController::class, 'index'])->name('unloading');
+    Route::view('unloading', 'pages.unloading.index')->name('unloading');
+    Route::view('customer', 'pages.customer.index')->name('customer');
 });
 
 require __DIR__ . '/auth.php';

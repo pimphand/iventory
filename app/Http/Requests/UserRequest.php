@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rule;
 
@@ -25,7 +24,6 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-
         $rules = [];
         switch ($this->method()) {
             case 'PUT':
