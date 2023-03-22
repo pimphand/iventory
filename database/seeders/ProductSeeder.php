@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
             ];
         }
 
-        foreach (array_chunk($data, 1000) as $chunk) {
+        foreach (array_chunk($data, 100) as $chunk) {
             Product::insert($chunk);
         }
     }

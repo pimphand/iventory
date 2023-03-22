@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Bongkar Muat - RPU')
+@section('title', 'Customer - RPU')
 @include('vendor.datatable')
 @section('content')
 <!--app-content open-->
@@ -67,7 +67,7 @@
         { data: 'telepon' },
         { data: 'alamat' },
     ]);
-    
+
     table.init();
 </script>
 @endsection
