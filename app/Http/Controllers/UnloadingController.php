@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UnloadingRequest;
+use App\Models\Customer;
 use App\Models\Unloading;
 use Illuminate\Http\Request;
 
@@ -30,11 +31,11 @@ class UnloadingController extends Controller
 
         // Total records
         $totalRecords = Unloading::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Unloading::select('count(*) as allcount')->where('nama', 'like', '%' . $searchValue . '%')->count();
-
+        $totalRecordswithFilter = Unloading::select('count(*) as allcount')->where('waktu_datang', 'like', '%' . $searchValue . '%')->count();
+                                             /** ----- waktu_datang where diganti ---------- */
         // Fetch records
         $records = Unloading::orderBy($columnName, $columnSortOrder)
-            ->where('nama', 'like', '%' . $searchValue . '%')
+            ->where('waktu_datang', 'like', '%' . $searchValue . '%')
             // ->OrWhere('alamat', 'like', '%' . $searchValue . '%')
             ->skip($start)
             ->take($rowperpage)
@@ -44,6 +45,7 @@ class UnloadingController extends Controller
 
         foreach ($records as $i => $record) {
             $id = $record->id;
+            $customer_id = $record->customer_id;
             $waktu_datang = $record->waktu_datang;
             $waktu_bongkar = $record->waktu_bongkar;
             $berat_do = $record->berat_do;
@@ -54,6 +56,7 @@ class UnloadingController extends Controller
             $data_arr[] = [
                 // "index" => $index,
                 "id" => $id,
+                "customer_id" => $customer_id,
                 "waktu_datang" => $waktu_datang,
                 "waktu_bongkar" => $waktu_bongkar,
                 "berat_do" => $berat_do,
@@ -67,7 +70,7 @@ class UnloadingController extends Controller
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,
             "iTotalDisplayRecords" => $totalRecordswithFilter,
-            "aaData" => $data_arr
+            "aaData" => $data_arr,
         ];
 
         return $response;

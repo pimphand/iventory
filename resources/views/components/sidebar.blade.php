@@ -29,6 +29,10 @@
                 </li>
 
                 <li>
+                    <a class="side-menu__item has-link" href="{{ route('customer') }}" ><i
+                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Customer</span></a>
+                </li>
+                <li>
                     <a class="side-menu__item has-link" href="{{ route('unloading') }}" ><i
                             class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Bongkar Muat</span></a>
                 </li>
@@ -76,7 +80,7 @@
                 </li>
                 <li>
                     <a class="side-menu__item has-link" href="landing-page.html" ><i
-                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User</span></a>
+                            class="side-menu__icon fe fe-user"></i><span class="side-menu__label">User</span></a>
                 </li>
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24"

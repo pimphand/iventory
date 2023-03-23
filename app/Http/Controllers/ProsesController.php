@@ -27,11 +27,11 @@ class ProsesController extends Controller
 
         // Total records
         $totalRecords = Proses::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Proses::select('count(*) as allcount')->where('nama', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Proses::select('count(*) as allcount')->where('waktu_mulai', 'like', '%' . $searchValue . '%')->count();
 
         // Fetch records
         $records = Proses::orderBy($columnName, $columnSortOrder)
-            ->where('nama', 'like', '%' . $searchValue . '%')
+            ->where('waktu_mulai', 'like', '%' . $searchValue . '%')
             // ->OrWhere('alamat', 'like', '%' . $searchValue . '%')
             ->skip($start)
             ->take($rowperpage)

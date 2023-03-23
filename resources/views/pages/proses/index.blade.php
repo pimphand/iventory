@@ -30,11 +30,15 @@
                         </div>
                         <div class="card-body">
                             <div>
+                                <button class="modal-effect btn btn-success" id="btn-tambah"
+                                    data-bs-effect="effect-scale" data-bs-toggle="modal">Tambah Data</button>
+                            </div><br>
+                            {{-- <div>
                                 <a class="modal-effect btn btn-success" data-bs-effect="effect-scale"
                                     data-bs-toggle="modal" href="#tambahdata">Add Data</a>
-                            </div><br>
+                            </div><br> --}}
                             <div class="table-responsive">
-                                <table id="example2" class="table table-bordered">
+                                <table id="proses" class="table table-bordered">
                                     <thead>
                                         <tr class="text-center">
                                             <th style="vertical-align: middle; text-align: center;" rowspan="2">No
@@ -71,7 +75,7 @@
 <!--app-content closed-->
 
 <!-- MODAL ADD DATA -->
-<div class="modal fade" id="tambahdata">
+<div class="modal fade" id="modal-form">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">

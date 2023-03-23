@@ -27,8 +27,8 @@ class ProsesRequest extends FormRequest
                 $rules = [
                     'customer_id' => ['required', 'integer'],
                     'unloading_id' => ['required', 'integer'],
-                    'waktu_mulai' => ['required', 'time'],
-                    'waktu_selesai' => ['required', 'time'],
+                    'waktu_mulai' => ['required', 'date_format:H:i'],
+                    'waktu_selesai' => ['required', 'date_format:H:i'],
                     'tipe_produk' => ['required', 'string', 'max:20'],
                     'grade' => ['required', 'string', 'max:20'],
                     'berat_produk' => ['required', 'string', 'max:20'],
@@ -43,8 +43,8 @@ class ProsesRequest extends FormRequest
                 $rules = [
                     'customer_id' => ['required', 'integer'],
                     'unloading_id' => ['required', 'integer'],
-                    'waktu_mulai' => ['required', 'time'],
-                    'waktu_selesai' => ['required', 'time'],
+                    'waktu_mulai' => ['required', 'date_format:H:i'],
+                    'waktu_selesai' => ['required', 'date_format:H:i'],
                     'tipe_produk' => ['required', 'string', 'max:20'],
                     'grade' => ['required', 'string', 'max:20'],
                     'berat_produk' => ['required', 'string', 'max:20'],
