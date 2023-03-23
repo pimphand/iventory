@@ -2,6 +2,26 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <div>
+            <x-input-label for="username" :value="__('username')" />
+            <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+        </div>
+        <div>
+            <x-input-label for="telepon" :value="__('telepon')" />
+            <x-text-input id="telepon" class="block mt-1 w-full" type="text" name="telepon" :value="old('telepon')" required autofocus autocomplete="telepon" />
+            <x-input-error :messages="$errors->get('telepon')" class="mt-2" />
+        </div>
+        <div>
+            <x-input-label for="jabatan" :value="__('jabatan')" />
+            <x-text-input id="jabatan" class="block mt-1 w-full" type="text" name="jabatan" :value="old('jabatan')" required autofocus autocomplete="name" />
+            <x-input-error :messages="$errors->get('jabatan')" class="mt-2" />
+        </div>
+        <div>
+            {{-- <x-input-label for="role_id" :value="__('role_id')" /> --}}
+            <x-text-input id="role_id" class="block mt-1 w-full" type="hidden" name="jabatan" :value="1" required autofocus autocomplete="role_id" />
+            <x-input-error :messages="$errors->get('role_id')" class="mt-2" />
+        </div>
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
