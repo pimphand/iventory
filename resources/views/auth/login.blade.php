@@ -1,49 +1,185 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!doctype html>
+<html lang="en" dir="ltr">
 
-    <form id="frm-login" method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <!-- META DATA -->
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Sash – Bootstrap 5  Admin & Dashboard Template">
+    <meta name="author" content="Spruko Technologies Private Limited">
+    <meta name="keywords" content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
+
+    <!-- FAVICON -->
+    <link rel="shortcut icon" type="image/x-icon" href="admin/images/brand/favicon.ico">
+
+    <!-- TITLE -->
+    <title>Sash – Bootstrap 5 Admin & Dashboard Template</title>
+
+    <!-- BOOTSTRAP CSS -->
+    <link id="style" href="{{ asset('admin') }}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- STYLE CSS -->
+     <link href="{{ asset('admin') }}/css/style.css" rel="stylesheet">
+
+	<!-- Plugins CSS -->
+    <link href="{{ asset('admin') }}/css/plugins.css" rel="stylesheet">
+
+    <!--- FONT-ICONS CSS -->
+    <link href="{{ asset('admin') }}/css/icons.css" rel="stylesheet">
+
+    <!-- INTERNAL Switcher css -->
+    <link href="{{ asset('admin') }}/switcher/css/switcher.css" rel="stylesheet">
+    <link href="{{ asset('admin') }}/switcher/demo.css" rel="stylesheet">
+
+</head>
+
+<body class="app sidebar-mini ltr login-img">
+
+    <!-- BACKGROUND-IMAGE -->
+    <div class="">
+
+        <!-- GLOABAL LOADER -->
+        <div id="global-loader">
+            <img src="{{ asset('admin') }}/images/loader.svg" class="loader-img" alt="Loader">
         </div>
+        <!-- /GLOABAL LOADER -->
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <!-- PAGE -->
+        <div class="page">
+            <div class="">
+                <!-- Theme-Layout -->
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
+                <!-- CONTAINER OPEN -->
+                <div class="col col-login mx-auto mt-7">
+                    <div class="text-center">
+                        {{-- <a href="index.html"><img src="{{ asset('admin') }}/images/brand/logo-white.png" class="header-brand-img" alt=""></a> --}}
+                    </div>
+                </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <div class="container-login100">
+                    <div class="wrap-login100 p-6">
+                        <form id="frm-login" method="POST" action="{{ route('login') }}" class="login100-form validate-form">
+                            <span class="login100-form-title pb-5">
+                                Login
+                            </span>
+                            <div class="panel panel-primary">
+                                <div class="tab-menu-heading">
+                                    <div class="tabs-menu1">
+                                        <!-- Tabs -->
+                                        <ul class="nav panel-tabs">
+                                            <li class="mx-9"><a href="#tab5" class="active" data-bs-toggle="tab">Email</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="panel-body tabs-menu-body p-0 pt-5">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab5">
+                                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
+                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                    <i class="zmdi zmdi-email text-muted" aria-hidden="true"></i>
+                                                </a>
+                                                <input class="input100 border-start-0 form-control ms-0" name="email" type="email" placeholder="Email">
+                                            </div>
+                                            <div class="wrap-input100 validate-input input-group" id="Password-toggle">
+                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                    <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
+                                                </a>
+                                                <input class="input100 border-start-0 form-control ms-0" name="password" type="password" placeholder="Password">
+                                            </div>
+                                            <div class="text-end pt-4">
+                                                <p class="mb-0"><a href="#" class="text-primary ms-1">Forgot Password?</a></p>
+                                            </div>
+                                            <div class="container-login100-form-btn">
+                                                <button type="submit" class="login100-form-btn btn-primary">
+                                                        Login
+                                                </button>
+                                            </div>
+                                            <div class="text-center pt-3">
+                                                <p class="text-dark mb-0">Not a member?<a href="{{ route('register') }}" class="text-primary ms-1">Sign UP</a></p>
+                                            </div>
+                                            {{-- <label class="login-social-icon"><span>Login with Social</span></label>
+                                            <div class="d-flex justify-content-center">
+                                                <a href="javascript:void(0)">
+                                                    <div class="social-login me-4 text-center">
+                                                        <i class="fa fa-google"></i>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)">
+                                                    <div class="social-login me-4 text-center">
+                                                        <i class="fa fa-facebook"></i>
+                                                    </div>
+                                                </a>
+                                                <a href="javascript:void(0)">
+                                                    <div class="social-login text-center">
+                                                        <i class="fa fa-twitter"></i>
+                                                    </div>
+                                                </a>
+                                            </div> --}}
+                                        </div>
+                                        <div class="tab-pane" id="tab6">
+                                            <div id="mobile-num" class="wrap-input100 validate-input input-group mb-4">
+                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                                    <span>+91</span>
+                                                </a>
+                                                <input class="input100 border-start-0 form-control ms-0">
+                                            </div>
+                                            <div id="login-otp" class="justify-content-around mb-5">
+                                                <input class="form-control text-center w-15" id="txt1" maxlength="1">
+                                                <input class="form-control text-center w-15" id="txt2" maxlength="1">
+                                                <input class="form-control text-center w-15" id="txt3" maxlength="1">
+                                                <input class="form-control text-center w-15" id="txt4" maxlength="1">
+                                            </div>
+                                            <span>Note : Login with registered mobile number to generate OTP.</span>
+                                            <div class="container-login100-form-btn ">
+                                                <a href="javascript:void(0)" class="login100-form-btn btn-primary" id="generate-otp">
+                                                    Proceed
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <!-- CONTAINER CLOSED -->
+            </div>
         </div>
+        <!-- End PAGE -->
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+    </div>
+    <!-- BACKGROUND-IMAGE CLOSED -->
 
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+    <!-- JQUERY JS -->
+    <script src="{{ asset('admin') }}/js/jquery.min.js"></script>
 
-            <x-primary-button class="ml-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+    <!-- BOOTSTRAP JS -->
+    <script src="{{ asset('admin') }}/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="{{ asset('admin') }}/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- SHOW PASSWORD JS -->
+    <script src="{{ asset('admin') }}/js/show-password.min.js"></script>
+
+    <!-- GENERATE OTP JS -->
+    <script src="{{ asset('admin') }}/js/generate-otp.js"></script>
+
+    <!-- Perfect SCROLLBAR JS-->
+    <script src="{{ asset('admin') }}/plugins/p-scroll/perfect-scrollbar.js"></script>
+
+    <!-- Color Theme js -->
+    <script src="{{ asset('admin') }}/js/themeColors.js"></script>
+
+    <!-- CUSTOM JS -->
+    <script src="{{ asset('admin') }}/js/custom.js"></script>
+
+    <!-- Custom-switcher -->
+    <script src="{{ asset('admin') }}/js/custom-swicher.js"></script>
+
+    <!-- Switcher js -->
+    <script src="{{ asset('admin') }}/switcher/js/switcher.js"></script>
     <script>
         $(document).ready(function(){
             $("#frm-login").on('submit',function(e){
@@ -67,4 +203,6 @@
             });
         });
     </script>
-</x-guest-layout>
+</body>
+
+</html>
