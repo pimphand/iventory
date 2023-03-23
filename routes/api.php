@@ -1,3 +1,4 @@
+
 <?php
 
 use App\Http\Controllers\CustomerController;
@@ -29,4 +30,3 @@ Route::prefix('api')->name('api.')->group(function () {
     Route::apiResource('customer', CustomerController::class);
     Route::apiResource('proses', ProsesController::class);
 });
-
