@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('unloading', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');
+            // $table->foreignId('customer_id')->constrained();
             $table->time('waktu_datang');
             $table->time('waktu_bongkar');
             $table->string('berat_do',20);

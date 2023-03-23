@@ -13,6 +13,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request->all());
         $draw = $request->get('draw');
         $start = $request->get("start");
         $rowperpage = $request->get("length"); // Rows display per page

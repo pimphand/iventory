@@ -25,8 +25,9 @@ class UnloadingRequest extends FormRequest
         switch ($this->method()) {
             case 'PUT':
                 $rules = [
-                    'waktu_datang' => ['required', 'string'],
-                    'waktu_bongkar' => ['required', 'string'],
+                    'customer_id' => ['required', 'integer'],
+                    'waktu_datang' => ['required', 'time'],
+                    'waktu_bongkar' => ['required', 'time'],
                     'berat_do' => ['required', 'string', 'max:20'],
                     'jumlah_ayam_do' => ['required', 'string', 'max:20'],
                     'berat_timbangan' => ['required', 'string', 'max:20'],
@@ -42,8 +43,9 @@ class UnloadingRequest extends FormRequest
                 break;
             case 'POST':
                 $rules = [
-                    'waktu_datang' => ['required', 'string'],
-                    'waktu_bongkar' => ['required', 'string'],
+                    'customer_id' => ['required', 'integer'],
+                    'waktu_datang' => ['required', 'time'],
+                    'waktu_bongkar' => ['required', 'time'],
                     'berat_do' => ['required', 'string', 'max:20'],
                     'jumlah_ayam_do' => ['required', 'string', 'max:20'],
                     'berat_timbangan' => ['required', 'string', 'max:20'],

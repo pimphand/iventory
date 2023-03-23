@@ -27,3 +27,4 @@ Route::prefix('api')->name('api.')->group(function () {
     Route::apiResource('unloading', UnloadingController::class);
     Route::apiResource('customer', CustomerController::class);
 });
+

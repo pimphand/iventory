@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UnloadingController;
 use Illuminate\Support\Facades\Route;
@@ -32,10 +33,12 @@ Route::middleware('auth')->group(function () {
     // page user
     Route::view('users', 'pages.user');
 
-    /** Bongkar Muat /Unloading */
-    // Route::view('unloading', 'pages.unloading.list')->name('unloading');
-    Route::view('unloading', 'pages.unloading.index')->name('unloading');
+    /** Customer */
     Route::view('customer', 'pages.customer.index')->name('customer');
+
+    /** Bongkar Muat /Unloading */
+    // Route::view('unloading', 'pages.unloading.index')->name('unloading');
+    Route::get('/unloading', [UnloadingController::class, 'index'])->name('unloading.get');
 });
 
 require __DIR__ . '/auth.php';
