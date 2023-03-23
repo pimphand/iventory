@@ -11,7 +11,7 @@ class UnloadingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,8 +26,8 @@ class UnloadingRequest extends FormRequest
             case 'PUT':
                 $rules = [
                     'customer_id' => ['required', 'integer'],
-                    'waktu_datang' => ['required', 'time'],
-                    'waktu_bongkar' => ['required', 'time'],
+                    'waktu_datang' => ['required', 'date_format:H:i'],
+                    'waktu_bongkar' => ['required', 'date_format:H:i'],
                     'berat_do' => ['required', 'string', 'max:20'],
                     'jumlah_ayam_do' => ['required', 'string', 'max:20'],
                     'berat_timbangan' => ['required', 'string', 'max:20'],
@@ -44,8 +44,8 @@ class UnloadingRequest extends FormRequest
             case 'POST':
                 $rules = [
                     'customer_id' => ['required', 'integer'],
-                    'waktu_datang' => ['required', 'time'],
-                    'waktu_bongkar' => ['required', 'time'],
+                    'waktu_datang' => ['required', 'date_format:H:i'],
+                    'waktu_bongkar' => ['required', 'date_format:H:i'],
                     'berat_do' => ['required', 'string', 'max:20'],
                     'jumlah_ayam_do' => ['required', 'string', 'max:20'],
                     'berat_timbangan' => ['required', 'string', 'max:20'],

@@ -65,7 +65,6 @@
                     data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
             </div>
             <form method="post">
-                @csrf
                 <div class="method"></div>
                 <div class="modal-body">
                     <div class="row">

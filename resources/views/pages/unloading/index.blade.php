@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <div>
                                 <a class="modal-effect btn btn-success" data-bs-effect="effect-scale"
-                                    data-bs-toggle="modal" href="#tambahdata">Add Data</a>
+                                    data-bs-toggle="modal" id="btn-tambah">Add Data</a>
                             </div><br>
                             <div class="table-responsive">
                                 <table id="example2" class="table table-bordered">
@@ -97,113 +97,116 @@
 <!--app-content closed-->
 
 <!-- MODAL ADD DATA -->
-<div class="modal fade" id="tambahdata">
+<div class="modal fade" id="modal-form">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
                 <h6 class="modal-title"><strong>Add Data</strong></h6><button aria-label="Close" class="btn-close"
                     data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Waktu Datang</label>
-                            <input type="time" class="form-control" id="name1" placeholder="Waktu Datang"
-                                name="waktu_datang">
+            <form method="post">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Waktu Datang</label>
+                                <input type="time" class="form-control" id="name1" placeholder="Waktu Datang"
+                                    name="waktu_datang">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Waktu Bongkar</label>
+                                <input type="time" class="form-control" id="name2" placeholder="Waktu Bongkar"
+                                    name="waktu_bongkar">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Waktu Bongkar</label>
-                            <input type="time" class="form-control" id="name2" placeholder="Waktu Bongkar"
-                                name="waktu_bongkar">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Berat Delivery Order</label>
+                                <input type="text" class="form-control" id="name1" placeholder="Masukkan Berat DO"
+                                    name="berat_do">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Jumlah Ayam Delivery Order</label>
+                                <input type="text" class="form-control" id="name2" placeholder="Masukkan Jumlah Ayam DO"
+                                    name="jumlah_ayam_do">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Berat Timbangan</label>
+                                <input type="text" class="form-control" id="name2"
+                                    placeholder="Masukkan Berat Timbangan" name="berat_timbangan">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Jumlah Diterima</label>
+                                <input type="text" class="form-control" id="name2"
+                                    placeholder="Masukkan Jumlah Diterima" name="jumlah_diterima">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Berat Mati</label>
+                                <input type="text" class="form-control" id="name1" placeholder="Masukkan Berat Mati"
+                                    name="berat_mati">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Jumlah Mati</label>
+                                <input type="text" class="form-control" id="name2" placeholder="Masukkan Jumlah Mati"
+                                    name="jumlah_mati">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Berat Ditolak</label>
+                                <input type="text" class="form-control" id="name1" placeholder="Masukkan Berat Ditolak"
+                                    name="berat_ditolak">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Jumlah Ditolak</label>
+                                <input type="text" class="form-control" id="name2" placeholder="Masukkan Jumlah Ditolak"
+                                    name="jumlah_ditolak">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Berat Keranjang</label>
+                                <input type="text" class="form-control" id="name2"
+                                    placeholder="Masukkan Berat Keranjang" name="berat_keranjang">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Berat Rata-rata</label>
+                                <input type="text" class="form-control" id="name2"
+                                    placeholder="Masukkan Berat Rata-rata" name="berat_ratarata">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Berat Delivery Order</label>
-                            <input type="text" class="form-control" id="name1" placeholder="Masukkan Berat DO"
-                                name="berat_do">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Jumlah Ayam Delivery Order</label>
-                            <input type="text" class="form-control" id="name2" placeholder="Masukkan Jumlah Ayam DO"
-                                name="jumlah_ayam_do">
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary simpan" type="submit">Submit</button>
+                    <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
                 </div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Berat Timbangan</label>
-                            <input type="text" class="form-control" id="name2" placeholder="Masukkan Berat Timbangan"
-                                name="berat_timbangan">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Jumlah Diterima</label>
-                            <input type="text" class="form-control" id="name2" placeholder="Masukkan Jumlah Diterima"
-                                name="jumlah_diterima">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Berat Mati</label>
-                            <input type="text" class="form-control" id="name1" placeholder="Masukkan Berat Mati"
-                                name="berat_mati">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Jumlah Mati</label>
-                            <input type="text" class="form-control" id="name2" placeholder="Masukkan Jumlah Mati"
-                                name="jumlah_mati">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Berat Ditolak</label>
-                            <input type="text" class="form-control" id="name1" placeholder="Masukkan Berat Ditolak"
-                                name="berat_ditolak">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">Jumlah Ditolak</label>
-                            <input type="text" class="form-control" id="name2" placeholder="Masukkan Jumlah Ditolak"
-                                name="jumlah_ditolak">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Berat Keranjang</label>
-                            <input type="text" class="form-control" id="name2" placeholder="Masukkan Berat Keranjang"
-                                name="berat_keranjang">
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Berat Rata-rata</label>
-                            <input type="text" class="form-control" id="name2" placeholder="Masukkan Berat Rata-rata"
-                                name="berat_ratarata">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" type="submit">Submit</button>
-                <button class="btn btn-light" data-bs-dismiss="modal">Close</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -222,5 +225,49 @@
     ]);
 
     table.init();
+
+    $("#unloading").on('click',' .btn-edit', (e) => {
+        const data = $(e.currentTarget).data("data"); // Mengambil nilai atribut data dengan menggunakan jQuery
+        let url = "{{ route('api.unloading.update',':id') }}".replace(':id', data.id);
+
+        // ganti url
+        $("form").attr('action', url);
+        $('.method').html('@method("put")');
+
+        $("#nama").val(data.nama);
+        $("#email").val(data.email);
+        $("#telepon").val(data.telepon);
+        $("#alamat").val(data.alamat);
+        $('#modal-form').modal('show'); 
+        $('.modal-title').text('Edit Data')
+    });
+
+    $("#btn-tambah").on('click', (e) => {
+        let url = "{{ route('api.unloading.store') }}";
+        
+        // ganti url
+        $("form").attr('action', url);
+        $('.method').html(' ');
+        $("#nama").val("");
+        $("#email").val("");
+        $("#telepon").val("");
+        $("#alamat").val("");
+        $('#modal-form').modal('show'); 
+        $('.modal-title').text('Tambah Data')
+    });
+
+
+    $('.simpan').click((e) => {
+        e.preventDefault();
+        let data = $('form').serialize()
+        let url = $("form").attr('action');
+        
+        let type = $('.modal-title').text();
+        if (type == "Tambah Data") {
+            table.create(data,url);
+        } else {
+            table.update(data,url);
+        }
+    });
 </script>
 @endsection

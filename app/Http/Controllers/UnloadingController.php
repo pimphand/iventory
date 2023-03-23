@@ -43,7 +43,6 @@ class UnloadingController extends Controller
         $data_arr = [];
 
         foreach ($records as $i => $record) {
-            $index = $i + 1;
             $id = $record->id;
             $waktu_datang = $record->waktu_datang;
             $waktu_bongkar = $record->waktu_bongkar;
@@ -79,7 +78,9 @@ class UnloadingController extends Controller
      */
     public function store(UnloadingRequest $request)
     {
-        $unloading = Unloading::create($request->validate());
+        $data = $request->validated();
+        $data['customer_id'] = 1;
+        $unloading = Unloading::create($data);
         if (!$unloading) {
             return response([
                 "success" => false,
@@ -104,7 +105,7 @@ class UnloadingController extends Controller
      */
     public function update(UnloadingRequest $request, Unloading $unloading)
     {
-        $unloading->update($request->validate());
+        $unloading->update($request->validated());
         if (!$unloading) {
             return response([
                 "success" => false,

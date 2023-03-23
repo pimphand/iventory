@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::prefix('api')->name('api.')->group(function () {
+Route::name('api.')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('unloading', UnloadingController::class);
     Route::apiResource('customer', CustomerController::class);
