@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Bongkar Muat - RPU')
+@section('title', 'Customer - RPU')
 @include('vendor.datatable')
 @section('content')
 <!--app-content open-->
@@ -127,7 +127,7 @@
             }
         },
     ]);
-    
+
     table.init();
 
     $("#customer").on('click',' .btn-edit', (e) => {

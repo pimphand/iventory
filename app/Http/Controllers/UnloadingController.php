@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UnloadingRequest;
 use App\Models\Unloading;
 use Illuminate\Http\Request;
 
@@ -28,44 +29,65 @@ class UnloadingController extends Controller
 
         // Total records
         $totalRecords = Unloading::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Unloading::select('count(*) as allcount')->where('name', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Unloading::select('count(*) as allcount')->where('nama', 'like', '%' . $searchValue . '%')->count();
 
         // Fetch records
         $records = Unloading::orderBy($columnName, $columnSortOrder)
-            ->where('name', 'like', '%' . $searchValue . '%')
+            ->where('nama', 'like', '%' . $searchValue . '%')
+            // ->OrWhere('alamat', 'like', '%' . $searchValue . '%')
             ->skip($start)
             ->take($rowperpage)
             ->get();
 
-        $data_arr = array();
+        $data_arr = [];
 
-        foreach ($records as $record) {
+        foreach ($records as $i => $record) {
+            $index = $i + 1;
             $id = $record->id;
-            $nip = $record->name;
+            $waktu_datang = $record->waktu_datang;
+            $waktu_bongkar = $record->waktu_bongkar;
+            $berat_do = $record->berat_do;
+            $jumlah_ayam_do = $record->jumlah_ayam_do;
+            $berat_timbangan = $record->berat_timbangan;
+            $jumlah_diterima = $record->jumlah_diterima;
 
-            $data_arr[] = array(
+            $data_arr[] = [
+                // "index" => $index,
                 "id" => $id,
-                "name" => $nip,
-            );
+                "waktu_datang" => $waktu_datang,
+                "waktu_bongkar" => $waktu_bongkar,
+                "berat_do" => $berat_do,
+                "jumlah_ayam_do" => $jumlah_ayam_do,
+                "berat_timbangan" => $berat_timbangan,
+                "jumlah_diterima" => $jumlah_diterima,
+            ];
         }
 
-        $response = array(
+        $response = [
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,
             "iTotalDisplayRecords" => $totalRecordswithFilter,
             "aaData" => $data_arr
-        );
+        ];
 
         return $response;
-        exit;
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UnloadingRequest $request)
     {
-        //
+        $unloading = Unloading::create($request->validate());
+        if (!$unloading) {
+            return response([
+                "success" => false,
+            ], 400);
+        }
+
+        return response([
+            "success" => true,
+        ], 200);
     }
 
     /**
@@ -79,16 +101,34 @@ class UnloadingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UnloadingRequest $request, Unloading $unloading)
     {
-        //
+        $unloading->update($request->validate());
+        if (!$unloading) {
+            return response([
+                "success" => false,
+            ], 400);
+        }
+
+        return response([
+            "success" => true,
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Unloading $unloading)
     {
-        //
+        $unloading->delete();
+        if (!$unloading) {
+            return response([
+                "success" => false,
+            ], 400);
+        }
+
+        return response([
+            "success" => true,
+        ], 200);
     }
 }

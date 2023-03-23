@@ -55,7 +55,7 @@
                                             <th class="border-bottom-0">Jumlah Ayam</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    {{-- <tbody>
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -74,13 +74,14 @@
                                                     <a href="" class="btn btn-sm btn-outline-warning"><i
                                                             class="fe fe-edit"></i>
                                                     </a>
-                                                    {{-- @csrf
-                                                    @method('DELETE') --}}
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger"><i
                                                             class="fe fe-trash"></i></button>
                                                 </form>
                                         </tr>
-                                    </tbody>
+                                    </tbody> --}}
+                                    <tbody></tbody>
                                 </table>
                             </div>
                         </div>
@@ -209,5 +210,17 @@
 @endsection
 
 @section('js')
+<script>
+    const table = new DataTable('customer', "{{ route('api.customer.index') }}", [
+        // { data: 'index' },
+        { data: 'waktu_datang' },
+        { data: 'waktu_bongkar' },
+        { data: 'berat_do' },
+        { data: 'jumlah_ayam_do' },
+        { data: 'berat_timbangan' },
+        { data: 'jumlah_diterima' },
+    ]);
 
+    table.init();
+</script>
 @endsection
