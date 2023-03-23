@@ -2,7 +2,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <form id="frm-login" method="POST" action="{{ route('login') }}">
         @csrf
 
         <!-- Email Address -->
@@ -44,4 +44,27 @@
             </x-primary-button>
         </div>
     </form>
+    <script>
+        $(document).ready(function(){
+            $("#frm-login").on('submit',function(e){
+                e.preventDefault();
+                $.ajax({
+                    url:$(this).attr('action'),
+                    method: "post",
+                    data:{
+                        "_token": "{{ csrf_token() }}",
+                        "email":$("input[name=email]").val(),
+                        "password":$("input[name=password]").val()
+                    },
+                    success:function(response){
+                        localStorage.setItem("token",response.token);
+                        window.location.href = '/dashboard';
+                    },
+                     error: function (request, status, error) {
+                        alert(request.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 </x-guest-layout>
