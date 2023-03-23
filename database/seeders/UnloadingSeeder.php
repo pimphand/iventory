@@ -16,9 +16,10 @@ class UnloadingSeeder extends Seeder
     {
         $customer = collect(Customer::all()->modelKeys());
         $data = [];
-        for ($i = 0; $i < 100000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $data[] = [
                 "id" => $i + 1,
+                // 'customer_id' => $i +1 ,
                 'customer_id' => $customer->random(),
                 "waktu_datang" => now(),
                 "waktu_bongkar" => now(),
@@ -38,8 +39,8 @@ class UnloadingSeeder extends Seeder
 
         }
 
-        foreach (array_chunk($data, 1000) as $chunk) {
-            Customer::insert($chunk);
+        foreach (array_chunk($data, 100) as $chunk) {
+            Unloading::insert($chunk);
         }
     }
 }

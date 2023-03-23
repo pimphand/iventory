@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CustomerRequest;
-use App\Models\Customer;
+use App\Http\Requests\ProsesRequest;
+use App\Models\Proses;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class ProsesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         // dd($request->all());
@@ -29,13 +26,13 @@ class CustomerController extends Controller
         $searchValue = $search_arr['value']; // Search value
 
         // Total records
-        $totalRecords = Customer::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Customer::select('count(*) as allcount')->where('nama', 'like', '%' . $searchValue . '%')->count();
+        $totalRecords = Proses::select('count(*) as allcount')->count();
+        $totalRecordswithFilter = Proses::select('count(*) as allcount')->where('nama', 'like', '%' . $searchValue . '%')->count();
 
         // Fetch records
-        $records = Customer::orderBy($columnName, $columnSortOrder)
+        $records = Proses::orderBy($columnName, $columnSortOrder)
             ->where('nama', 'like', '%' . $searchValue . '%')
-            ->OrWhere('alamat', 'like', '%' . $searchValue . '%')
+            // ->OrWhere('alamat', 'like', '%' . $searchValue . '%')
             ->skip($start)
             ->take($rowperpage)
             ->get();
@@ -45,18 +42,26 @@ class CustomerController extends Controller
         foreach ($records as $i => $record) {
             $index = $i + 1;
             $id = $record->id;
-            $nama = $record->nama;
-            $email = $record->email;
-            $alamat = $record->alamat;
-            $telepon = $record->telepon;
+            $customer_id = $record->customer_id;
+            $proses_id = $record->proses_id;
+            $waktu_mulai = $record->waktu_mulai;
+            $waktu_selesai = $record->waktu_selesai;
+            $tipe_produk = $record->tipe_produk;
+            $grade = $record->grade;
+            $berat_produk = $record->berat_produk;
+            $jumlah_produk = $record->jumlah_produk;
 
             $data_arr[] = [
                 // "index" => $index,
                 "id" => $id,
-                "email" => $email,
-                "nama" => $nama,
-                "alamat" => $alamat,
-                "telepon" => $telepon,
+                "customer_id" => $customer_id,
+                "proses_id" => $proses_id,
+                "waktu_mulai" => $waktu_mulai,
+                "waktu_selesai" => $waktu_selesai,
+                "tipe_produk" => $tipe_produk,
+                "grade" => $grade,
+                "berat_produk" => $berat_produk,
+                "jumlah_produk" => $jumlah_produk,
             ];
         }
 
@@ -69,14 +74,13 @@ class CustomerController extends Controller
 
         return $response;
     }
-
-    /**
+        /**
      * Store a newly created resource in storage.
      */
-    public function store(CustomerRequest $request)
+    public function store(ProsesRequest $request)
     {
-        $customer = Customer::create($request->validated());
-        if (!$customer) {
+        $proses = Proses::create($request->validate());
+        if (!$proses) {
             return response([
                 "success" => false,
             ], 400);
@@ -90,7 +94,7 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show(string $id)
     {
         //
     }
@@ -98,10 +102,10 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CustomerRequest $request, Customer $customer)
+    public function update(ProsesRequest $request, Proses $proses)
     {
-        $customer->update($request->validated());
-        if (!$customer) {
+        $proses->update($request->validate());
+        if (!$proses) {
             return response([
                 "success" => false,
             ], 400);
@@ -115,10 +119,10 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy(Proses $proses)
     {
-        $customer->delete();
-        if (!$customer) {
+        $proses->delete();
+        if (!$proses) {
             return response([
                 "success" => false,
             ], 400);

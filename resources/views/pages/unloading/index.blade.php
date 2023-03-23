@@ -211,7 +211,7 @@
 
 @section('js')
 <script>
-    const table = new DataTable('customer', "{{ route('api.customer.index') }}", [
+    const table = new DataTable('unloading', "{{ route('api.unloading.index') }}", [
         // { data: 'index' },
         { data: 'waktu_datang' },
         { data: 'waktu_bongkar' },
