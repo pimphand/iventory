@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProsesController;
 use App\Http\Controllers\UnloadingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -26,5 +27,6 @@ Route::prefix('api')->name('api.')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('unloading', UnloadingController::class);
     Route::apiResource('customer', CustomerController::class);
+    Route::apiResource('proses', ProsesController::class);
 });
 
