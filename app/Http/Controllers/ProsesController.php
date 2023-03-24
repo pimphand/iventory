@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProsesRequest;
 use App\Models\Proses;
+use App\Models\Unloading;
 use Illuminate\Http\Request;
 
 class ProsesController extends Controller
@@ -74,11 +75,18 @@ class ProsesController extends Controller
 
         return $response;
     }
-        /**
+    public function getUnloading(Request $request)
+    {
+        $unloading = Unloading::where('customer_id', $request->customer_id)->get();
+        return response()->json($unloading);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(ProsesRequest $request)
     {
+        dd($request->all());
         $proses = Proses::create($request->validate());
         if (!$proses) {
             return response([

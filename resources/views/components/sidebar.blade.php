@@ -37,10 +37,10 @@
                             class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Bongkar
                             Muat</span></a>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="side-menu__item has-link" href="{{ route('proses') }}"><i
                             class="side-menu__icon fe fe-clipboard"></i><span class="side-menu__label">Proses</span></a>
-                </li>
+                </li> --}}
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="side-menu__icon fe fe-clipboard"></i><span class="side-menu__label">Proses</span><i
@@ -52,7 +52,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="side9">
                                         <ul class="sidemenu-list">
-                                            <li><a href="" class="slide-item"> Produksi</a></li>
+                                            <li><a href="{{ route('produksi') }}" class="slide-item">Hasil Produksi</a></li>
                                             <li><a href="editprofile.html" class="slide-item">Sampingan</a></li>
                                         </ul>
                                     </div>

@@ -29,13 +29,13 @@ class ProsesRequest extends FormRequest
                     'unloading_id' => ['required', 'integer'],
                     'waktu_mulai' => ['required', 'date_format:H:i'],
                     'waktu_selesai' => ['required', 'date_format:H:i'],
-                    'tipe_produk' => ['required', 'string', 'max:20'],
-                    'grade' => ['required', 'string', 'max:20'],
-                    'berat_produk' => ['required', 'string', 'max:20'],
-                    'jumlah_produk' => ['required', 'string', 'max:20'],
-                    'randemen' => ['required', 'string', 'max:20'],
-                    'berat_gagal' => ['required', 'string', 'max:20'],
-                    'jumlah_gagal' => ['required', 'string', 'max:20'],
+                    'tipe_produk' => ['required', 'numeric', 'max:20'],
+                    'grade' => ['required', 'numeric', 'max:20'],
+                    'berat_produk' => ['required', 'numeric', 'max:20'],
+                    'jumlah_produk' => ['required', 'numeric', 'max:20'],
+                    'randemen' => ['required', 'numeric', 'max:20'],
+                    'berat_gagal' => ['required', 'numeric', 'max:20'],
+                    'jumlah_gagal' => ['required', 'numeric', 'max:20'],
 
                 ];
                 break;
@@ -45,13 +45,13 @@ class ProsesRequest extends FormRequest
                     'unloading_id' => ['required', 'integer'],
                     'waktu_mulai' => ['required', 'date_format:H:i'],
                     'waktu_selesai' => ['required', 'date_format:H:i'],
-                    'tipe_produk' => ['required', 'string', 'max:20'],
-                    'grade' => ['required', 'string', 'max:20'],
-                    'berat_produk' => ['required', 'string', 'max:20'],
-                    'jumlah_produk' => ['required', 'string', 'max:20'],
-                    'randemen' => ['required', 'string', 'max:20'],
-                    'berat_gagal' => ['required', 'string', 'max:20'],
-                    'jumlah_gagal' => ['required', 'string', 'max:20'],
+                    'tipe_produk' => ['required', 'numeric', 'max:20'],
+                    'grade' => ['required', 'numeric', 'max:20'],
+                    'berat_produk' => ['required', 'numeric', 'max:20'],
+                    'jumlah_produk' => ['required', 'numeric', 'max:20'],
+                    'randemen' => ['required', 'numeric', 'max:20'],
+                    'berat_gagal' => ['required', 'numeric', 'max:20'],
+                    'jumlah_gagal' => ['required', 'numeric', 'max:20'],
                 ];
                 break;
         }
