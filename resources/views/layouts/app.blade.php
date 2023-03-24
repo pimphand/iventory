@@ -109,6 +109,7 @@
 
         <!-- Switcher js -->
         <script src="{{ asset('admin') }}/switcher/js/switcher.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
         <script>
             class DataTable {
@@ -127,7 +128,7 @@
                     });
                 }
 
-                create(data,url) {
+                create(data,url,errorFunction) {
                     // Mengirim data ke backend untuk melakukan create
                     // Setelah berhasil, melakukan refresh pada tabel
                     $.ajax({
@@ -137,7 +138,23 @@
                         success: () => {
                             $(`#${this.tableId}`).DataTable().ajax.reload();
                             $('#modal-form').modal('hide');
+                            // menghapus class 'is-invalid' pada inputan
+                            $('.is-invalid').removeClass('is-invalid');
+                            // menghapus elemen <span> dengan class 'error'
+                            $('.error').remove();
                             toast('Data berhasil di tambahkan','success')
+                        },
+                        error: (xhr, status, error) => {
+                            toast('Telah terjadi kesalahan','error')
+                            $('.is-invalid').removeClass('is-invalid');
+                            // menghapus elemen <span> dengan class 'error'
+                            $('.error').remove();
+                            $.each(xhr.responseJSON.errors, function (key, value) {
+                                let escapedKey = key.replace(/\./g, '\\.');
+                                let inputan = $(`input#${escapedKey}`);
+                                inputan.addClass("is-invalid");
+                                inputan.parent().append("<span class='error text-danger'>" + value[0] + "</span>");
+                            });
                         }
                     });
                 }
@@ -166,6 +183,10 @@
                         success: () => {
                             $(`#${this.tableId}`).DataTable().ajax.reload();
                             $('#modal-form').modal('hide');
+                            // menghapus class 'is-invalid' pada inputan
+                            $('.is-invalid').removeClass('is-invalid');
+                            // menghapus elemen <span> dengan class 'error'
+                            $('.error').remove();
                             toast('Data berhasil di perbarui','success')
                         }
                     });
@@ -175,13 +196,14 @@
                     // Mengirim data ke backend untuk melakukan delete
                     // Setelah berhasil, melakukan refresh pada tabel
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: "You won't be able to revert this!",
+                        title: 'Apa kamu yakin?',
+                        text: "Anda tidak akan dapat mengembalikan ini!",
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal',
                         }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
@@ -189,14 +211,14 @@
                                 method: 'DELETE',
                                 success: () => {
                                     $(`#${this.tableId}`).DataTable().ajax.reload();
-                                    toast('Data berhasil di hapus','success')
+                                    Swal.fire(
+                                        'Dihapus!',
+                                        'Data Anda telah dihapus.',
+                                        'success'
+                                    )
                                 }
                             });
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            
                         }
                     })
                     

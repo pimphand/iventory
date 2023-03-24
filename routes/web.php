@@ -33,12 +33,13 @@ Route::middleware('auth')->group(function () {
     // page user
     Route::view('users', 'pages.user');
     /** Customer */
-    Route::view('customer', 'pages.customer.index')->name('customer');
+    Route::view('pelanggan', 'pages.customer.index')->name('customer');
     /** Bongkar Muat /Unloading */
-    Route::view('unloading', 'pages.unloading.index')->name('unloading');
+    Route::view('bongkar-muat', 'pages.unloading.index')->name('unloading');
     /** Proses - produksi */
     // Route::view('proses-produksi', 'pages.produksi.index')->name('produksi');
     Route::view('proses', 'pages.proses.index')->name('proses');
+    Route::view('kendaraan', 'pages.kendaraan.index')->name('kendaraan');
 });
 
 require __DIR__ . '/auth.php';

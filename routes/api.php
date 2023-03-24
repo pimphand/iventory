@@ -2,6 +2,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\ProsesController;
 use App\Http\Controllers\UnloadingController;
 use App\Http\Controllers\UserController;
@@ -29,4 +30,5 @@ Route::name('api.')->group(function () {
     Route::apiResource('unloading', UnloadingController::class);
     Route::apiResource('customer', CustomerController::class);
     Route::apiResource('proses', ProsesController::class);
+    Route::apiResource('kendaraan', KendaraanController::class);
 });

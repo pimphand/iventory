@@ -47,8 +47,8 @@
                                                 Customer</th>
                                             <th class="border-bottom-0" colspan="2">Waktu</th>
                                             <th class="border-bottom-0" colspan="4">Produk</th>
-                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">Action
-                                                </th>
+                                            <th style="vertical-align: middle; text-align: center;" rowspan="2">Action
+                                            </th>
                                         </tr>
                                         <tr class="text-center">
                                             <th class="border-bottom-0">Mulai</th>
@@ -133,15 +133,15 @@
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Berat Produk</label>
-                            <input type="text" class="form-control" id="berat_produk" placeholder="Masukkan Berat Produk"
-                                name="berat_produk">
+                            <input type="text" class="form-control" id="berat_produk"
+                                placeholder="Masukkan Berat Produk" name="berat_produk">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Jumlah Produk</label>
-                            <input type="text" class="form-control" id="jumlah_produk" placeholder="Masukkan Jumlah Produk"
-                                name="jumlah_produk">
+                            <input type="text" class="form-control" id="jumlah_produk"
+                                placeholder="Masukkan Jumlah Produk" name="jumlah_produk">
                         </div>
                     </div>
                 </div>
@@ -163,8 +163,8 @@
                     <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Jumlah Gagal</label>
-                            <input type="text" class="form-control" id="jumlah_gagal" placeholder="Masukkan Jumlah Gagal"
-                                name="jumlah_gagal">
+                            <input type="text" class="form-control" id="jumlah_gagal"
+                                placeholder="Masukkan Jumlah Gagal" name="jumlah_gagal">
                         </div>
                     </div>
                 </div>
@@ -182,7 +182,7 @@
 <script>
     const table = new DataTable('proses', "{{ route('api.proses.index') }}", [
         // { data: 'index' },
-        { data: 'customer' },
+        { data: 'customer_id' },
         { data: 'waktu_mulai' },
         { data: 'waktu_selesai' },
         { data: 'tipe_produk' },

@@ -17,16 +17,8 @@ return new class extends Migration
             // $table->foreignId('customer_id')->constrained();
             $table->time('waktu_datang');
             $table->time('waktu_bongkar');
-            $table->string('berat_do',20);
-            $table->string('jumlah_ayam_do',20);
-            $table->string('berat_timbangan',20);
-            $table->string('jumlah_diterima',20);
-            $table->string('berat_mati',20);
-            $table->string('jumlah_mati',20);
-            $table->string('berat_ditolak',20);
-            $table->string('jumlah_ditolak',20);
-            $table->string('berat_keranjang',20);
-            $table->string('berat_ratarata',20);
+            $table->integer('waktu_selesai');
+            $table->date('tanggal_datang');
             $table->timestamps();
         });
     }

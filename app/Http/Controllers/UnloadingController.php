@@ -6,6 +6,7 @@ use App\Http\Requests\UnloadingRequest;
 use App\Models\Customer;
 use App\Models\Unloading;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UnloadingController extends Controller
 {
@@ -81,26 +82,31 @@ class UnloadingController extends Controller
      */
     public function store(UnloadingRequest $request)
     {
-        $data = $request->validated();
-        $data['customer_id'] = 1;
-        $unloading = Unloading::create($data);
-        if (!$unloading) {
-            return response([
-                "success" => false,
-            ], 400);
-        }
+        return DB::transaction(function () use ($request) {
+            $unloadingRequest = $request->bongkar;
+            $waktu_selesai = self::duration($unloadingRequest['waktu_bongkar'], $unloadingRequest['waktu_datang']);
+            $unloadingRequest['customer_id'] = $request->customer_id;
+            $unloadingRequest['tanggal_datang'] = now();
+            $unloadingRequest['waktu_selesai'] = $waktu_selesai;
+            $unloading = Unloading::create($unloadingRequest);
 
-        return response([
-            "success" => true,
-        ], 200);
+            $muatans = $request->muatan;
+            foreach ($muatans as $key => $muatan) {
+                $unloading->muatan()->create($muatan);
+            }
+
+            return response([
+                "success" => $muatan,
+            ], 200);
+        });
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Unloading $unloading)
     {
-        //
+        return $unloading;
     }
 
     /**
@@ -125,5 +131,14 @@ class UnloadingController extends Controller
         return response([
             "success" => true,
         ], 200);
+    }
+
+    public function duration($waktu_bongkar, $waktu_datang)
+    {
+        $bongkar = \Carbon\Carbon::createFromFormat('H:i', $waktu_bongkar);
+        $waktu_datang = \Carbon\Carbon::createFromFormat('H:i', $waktu_datang);
+        $durasi_waktu = $waktu_datang->diffInMinutes($bongkar);
+
+        return $durasi_waktu;
     }
 }
