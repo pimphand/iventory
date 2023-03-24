@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Bongkar Muat - RPU')
-@include('vendor.datatable'
-)@include('vendor.select2')
+@include('vendor.datatable')
+@include('vendor.select2')
 @section('content')
     <!--app-content open-->
     <div class="main-content app-content mt-0">
@@ -34,7 +34,8 @@
                                     <a class="modal-effect btn btn-success" data-bs-effect="effect-scale"
                                         data-bs-toggle="modal" id="btn-tambah">Add Data</a>
                                 </div><br>
-                                <div class="table-responsive"> <!--  -->
+                                <div class="table-responsive">
+                                    <!--  -->
                                     <table id="unloading" class="table table-bordered">
                                         <thead>
                                             <tr class="text-center">
@@ -111,11 +112,11 @@
                             <div class="col-sm-12 col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Customer</label>
-                                    <select class="form-control select2-show-search form-select" id="customer_id" name="customer_id"
-                                        data-placeholder="- Pilih Nama Customer-">
-                                        {{-- @foreach ($customers as $customer)
+                                    <select class="form-control select2-show-search form-select" id="customer_id"
+                                        name="customer_id" data-placeholder="- Pilih Nama Customer-">
+                                        @foreach (\App\Models\Customer::all() as $customer)
                                             <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

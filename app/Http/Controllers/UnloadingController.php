@@ -81,8 +81,10 @@ class UnloadingController extends Controller
      */
     public function store(UnloadingRequest $request)
     {
+        // dd($request->all());
         $data = $request->validated();
-        $data['customer_id'] = 1;
+        // $data['customer_id'] = 1;
+        // dd($data);
         $unloading = Unloading::create($data);
         if (!$unloading) {
             return response([
