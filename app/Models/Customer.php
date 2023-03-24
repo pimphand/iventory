@@ -10,10 +10,10 @@ class Customer extends Model
 {
     use HasFactory;
     protected $table = 'customer';
-    protected $fillable = ['id', 'nama','email','telepon','alamat'];
+    protected $fillable = ['id', 'nama', 'email', 'telepon', 'alamat'];
 
-        public function unloading(): HasMany
+    public function unloading(): HasMany
     {
-        return $this->hasMany(Customer::class, 'id', 'customer_id');
+        return $this->hasMany(Customer::class);
     }
 }

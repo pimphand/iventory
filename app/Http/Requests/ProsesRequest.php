@@ -11,7 +11,7 @@ class ProsesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,14 +28,14 @@ class ProsesRequest extends FormRequest
                     'customer_id' => ['required', 'integer'],
                     'unloading_id' => ['required', 'integer'],
                     'waktu_mulai' => ['required', 'date_format:H:i'],
-                    'waktu_selesai' => ['required', 'date_format:H:i'],
-                    'tipe_produk' => ['required', 'numeric', 'max:20'],
-                    'grade' => ['required', 'numeric', 'max:20'],
-                    'berat_produk' => ['required', 'numeric', 'max:20'],
-                    'jumlah_produk' => ['required', 'numeric', 'max:20'],
-                    'randemen' => ['required', 'numeric', 'max:20'],
-                    'berat_gagal' => ['required', 'numeric', 'max:20'],
-                    'jumlah_gagal' => ['required', 'numeric', 'max:20'],
+                    'waktu_selesai'     => ['required', 'date_format:H:i', 'after:waktu_mulai'],
+                    'tipe_produk' => ['required', 'numeric'],
+                    'grade' => ['required', 'string'],
+                    'berat_produk' => ['required', 'numeric'],
+                    'jumlah_produk' => ['required', 'numeric'],
+                    'randemen' => ['required', 'numeric'],
+                    'berat_gagal' => ['required', 'numeric'],
+                    'jumlah_gagal' => ['required', 'numeric'],
 
                 ];
                 break;
@@ -44,14 +44,14 @@ class ProsesRequest extends FormRequest
                     'customer_id' => ['required', 'integer'],
                     'unloading_id' => ['required', 'integer'],
                     'waktu_mulai' => ['required', 'date_format:H:i'],
-                    'waktu_selesai' => ['required', 'date_format:H:i'],
-                    'tipe_produk' => ['required', 'numeric', 'max:20'],
-                    'grade' => ['required', 'numeric', 'max:20'],
-                    'berat_produk' => ['required', 'numeric', 'max:20'],
-                    'jumlah_produk' => ['required', 'numeric', 'max:20'],
-                    'randemen' => ['required', 'numeric', 'max:20'],
-                    'berat_gagal' => ['required', 'numeric', 'max:20'],
-                    'jumlah_gagal' => ['required', 'numeric', 'max:20'],
+                    'waktu_selesai'     => ['required', 'date_format:H:i', 'after:waktu_mulai'],
+                    'tipe_produk' => ['required', 'numeric'],
+                    'grade' => ['required', 'string'],
+                    'berat_produk' => ['required', 'numeric'],
+                    'jumlah_produk' => ['required', 'numeric'],
+                    'randemen' => ['required', 'numeric'],
+                    'berat_gagal' => ['required', 'numeric'],
+                    'jumlah_gagal' => ['required', 'numeric'],
                 ];
                 break;
         }
