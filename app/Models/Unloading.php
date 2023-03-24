@@ -31,7 +31,12 @@ class Unloading extends Model
     public function getWaktuSelesaiAttribute($value)
     {
         $duration = CarbonInterval::minutes($value);
-        return $duration->cascade()->format('%hh %im');
+        $waktu_selesai = $duration->cascade()->format('%hh %im');
+
+        $waktu_selesai = str_replace(['h', 'm'], [' JAM ', ' MENIT '], $waktu_selesai);
+        $waktu_selesai = str_replace(' ', ' ', $waktu_selesai);
+
+        return $waktu_selesai;
     }
 
     public function muatan(): HasMany

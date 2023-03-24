@@ -43,7 +43,6 @@ class UnloadingController extends Controller
             ->skip($start)
             ->take($rowperpage)
             ->get();
-
         $data_arr = [];
 
         foreach ($records as $i => $record) {
@@ -51,21 +50,17 @@ class UnloadingController extends Controller
             $customer_id = $record->customer->nama;
             $waktu_datang = $record->waktu_datang;
             $waktu_bongkar = $record->waktu_bongkar;
-            $berat_do = $record->berat_do;
-            $jumlah_ayam_do = $record->jumlah_ayam_do;
-            $berat_timbangan = $record->berat_timbangan;
-            $jumlah_diterima = $record->jumlah_diterima;
-
+            $waktu_selesai = $record->waktu_selesai;
+            $tanggal_datang = $record->tanggal_datang;
+            $muatan = $record->muatan;
             $data_arr[] = [
-                // "index" => $index,
                 "id" => $id,
                 "customer_id" => $customer_id,
                 "waktu_datang" => $waktu_datang,
                 "waktu_bongkar" => $waktu_bongkar,
-                "berat_do" => $berat_do,
-                "jumlah_ayam_do" => $jumlah_ayam_do,
-                "berat_timbangan" => $berat_timbangan,
-                "jumlah_diterima" => $jumlah_diterima,
+                "tanggal_datang" => $tanggal_datang,
+                "waktu_selesai" => $waktu_selesai,
+                "muatan" => $muatan,
             ];
         }
 
@@ -128,11 +123,17 @@ class UnloadingController extends Controller
      */
     public function destroy(Unloading $unloading)
     {
-        $unloading->delete();
+        try {
+            $unloading->delete();
 
-        return response([
-            "success" => true,
-        ], 200);
+            return response([
+                "success" => true,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response([
+                "success" => false,
+            ], 400);
+        }
     }
 
     public function duration($waktu_bongkar, $waktu_datang)

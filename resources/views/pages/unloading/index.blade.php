@@ -9,91 +9,6 @@
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
-
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Bongkar Muat</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Bongkar Muat</a></li>
-                        {{-- <li class="breadcrumb-item active" aria-current="page">Data Table</li> --}}
-                    </ol>
-                </div>
-                <!-- PAGE-HEADER END -->
-                <!-- Row -->
-                <div class="row row-sm">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Bongkar Muat</h3>
-                            </div>
-                            <div class="card-body">
-                                <div>
-                                    <a class="modal-effect btn btn-success" data-bs-effect="effect-scale"
-                                        data-bs-toggle="modal" id="btn-tambah">Add Data</a>
-                                </div><br>
-                                <div class="table-responsive">
-                                    <!--  -->
-                                    <table id="unloading" class="table table-bordered">
-                                        <thead>
-                                            <tr class="text-center">
-                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">No
-                                                </th>
-                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">
-                                                    Customer</th>
-                                                <th class="" colspan="2">Waktu</th>
-                                                <th class="" colspan="2">Delivery Order</th>
-                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">
-                                                    Berat
-                                                    Timbangan</th>
-                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">
-                                                    Jumlah Diterima</th>
-                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">
-                                                    Action</th>
-                                            </tr>
-                                            <tr class="text-center">
-                                                <th class="">Datang</th>
-                                                <th class="">Bongkar</th>
-                                                <th class="">Berat</th>
-                                                <th class="">Jumlah Ayam</th>
-                                            </tr>
-                                        </thead>
-                                        {{-- <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="text-center">
-                                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action=""
-                                                        method="POST">
-                                                        <button type="button" class="btn btn-sm btn-outline-info"
-                                                            data-id="">
-                                                            <i class="fe fe-info"></i>
-                                                        </button>
-                                                        <a href="" class="btn btn-sm btn-outline-warning"><i
-                                                                class="fe fe-edit"></i>
-                                                        </a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger"><i
-                                                                class="fe fe-trash"></i></button>
-                                                    </form>
-                                            </tr>
-                                        </tbody> --}}
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Row -->
-            </div>
-            <!-- PAGE-HEADER END -->
             <!-- Row -->
             <div class="row row-sm">
                 <div class="col-lg-12">
@@ -111,25 +26,13 @@
                                 <!--  -->
                                 <table id="unloading" class="table table-bordered">
                                     <thead>
-                                        <tr class="text-center">
-                                            <th style="vertical-align: middle; text-align: center;" rowspan="2">
-                                                Customer
-                                            </th>
-                                            <th class="" colspan="2">Waktu</th>
-                                            <th class="" colspan="2">Delivery Order</th>
-                                            <th style="vertical-align: middle; text-align: center;" rowspan="2">
-                                                Berat Timbangan
-                                            </th>
-                                            <th style="vertical-align: middle; text-align: center;" rowspan="2">
-                                                Jumlah Diterima</th>
-                                            <th style="vertical-align: middle; text-align: center;" rowspan="2">
-                                                Action</th>
-                                        </tr>
-                                        <tr class="text-center">
-                                            <th class="">Datang</th>
-                                            <th class="">Bongkar</th>
-                                            <th class="">Berat</th>
-                                            <th class="">Jumlah Ayam</th>
+                                        <tr>
+                                            <th>Customer</th>
+                                            <th>Tanggal Datang</th>
+                                            <th>Sampai</th>
+                                            <th>Bongkar</th>
+                                            <th>Durasi</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -289,16 +192,10 @@
 <script>
     const table = new DataTable('unloading', "{{ route('api.unloading.index') }}", [
             {
-                data: null,
-                searchable: false,
-                orderable: false,
-                className: 'text-center',
-                render: function(data, type, row, meta) {
-                    return meta.row + 1;
-                }
+                data: 'customer_id'
             },
             {
-                data: 'customer_id'
+                data: 'tanggal_datang'
             },
             {
                 data: 'waktu_datang'
@@ -307,21 +204,45 @@
                 data: 'waktu_bongkar'
             },
             {
-                data: 'berat_do'
+                data: 'waktu_selesai'
             },
             {
-                data: 'jumlah_ayam_do'
-            },
-            {
-                data: 'berat_timbangan'
-            },
-            {
-                data: 'jumlah_diterima'
-            },
-            {
+                name: 'id',
                 data: 'id',
-                render: (data, type, row, meta) => {
-                    return '<button class="btn btn-sm btn-primary btn-edit mr-2" data-id=' + data + '>Edit</button><button class="btn btn-sm btn-danger ml-2 btn-delete" data-data=' + data + '>Hapus</button>';
+                render: (id, type, row, meta) => {
+                    console.log(row);
+                    const button_detail = $('<button>', {
+                        html: $('<i>', {
+                            class: 'fa fa-info-circle'
+                        }).prop('outerHTML'),
+                        class: 'btn btn-warning btn-detail',
+                        'data-id': id,
+                        title: `Detail Data`,
+                    })
+                    const button_edit = $('<button>', {
+                        html: $('<i>', {
+                            class: 'fa fa-pencil'
+                        }).prop('outerHTML'),
+                        class: 'btn btn-secondary btn-edit',
+                        'data-id': id,
+                        title: `Edit Data`,
+                    })
+
+                    const button_delete = $('<button>', {
+                        html: $('<i>', {
+                            class: 'fa fa-trash'
+                        }).prop('outerHTML'),
+                        class: 'btn btn-danger btn-delete',
+                        'data-data': id,
+                        title: `Hapus Data`,
+                    })
+
+                    const button_group = $('<div>', {
+                        class: 'btn-group btn-group-sm',
+                        role: 'group',
+                        html: [button_detail,button_edit,button_delete]
+                    })
+                    return button_group.prop('outerHTML')
                 }
             },
         ]);

@@ -142,10 +142,10 @@
                             $('.is-invalid').removeClass('is-invalid');
                             // menghapus elemen <span> dengan class 'error'
                             $('.error').remove();
-                            toast('Data berhasil di tambahkan','success')
+                            toast('Data berhasil di tambahkan','success','Tambah data')
                         },
                         error: (xhr, status, error) => {
-                            toast('Telah terjadi kesalahan','error')
+                            toast('Telah terjadi kesalahan','error','Tambah data')
                             $('.is-invalid').removeClass('is-invalid');
                             // menghapus elemen <span> dengan class 'error'
                             $('.error').remove();
@@ -187,7 +187,10 @@
                             $('.is-invalid').removeClass('is-invalid');
                             // menghapus elemen <span> dengan class 'error'
                             $('.error').remove();
-                            toast('Data berhasil di perbarui','success')
+                            toast('Data berhasil di perbarui','success','Update data')
+                        },
+                        error: (xhr, status, error) => {
+                            toast('Telah terjadi kesalahan','error','Update data')
                         }
                     });
                 }
@@ -216,6 +219,9 @@
                                         'Data Anda telah dihapus.',
                                         'success'
                                     )
+                                },
+                                error: (xhr, status, error) => {
+                                    toast('Telah terjadi kesalahan','error','Hapus data')
                                 }
                             });
                             
@@ -224,10 +230,10 @@
                     
                 }
             }
-            function toast(text,icon){
+            function toast(text,icon,note){
                 $.toast({
                     text: text, // Text that is to be shown in the toast
-                    heading: 'Note', // Optional heading to be shown on the toast
+                    heading: note, // Optional heading to be shown on the toast
                     icon: icon, // Type of toast icon
                     showHideTransition: 'fade', // fade, slide or plain
                     allowToastClose: true, // Boolean value true or false
