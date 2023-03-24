@@ -128,7 +128,7 @@
                     });
                 }
 
-                create(data,url,errorFunction) {
+                create(data,url) {
                     // Mengirim data ke backend untuk melakukan create
                     // Setelah berhasil, melakukan refresh pada tabel
                     $.ajax({

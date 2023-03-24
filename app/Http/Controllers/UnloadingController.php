@@ -56,10 +56,8 @@ class UnloadingController extends Controller
             $data_arr[] = [
                 "id" => $id,
                 "customer_id" => $customer_id,
-                "waktu_datang" => $waktu_datang,
-                "waktu_bongkar" => $waktu_bongkar,
                 "tanggal_datang" => $tanggal_datang,
-                "waktu_selesai" => $waktu_selesai,
+                "jumlah_mobil" => count($muatan),
                 "muatan" => $muatan,
             ];
         }
@@ -81,14 +79,15 @@ class UnloadingController extends Controller
     {
         return DB::transaction(function () use ($request) {
             $unloadingRequest = $request->bongkar;
-            $waktu_selesai = self::duration($unloadingRequest['waktu_bongkar'], $unloadingRequest['waktu_datang']);
             $unloadingRequest['customer_id'] = $request->customer_id;
             $unloadingRequest['tanggal_datang'] = now();
-            $unloadingRequest['waktu_selesai'] = $waktu_selesai;
             $unloading = Unloading::create($unloadingRequest);
 
             $muatans = $request->muatan;
             foreach ($muatans as $key => $muatan) {
+                $waktu_selesai = self::duration($muatan['waktu_bongkar'], $muatan['waktu_datang']);
+                $muatan['waktu_selesai'] = $waktu_selesai;
+                $muatan['kendaraan'] = $key + 1;
                 $unloading->muatan()->create($muatan);
             }
 

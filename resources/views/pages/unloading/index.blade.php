@@ -29,9 +29,7 @@
                                         <tr>
                                             <th>Customer</th>
                                             <th>Tanggal Datang</th>
-                                            <th>Sampai</th>
-                                            <th>Bongkar</th>
-                                            <th>Durasi</th>
+                                            <th>Jumlah Mobil</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -66,35 +64,34 @@
                                 <x-customer-component></x-customer-component>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div id="error-message"></div>
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Tanggal Bongkar</label>
                                 <input type="date" class="form-control" id="tanggal_bongkar" placeholder="Waktu Datang"
-                                    name="bongkar[tanggal_bongkar]">
+                                    name="tanggal_bongkar">
                             </div>
                         </div>
-                        <div class="col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Waktu Datang</label>
-                                <input type="time" class="form-control" id="bongkar.waktu_datang"
-                                    placeholder="Waktu Datang" name="bongkar[waktu_datang]">
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-6">
-                            <div class="form-group">
-                                <label class="form-label">Waktu Bongkar</label>
-                                <input type="time" class="form-control" id="waktu_bongkar" placeholder="Waktu Bongkar"
-                                    name="bongkar[waktu_bongkar]">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                     </div>
                     <div id="muatan">
                         <label class="form-label" id="kendaraan"><strong>Data Kendaraan</strong></label>
+                        <div class="row">
+                            <div id="error-message"></div>
+
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Waktu Datang</label>
+                                    <input type="time" class="form-control" id="muatan.0.waktu_datang"
+                                        placeholder="Waktu Datang" name="muatan[0][waktu_datang]">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Waktu Bongkar</label>
+                                    <input type="time" class="form-control" id="muatan.0.waktu_bongkar"
+                                        placeholder="Waktu Bongkar" name="muatan[0][waktu_bongkar]">
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
@@ -108,22 +105,6 @@
                                     <label class="form-label">Berat Delivery Order</label>
                                     <input type="number" class="form-control" id="muatan.0.berat_do"
                                         placeholder="Masukkan Berat DO" name="muatan[0][berat_do]">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Berat Timbangan</label>
-                                    <input type="number" class="form-control" id="muatan.0.berat_timbangan"
-                                        placeholder="Masukkan Berat Timbangan" name="muatan[0][berat_timbangan]">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Jumlah Diterima</label>
-                                    <input type="number" class="form-control" id="muatan.0.jumlah_diterima"
-                                        placeholder="Masukkan Jumlah Diterima" name="muatan[0][jumlah_diterima]">
                                 </div>
                             </div>
                         </div>
@@ -173,6 +154,22 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Berat Timbangan</label>
+                                    <input type="number" class="form-control" id="muatan.0.berat_timbangan"
+                                        placeholder="Masukkan Berat Timbangan" name="muatan[0][berat_timbangan]">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Jumlah Diterima</label>
+                                    <input type="number" class="form-control" id="muatan.0.jumlah_diterima"
+                                        placeholder="Masukkan Jumlah Diterima" name="muatan[0][jumlah_diterima]">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     <div id="container"></div>
@@ -183,6 +180,59 @@
                     <button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-detail">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <strong id="customer">PT. GLOBAL FARMINDO LESTARI</strong><br>
+                    <strong id="tanggal_pengiriman">SABTU,10 DESEMBER 2022</strong>
+                </h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="row" id="show-detail">
+                    <div class="col-6">
+                        <div class="example">
+                            <label for="">Mobile Ke-1</label>
+                            <dl class="row">
+                                <dt class="col-sm-3">Jam Tiba</dt>
+                                <dd class="col-sm-9">
+                                    <span id="waktu_datang">06:45</span> WIB
+                                </dd>
+
+                                <dt class="col-sm-3">Jam Bongkar</dt>
+                                <dd class="col-sm-9">
+                                    <span id="waktu_bongkar">06:45</span> WIB
+                                </dd>
+
+                                <dt class="col-sm-3">Durasi Waktu Tiba-Selesai</dt>
+                                <dd class="col-sm-9" id="waktu_selesai">1 jam 15 menit</dd>
+
+                                <dt class="col-sm-3 text-truncate">Berat Kotor DO</dt>
+                                <dd class="col-sm-9"><span id="jumlah_do">1.560</span> ekor/<span
+                                        id="berat_do">4.689,60</span>kg</dd>
+                                <dt class="col-sm-3">Mati</dt>
+                                <dd class="col-sm-9"><span id="jumlah_mati">1.560</span> ekor/<span
+                                        id="berat_mati">4.689,60</span>kg</dd>
+                                <dt class="col-sm-3">Keranjang</dt>
+                                <dd class="col-sm-9"><span id="keranjang">1.560</span> kg</dd>
+                                <dt class="col-sm-3">Ayam Kembali</dt>
+                                <dd class="col-sm-9"><span id="jumlah_ditolak">1.560</span> ekor/<span
+                                        id="berat_ditolak">4.689,60</span>kg</dd>
+                                <dt class="col-sm-3">Timbang Ulang LB RPA</dt>
+                                <dd class="col-sm-9"><span id="jumlah_ditolak">1.560</span> ekor/<span
+                                        id="berat_ditolak">4.689,60</span>kg</dd>
+                                <dt class="col-sm-3">Berat Rata-rata</dt>
+                                <dd class="col-sm-9"><span id="berat_ratarata"></span> Kg</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -198,14 +248,9 @@
                 data: 'tanggal_datang'
             },
             {
-                data: 'waktu_datang'
+                data: 'jumlah_mobil'
             },
-            {
-                data: 'waktu_bongkar'
-            },
-            {
-                data: 'waktu_selesai'
-            },
+
             {
                 name: 'id',
                 data: 'id',
@@ -248,11 +293,16 @@
         ]);
 
         table.init();
-
+     
         $("#unloading").on('click', ' .btn-delete', (e) => {
             const id = $(e.currentTarget).data("data");
             let url = "{{ route('api.unloading.destroy', ':id') }}".replace(':id', id);
             table.delete(url);
+        });
+        $("#unloading").on('click', ' .btn-detail', (e) => {
+            $('#modal-detail').modal('show');
+            const data = table.row($(this).closest('tr')).data();
+            console.log(data);
         });
         $("#unloading").on('click', ' .btn-edit', (e) => {
             const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
@@ -301,9 +351,9 @@
             let data = $('form').serialize()
             let url = $("form").attr('action');
 
-            let type = $('.modal-title').text();
+            let type = $('#modal-form .modal-title').text();
             if (type == "Tambah Data") {
-                table.create(data, url,errorFunction)
+                table.create(data, url)
             } else {
                 table.update(data, url);
             }

@@ -20,25 +20,6 @@ class Unloading extends Model
         return $this->hasOne(Customer::class,  'id', 'customer_id');
     }
 
-    public function getWaktuDatangAttribute($value)
-    {
-        return Carbon::parse($value)->format('H:i');
-    }
-    public function getWaktuBongkarAttribute($value)
-    {
-        return Carbon::parse($value)->format('H:i');
-    }
-    public function getWaktuSelesaiAttribute($value)
-    {
-        $duration = CarbonInterval::minutes($value);
-        $waktu_selesai = $duration->cascade()->format('%hh %im');
-
-        $waktu_selesai = str_replace(['h', 'm'], [' JAM ', ' MENIT '], $waktu_selesai);
-        $waktu_selesai = str_replace(' ', ' ', $waktu_selesai);
-
-        return $waktu_selesai;
-    }
-
     public function muatan(): HasMany
     {
         return $this->hasMany(Muatan::class);

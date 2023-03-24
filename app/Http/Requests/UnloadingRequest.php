@@ -26,9 +26,9 @@ class UnloadingRequest extends FormRequest
             case 'PUT':
                 $rules = [
                     'customer_id'       => ['required', 'integer'],
-                    'bongkar.waktu_datang'      => ['required', 'date_format:H:i'],
-                    'bongkar.waktu_bongkar'     => ['required', 'date_format:H:i'],
-                    'bongkar.tanggal_bongkar'     => ['required'],
+                    'muatan.*.waktu_datang'      => ['required', 'date_format:H:i'],
+                    'muatan.*.waktu_bongkar'     => ['required', 'date_format:H:i', 'after:muatan.*.waktu_datang'],
+                    'bongkar.tanggal_bongkar'    => ['required'],
                     'muatan.*.berat_do'          => ['required', 'numeric'],
                     'muatan.*.jumlah_ayam_do'    => ['required', 'numeric'],
                     'muatan.*.berat_timbangan'   => ['required', 'numeric'],
@@ -44,20 +44,20 @@ class UnloadingRequest extends FormRequest
                 break;
             case 'POST':
                 $rules = [
-                    'customer_id'                => ['required', 'integer'],
-                    'bongkar.waktu_datang'       => ['required', 'date_format:H:i'],
-                    'bongkar.waktu_bongkar'      => ['required', 'date_format:H:i'],
-                    'bongkar.tanggal_bongkar'    => ['required'],
-                    'muatan.*.berat_do'          => ['required', 'numeric'],
-                    'muatan.*.jumlah_ayam_do'    => ['required', 'numeric'],
-                    'muatan.*.berat_timbangan'   => ['required', 'numeric'],
-                    'muatan.*.jumlah_diterima'   => ['required', 'numeric'],
-                    'muatan.*.berat_mati'        => ['required', 'numeric'],
-                    'muatan.*.jumlah_mati'       => ['required', 'numeric'],
-                    'muatan.*.berat_ditolak'     => ['required', 'numeric'],
-                    'muatan.*.jumlah_ditolak'    => ['required', 'numeric'],
-                    'muatan.*.berat_keranjang'   => ['required', 'numeric'],
-                    'muatan.*.berat_ratarata'    => ['required', 'numeric'],
+                    'customer_id'                 => ['required', 'integer'],
+                    'muatan.*.waktu_datang'       => ['required', 'date_format:H:i'],
+                    'muatan.*.waktu_bongkar'      => ['required', 'date_format:H:i', 'after:muatan.*.waktu_datang'],
+                    'tanggal_bongkar'             => ['required'],
+                    'muatan.*.berat_do'           => ['required', 'numeric'],
+                    'muatan.*.jumlah_ayam_do'     => ['required', 'numeric'],
+                    'muatan.*.berat_timbangan'    => ['required', 'numeric'],
+                    'muatan.*.jumlah_diterima'    => ['required', 'numeric'],
+                    'muatan.*.berat_mati'         => ['required', 'numeric'],
+                    'muatan.*.jumlah_mati'        => ['required', 'numeric'],
+                    'muatan.*.berat_ditolak'      => ['required', 'numeric'],
+                    'muatan.*.jumlah_ditolak'     => ['required', 'numeric'],
+                    'muatan.*.berat_keranjang'    => ['required', 'numeric'],
+                    'muatan.*.berat_ratarata'     => ['required', 'numeric'],
                 ];
                 break;
         }
@@ -68,16 +68,20 @@ class UnloadingRequest extends FormRequest
     {
         return [
             // pesan error untuk field lainnya
-            'muatan.*.berat_do.required' => 'Berat DO harus diisi',
-            'muatan.*.jumlah_ayam_do.required' => 'Jumlah ayam DO harus diisi',
+            'muatan.*.berat_do.required'        => 'Berat DO harus diisi',
+            'muatan.*.waktu_datang.required'    => 'Waktu datang harus diisi',
+            'muatan.*.waktu_bongkar.required'   => 'Waktu bongkar harus diisi',
+            'muatan.*.jumlah_ayam_do.required'  => 'Jumlah ayam DO harus diisi',
             'muatan.*.berat_timbangan.required' => 'Berat timbangan harus diisi',
             'muatan.*.jumlah_diterima.required' => 'Jumlah diterima harus diisi',
-            'muatan.*.berat_mati.required' => 'Berat mati harus diisi',
-            'muatan.*.jumlah_mati.required' => 'Jumlah mati harus diisi',
-            'muatan.*.berat_ditolak.required' => 'Berat ditolak harus diisi',
-            'muatan.*.jumlah_ditolak.required' => 'Jumlah ditolak harus diisi',
+            'muatan.*.berat_mati.required'      => 'Berat mati harus diisi',
+            'muatan.*.jumlah_mati.required'     => 'Jumlah mati harus diisi',
+            'muatan.*.berat_ditolak.required'   => 'Berat ditolak harus diisi',
+            'muatan.*.jumlah_ditolak.required'  => 'Jumlah ditolak harus diisi',
             'muatan.*.berat_keranjang.required' => 'Berat keranjang harus diisi',
-            'muatan.*.berat_ratarata.required' => 'Berat rata-rata harus diisi',
+            'muatan.*.berat_ratarata.required'  => 'Berat rata-rata harus diisi',
+            'tanggal_bongkar.required'          => 'Tanggal bongkar harus diisi',
+            'muatan.*.waktu_bongkar.after'      => 'Waktu bongkar harus lebih besar dari waktu datang.'
         ];
     }
 }
