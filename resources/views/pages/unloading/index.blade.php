@@ -19,7 +19,79 @@
                         {{-- <li class="breadcrumb-item active" aria-current="page">Data Table</li> --}}
                     </ol>
                 </div>
-
+                <!-- PAGE-HEADER END -->
+                <!-- Row -->
+                <div class="row row-sm">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Bongkar Muat</h3>
+                            </div>
+                            <div class="card-body">
+                                <div>
+                                    <a class="modal-effect btn btn-success" data-bs-effect="effect-scale"
+                                        data-bs-toggle="modal" id="btn-tambah">Add Data</a>
+                                </div><br>
+                                <div class="table-responsive">
+                                    <!--  -->
+                                    <table id="unloading" class="table table-bordered">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">No
+                                                </th>
+                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">
+                                                    Customer</th>
+                                                <th class="" colspan="2">Waktu</th>
+                                                <th class="" colspan="2">Delivery Order</th>
+                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">
+                                                    Berat
+                                                    Timbangan</th>
+                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">
+                                                    Jumlah Diterima</th>
+                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">
+                                                    Action</th>
+                                            </tr>
+                                            <tr class="text-center">
+                                                <th class="">Datang</th>
+                                                <th class="">Bongkar</th>
+                                                <th class="">Berat</th>
+                                                <th class="">Jumlah Ayam</th>
+                                            </tr>
+                                        </thead>
+                                        {{-- <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="text-center">
+                                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action=""
+                                                        method="POST">
+                                                        <button type="button" class="btn btn-sm btn-outline-info"
+                                                            data-id="">
+                                                            <i class="fe fe-info"></i>
+                                                        </button>
+                                                        <a href="" class="btn btn-sm btn-outline-warning"><i
+                                                                class="fe fe-edit"></i>
+                                                        </a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger"><i
+                                                                class="fe fe-trash"></i></button>
+                                                    </form>
+                                            </tr>
+                                        </tbody> --}}
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
             </div>
             <!-- PAGE-HEADER END -->
             <!-- Row -->
@@ -215,7 +287,17 @@
 
 @section('js')
 <script>
-    const table = new DataTable('unloading', "{{ route('api.unloading.index') }}", [{
+    const table = new DataTable('unloading', "{{ route('api.unloading.index') }}", [
+            {
+                data: null,
+                searchable: false,
+                orderable: false,
+                className: 'text-center',
+                render: function(data, type, row, meta) {
+                    return meta.row + 1;
+                }
+            },
+            {
                 data: 'customer_id'
             },
             {

@@ -32,11 +32,13 @@ class UnloadingController extends Controller
 
         // Total records
         $totalRecords = Unloading::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Unloading::select('count(*) as allcount')->where('waktu_datang', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Unloading::select('count(*) as allcount')
+            ->where('customer_id', 'like', '%' . $searchValue . '%')
+            ->count();
         /** ----- waktu_datang where diganti ---------- */
         // Fetch records
         $records = Unloading::orderBy($columnName, $columnSortOrder)
-            ->where('waktu_datang', 'like', '%' . $searchValue . '%')
+            ->where('customer_id', 'like', '%' . $searchValue . '%')
             // ->OrWhere('alamat', 'like', '%' . $searchValue . '%')
             ->skip($start)
             ->take($rowperpage)
