@@ -1,3 +1,9 @@
 <div>
-    <!-- It is not the man who has too little, but the man who craves more, that is poor. - Seneca -->
+    <label class="form-label">Customer</label>
+    <select class="form-control select2-show-search form-select" id="customer_id" name="customer_id"
+        data-placeholder="- Pilih Nama Customer-">
+        @foreach ($customers as $customer)
+        <option value="{{ $customer->id }}">{{ $customer->nama }}</option>
+        @endforeach
+    </select>
 </div>

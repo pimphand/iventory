@@ -10,11 +10,13 @@ class Unloading extends Model
 {
     use HasFactory;
     protected $table = 'unloading';
-    protected $fillable = ['id', 'customer_id','waktu_datang','waktu_bongkar','berat_do','berat_ayam_do','beban_timbangan','jumlah_diterima',
-    'berat_mati','jumlah_mati','berat_ditolak','jumlah_ditolak','berat_keranjang','berat_ratarata'];
+    protected $fillable = [
+        'id', 'customer_id', 'waktu_datang', 'waktu_bongkar', 'berat_do', 'berat_ayam_do', 'berat_timbangan', 'jumlah_diterima', 'jumlah_ayam_do',
+        'berat_mati', 'jumlah_mati', 'berat_ditolak', 'jumlah_ditolak', 'berat_keranjang', 'berat_ratarata'
+    ];
 
-    public function customer(): BelongsTo
+    public function customer()
     {
-        return $this->belongsTo(Customer::class, 'id', 'customer_id');
+        return $this->hasOne(Customer::class,  'id', 'customer_id');
     }
 }

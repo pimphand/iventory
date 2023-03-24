@@ -32,7 +32,7 @@ class UnloadingController extends Controller
         // Total records
         $totalRecords = Unloading::select('count(*) as allcount')->count();
         $totalRecordswithFilter = Unloading::select('count(*) as allcount')->where('waktu_datang', 'like', '%' . $searchValue . '%')->count();
-                                             /** ----- waktu_datang where diganti ---------- */
+        /** ----- waktu_datang where diganti ---------- */
         // Fetch records
         $records = Unloading::orderBy($columnName, $columnSortOrder)
             ->where('waktu_datang', 'like', '%' . $searchValue . '%')
@@ -45,7 +45,7 @@ class UnloadingController extends Controller
 
         foreach ($records as $i => $record) {
             $id = $record->id;
-            $customer_id = $record->customer_id;
+            $customer_id = $record->customer->nama;
             $waktu_datang = $record->waktu_datang;
             $waktu_bongkar = $record->waktu_bongkar;
             $berat_do = $record->berat_do;
@@ -81,14 +81,7 @@ class UnloadingController extends Controller
      */
     public function store(UnloadingRequest $request)
     {
-        $data = $request->validated();
-        $data['customer_id'] = 1;
-        $unloading = Unloading::create($data);
-        if (!$unloading) {
-            return response([
-                "success" => false,
-            ], 400);
-        }
+        $unloading = Unloading::create($request->validated());
 
         return response([
             "success" => true,
@@ -109,11 +102,6 @@ class UnloadingController extends Controller
     public function update(UnloadingRequest $request, Unloading $unloading)
     {
         $unloading->update($request->validated());
-        if (!$unloading) {
-            return response([
-                "success" => false,
-            ], 400);
-        }
 
         return response([
             "success" => true,
@@ -126,11 +114,6 @@ class UnloadingController extends Controller
     public function destroy(Unloading $unloading)
     {
         $unloading->delete();
-        if (!$unloading) {
-            return response([
-                "success" => false,
-            ], 400);
-        }
 
         return response([
             "success" => true,
