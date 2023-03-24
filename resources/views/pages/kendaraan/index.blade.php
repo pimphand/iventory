@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Customer - RPU')
+@section('title', 'kendaraan - RPU')
 @include('vendor.datatable')
 @section('content')
 <!--app-content open-->
@@ -11,10 +11,10 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Bongkar Muat</h1>
+                <h1 class="page-title">Kendaraan</h1>
                 <div>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Bongkar Muat</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Kendaraan</a></li>
                         {{-- <li class="breadcrumb-item active" aria-current="page">Data Table</li> --}}
                     </ol>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Bongkar Muat</h3>
+                            <h3 class="card-title">Kendaraan</h3>
                         </div>
                         <div class="card-body">
                             <div>
@@ -34,12 +34,12 @@
                                     data-bs-effect="effect-scale" data-bs-toggle="modal">Tambah Data</button>
                             </div><br>
                             <div class="table-responsive">
-                                <table id="customer" class="table table-bordered">
+                                <table id="kendaraan" class="table table-bordered">
                                     <thead>
                                         <tr>
                                             {{-- <th class="border-bottom-0">#</th> --}}
-                                            <th class="">nama</th>
-                                            <th class="">email</th>
+                                            <th class="">Pengemudi</th>
+                                            <th class="">kendaraan</th>
                                             <th class="">telepon</th>
                                             <th class="">alamat</th>
                                             <th class="">aksi</th>
@@ -112,7 +112,7 @@
 
 @section('js')
 <script>
-    const table = new DataTable('customer', "{{ route('api.customer.index') }}", [
+    const table = new DataTable('kendaraan', "{{ route('api.kendaraan.index') }}", [
         // { data: 'index' },
         { data: 'nama' },
         { data: 'email' },
@@ -129,9 +129,9 @@
 
     table.init();
 
-    $("#customer").on('click',' .btn-edit', (e) => {
+    $("#kendaraan").on('click',' .btn-edit', (e) => {
         const data = $(e.currentTarget).data("data"); // Mengambil nilai atribut data dengan menggunakan jQuery
-        let url = "{{ route('api.customer.update',':id') }}".replace(':id', data.id);
+        let url = "{{ route('api.kendaraan.update',':id') }}".replace(':id', data.id);
 
         // ganti url
         $("form").attr('action', url);
@@ -146,7 +146,7 @@
     });
 
     $("#btn-tambah").on('click', (e) => {
-        let url = "{{ route('api.customer.store') }}";
+        let url = "{{ route('api.kendaraan.store') }}";
         
         // ganti url
         $("form").attr('action', url);

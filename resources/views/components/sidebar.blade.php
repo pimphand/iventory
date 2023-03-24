@@ -29,11 +29,16 @@
                 </li>
 
                 <li>
-                    <a class="side-menu__item has-link" href="{{ route('unloading') }}" ><i
-                            class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Bongkar Muat</span></a>
+                    <a class="side-menu__item has-link" href="{{ route('customer') }}"><i
+                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Customer</span></a>
                 </li>
                 <li>
-                    <a class="side-menu__item has-link" href="{{ route('proses') }}" ><i
+                    <a class="side-menu__item has-link" href="{{ route('unloading') }}"><i
+                            class="side-menu__icon fe fe-package"></i><span class="side-menu__label">Bongkar
+                            Muat</span></a>
+                </li>
+                <li>
+                    <a class="side-menu__item has-link" href="{{ route('proses') }}"><i
                             class="side-menu__icon fe fe-clipboard"></i><span class="side-menu__label">Proses</span></a>
                 </li>
                 <li class="slide">
@@ -57,26 +62,26 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="side-menu__item has-link" href="landing-page.html" ><i
+                    <a class="side-menu__item has-link" href="landing-page.html"><i
                             class="side-menu__icon fe fe-list"></i><span class="side-menu__label">Stok</span></a>
                 </li>
                 <li class="sub-category">
                     <h3>PENGIRIMAN</h3>
                 </li>
                 <li>
-                    <a class="side-menu__item has-link" href="" ><i
+                    <a class="side-menu__item has-link" href="{{ route('kendaraan') }}"><i
                             class="side-menu__icon fe fe-truck"></i><span class="side-menu__label">Kendaraan</span></a>
                 </li>
                 <li>
-                    <a class="side-menu__item has-link" href="landing-page.html" ><i
+                    <a class="side-menu__item has-link" href="landing-page.html"><i
                             class="side-menu__icon fe fe-box"></i><span class="side-menu__label">Pengiriman</span></a>
                 </li>
                 <li class="sub-category">
                     <h3>USER ACCOUNT</h3>
                 </li>
                 <li>
-                    <a class="side-menu__item has-link" href="landing-page.html" ><i
-                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">User</span></a>
+                    <a class="side-menu__item has-link" href="landing-page.html"><i
+                            class="side-menu__icon fe fe-user"></i><span class="side-menu__label">User</span></a>
                 </li>
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24"

@@ -2,19 +2,40 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Carbon\CarbonInterval;
 
 class Unloading extends Model
 {
     use HasFactory;
     protected $table = 'unloading';
-    protected $fillable = ['id', 'customer_id','waktu_datang','waktu_bongkar','berat_do','berat_ayam_do','beban_timbangan','jumlah_diterima',
-    'berat_mati','jumlah_mati','berat_ditolak','jumlah_ditolak','berat_keranjang','berat_ratarata'];
+    protected $guarded = [];
 
-    public function customer(): BelongsTo
+    public function customer()
     {
-        return $this->belongsTo(Customer::class, 'id', 'customer_id');
+        return $this->hasOne(Customer::class,  'id', 'customer_id');
+    }
+
+    public function getWaktuDatangAttribute($value)
+    {
+        return Carbon::parse($value)->format('H:i');
+    }
+    public function getWaktuBongkarAttribute($value)
+    {
+        return Carbon::parse($value)->format('H:i');
+    }
+    public function getWaktuSelesaiAttribute($value)
+    {
+        $duration = CarbonInterval::minutes($value);
+        return $duration->cascade()->format('%hh %im');
+    }
+
+    public function muatan(): HasMany
+    {
+        return $this->hasMany(Muatan::class);
     }
 }

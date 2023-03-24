@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UnloadingRequest;
+use App\Models\Customer;
 use App\Models\Unloading;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UnloadingController extends Controller
 {
@@ -30,11 +32,13 @@ class UnloadingController extends Controller
 
         // Total records
         $totalRecords = Unloading::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Unloading::select('count(*) as allcount')->where('nama', 'like', '%' . $searchValue . '%')->count();
-
+        $totalRecordswithFilter = Unloading::select('count(*) as allcount')
+            ->where('customer_id', 'like', '%' . $searchValue . '%')
+            ->count();
+        /** ----- waktu_datang where diganti ---------- */
         // Fetch records
         $records = Unloading::orderBy($columnName, $columnSortOrder)
-            ->where('nama', 'like', '%' . $searchValue . '%')
+            ->where('customer_id', 'like', '%' . $searchValue . '%')
             // ->OrWhere('alamat', 'like', '%' . $searchValue . '%')
             ->skip($start)
             ->take($rowperpage)
@@ -43,8 +47,8 @@ class UnloadingController extends Controller
         $data_arr = [];
 
         foreach ($records as $i => $record) {
-            $index = $i + 1;
             $id = $record->id;
+            $customer_id = $record->customer->nama;
             $waktu_datang = $record->waktu_datang;
             $waktu_bongkar = $record->waktu_bongkar;
             $berat_do = $record->berat_do;
@@ -55,6 +59,7 @@ class UnloadingController extends Controller
             $data_arr[] = [
                 // "index" => $index,
                 "id" => $id,
+                "customer_id" => $customer_id,
                 "waktu_datang" => $waktu_datang,
                 "waktu_bongkar" => $waktu_bongkar,
                 "berat_do" => $berat_do,
@@ -68,7 +73,7 @@ class UnloadingController extends Controller
             "draw" => intval($draw),
             "iTotalRecords" => $totalRecords,
             "iTotalDisplayRecords" => $totalRecordswithFilter,
-            "aaData" => $data_arr
+            "aaData" => $data_arr,
         ];
 
         return $response;
@@ -79,24 +84,31 @@ class UnloadingController extends Controller
      */
     public function store(UnloadingRequest $request)
     {
-        $unloading = Unloading::create($request->validate());
-        if (!$unloading) {
-            return response([
-                "success" => false,
-            ], 400);
-        }
+        return DB::transaction(function () use ($request) {
+            $unloadingRequest = $request->bongkar;
+            $waktu_selesai = self::duration($unloadingRequest['waktu_bongkar'], $unloadingRequest['waktu_datang']);
+            $unloadingRequest['customer_id'] = $request->customer_id;
+            $unloadingRequest['tanggal_datang'] = now();
+            $unloadingRequest['waktu_selesai'] = $waktu_selesai;
+            $unloading = Unloading::create($unloadingRequest);
 
-        return response([
-            "success" => true,
-        ], 200);
+            $muatans = $request->muatan;
+            foreach ($muatans as $key => $muatan) {
+                $unloading->muatan()->create($muatan);
+            }
+
+            return response([
+                "success" => $muatan,
+            ], 200);
+        });
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Unloading $unloading)
     {
-        //
+        return $unloading;
     }
 
     /**
@@ -104,12 +116,7 @@ class UnloadingController extends Controller
      */
     public function update(UnloadingRequest $request, Unloading $unloading)
     {
-        $unloading->update($request->validate());
-        if (!$unloading) {
-            return response([
-                "success" => false,
-            ], 400);
-        }
+        $unloading->update($request->validated());
 
         return response([
             "success" => true,
@@ -122,14 +129,18 @@ class UnloadingController extends Controller
     public function destroy(Unloading $unloading)
     {
         $unloading->delete();
-        if (!$unloading) {
-            return response([
-                "success" => false,
-            ], 400);
-        }
 
         return response([
             "success" => true,
         ], 200);
+    }
+
+    public function duration($waktu_bongkar, $waktu_datang)
+    {
+        $bongkar = \Carbon\Carbon::createFromFormat('H:i', $waktu_bongkar);
+        $waktu_datang = \Carbon\Carbon::createFromFormat('H:i', $waktu_datang);
+        $durasi_waktu = $waktu_datang->diffInMinutes($bongkar);
+
+        return $durasi_waktu;
     }
 }

@@ -2,6 +2,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\KendaraanController;
 use App\Http\Controllers\ProsesController;
 use App\Http\Controllers\UnloadingController;
 use App\Http\Controllers\UserController;
@@ -24,9 +25,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::prefix('api')->name('api.')->group(function () {
+Route::name('api.')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('unloading', UnloadingController::class);
     Route::apiResource('customer', CustomerController::class);
     Route::apiResource('proses', ProsesController::class);
+    Route::apiResource('kendaraan', KendaraanController::class);
 });

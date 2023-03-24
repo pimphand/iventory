@@ -21,16 +21,16 @@ class RoleSeeder extends Seeder
 
         foreach ($data as $key => $role) {
             $access = Role::create([
-                'name' => $key
+                'name' => $role
             ]);
 
             User::create([
-                'username' => $key,
-                'name' => $key,
-                'telepon' => rand(1000, 9999),
-                'jabatan' => $key,
-                'role_id' => $access->id,
-                'email' => $key . "@gmail.com",
+                'username' => $role,
+                'name' => $role,
+                'telepon' => rand(1000000, 9999999),
+                'jabatan' => $role,
+                'role_id' => json_encode($role),
+                'email' => $role . "@gmail.com",
                 'password' => Hash::make('password'),
             ]);
         }

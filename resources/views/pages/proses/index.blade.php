@@ -30,11 +30,15 @@
                         </div>
                         <div class="card-body">
                             <div>
+                                <button class="modal-effect btn btn-success" id="btn-tambah"
+                                    data-bs-effect="effect-scale" data-bs-toggle="modal">Tambah Data</button>
+                            </div><br>
+                            {{-- <div>
                                 <a class="modal-effect btn btn-success" data-bs-effect="effect-scale"
                                     data-bs-toggle="modal" href="#tambahdata">Add Data</a>
-                            </div><br>
+                            </div><br> --}}
                             <div class="table-responsive">
-                                <table id="example2" class="table table-bordered">
+                                <table id="proses" class="table table-bordered">
                                     <thead>
                                         <tr class="text-center">
                                             <th style="vertical-align: middle; text-align: center;" rowspan="2">No
@@ -43,8 +47,8 @@
                                                 Customer</th>
                                             <th class="border-bottom-0" colspan="2">Waktu</th>
                                             <th class="border-bottom-0" colspan="4">Produk</th>
-                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">Action
-                                                </th>
+                                            <th style="vertical-align: middle; text-align: center;" rowspan="2">Action
+                                            </th>
                                         </tr>
                                         <tr class="text-center">
                                             <th class="border-bottom-0">Mulai</th>
@@ -71,7 +75,7 @@
 <!--app-content closed-->
 
 <!-- MODAL ADD DATA -->
-<div class="modal fade" id="tambahdata">
+<div class="modal fade" id="modal-form">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
@@ -129,15 +133,15 @@
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Berat Produk</label>
-                            <input type="text" class="form-control" id="berat_produk" placeholder="Masukkan Berat Produk"
-                                name="berat_produk">
+                            <input type="text" class="form-control" id="berat_produk"
+                                placeholder="Masukkan Berat Produk" name="berat_produk">
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-3">
                         <div class="form-group">
                             <label class="form-label">Jumlah Produk</label>
-                            <input type="text" class="form-control" id="jumlah_produk" placeholder="Masukkan Jumlah Produk"
-                                name="jumlah_produk">
+                            <input type="text" class="form-control" id="jumlah_produk"
+                                placeholder="Masukkan Jumlah Produk" name="jumlah_produk">
                         </div>
                     </div>
                 </div>
@@ -159,8 +163,8 @@
                     <div class="col-sm-6 col-md-4">
                         <div class="form-group">
                             <label class="form-label">Jumlah Gagal</label>
-                            <input type="text" class="form-control" id="jumlah_gagal" placeholder="Masukkan Jumlah Gagal"
-                                name="jumlah_gagal">
+                            <input type="text" class="form-control" id="jumlah_gagal"
+                                placeholder="Masukkan Jumlah Gagal" name="jumlah_gagal">
                         </div>
                     </div>
                 </div>
@@ -178,13 +182,22 @@
 <script>
     const table = new DataTable('proses', "{{ route('api.proses.index') }}", [
         // { data: 'index' },
-        { data: 'customer' },
+        { data: 'customer_id' },
+        { data: 'unloading_id' },
         { data: 'waktu_mulai' },
         { data: 'waktu_selesai' },
         { data: 'tipe_produk' },
         { data: 'grade' },
         { data: 'berat_produk' },
         { data: 'jumlah_produk' },
+            {
+                data: 'id',
+                render: (data, type, row, meta) => {
+                    const rowData = JSON.stringify(row);
+                    return '<button class="btn btn-sm btn-primary btn-edit" data-data=' +
+                        rowData + '>Edit</button>';
+                }
+            },
     ]);
 
     table.init();

@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kendaraans', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_sopir', 50)->nullable();
-            $table->string('plat_nomor', 10)->nullable();
-            $table->string('jenis_kendaraan', 50)->nullable();
-            $table->timestamps();
+        Schema::table('unloading', function (Blueprint $table) {
+            $table->string('kendaraan', 30)->nullable();
+            $table->date('tanggal_bongkar')->nullable();
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kendaraans');
+        Schema::table('unloading', function (Blueprint $table) {
+            $table->dropColumn(['kendaraan', 'tanggal_bongkar']);
+        });
     }
 };
