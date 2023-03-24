@@ -182,13 +182,22 @@
 <script>
     const table = new DataTable('proses', "{{ route('api.proses.index') }}", [
         // { data: 'index' },
-        { data: 'customer' },
+        { data: 'customer_id' },
+        { data: 'unloading_id' },
         { data: 'waktu_mulai' },
         { data: 'waktu_selesai' },
         { data: 'tipe_produk' },
         { data: 'grade' },
         { data: 'berat_produk' },
         { data: 'jumlah_produk' },
+            {
+                data: 'id',
+                render: (data, type, row, meta) => {
+                    const rowData = JSON.stringify(row);
+                    return '<button class="btn btn-sm btn-primary btn-edit" data-data=' +
+                        rowData + '>Edit</button>';
+                }
+            },
     ]);
 
     table.init();

@@ -31,11 +31,13 @@ class UnloadingController extends Controller
 
         // Total records
         $totalRecords = Unloading::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = Unloading::select('count(*) as allcount')->where('waktu_datang', 'like', '%' . $searchValue . '%')->count();
+        $totalRecordswithFilter = Unloading::select('count(*) as allcount')
+            ->where('customer_id', 'like', '%' . $searchValue . '%')
+            ->count();
                                              /** ----- waktu_datang where diganti ---------- */
         // Fetch records
         $records = Unloading::orderBy($columnName, $columnSortOrder)
-            ->where('waktu_datang', 'like', '%' . $searchValue . '%')
+            ->where('customer_id', 'like', '%' . $searchValue . '%')
             // ->OrWhere('alamat', 'like', '%' . $searchValue . '%')
             ->skip($start)
             ->take($rowperpage)
@@ -83,7 +85,7 @@ class UnloadingController extends Controller
     {
         // dd($request->all());
         $data = $request->validated();
-        // $data['customer_id'] = 1;
+        $data['customer_id'] = 1;
         // dd($data);
         $unloading = Unloading::create($data);
         if (!$unloading) {
@@ -96,15 +98,6 @@ class UnloadingController extends Controller
             "success" => true,
         ], 200);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */

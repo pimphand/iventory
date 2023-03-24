@@ -41,6 +41,8 @@
                                             <tr class="text-center">
                                                 <th style="vertical-align: middle; text-align: center;" rowspan="2">No
                                                 </th>
+                                                <th style="vertical-align: middle; text-align: center;" rowspan="2">
+                                                    Customer</th>
                                                 <th class="" colspan="2">Waktu</th>
                                                 <th class="" colspan="2">Delivery Order</th>
                                                 <th style="vertical-align: middle; text-align: center;" rowspan="2">Berat
@@ -228,7 +230,17 @@
 
 @section('js')
     <script>
-        const table = new DataTable('unloading', "{{ route('api.unloading.index') }}", [{
+        const table = new DataTable('unloading', "{{ route('api.unloading.index') }}", [
+            {
+                data: null,
+                searchable: false,
+                orderable: false,
+                className: 'text-center',
+                render: function(data, type, row, meta) {
+                    return meta.row + 1;
+                }
+            },
+            {
                 data: 'customer_id'
             },
             {

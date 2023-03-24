@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
                 'name' => "name-" . $i,
                 'telepon' => "telepon-" . $i,
                 'jabatan' => "jabatan-" . $i,
-                'role_id' => "role_id-" . $i,
+                'role_id' => $i,
                 'email' => "email-" . $i,
                 'password' => "password-" . $i,
             ]);

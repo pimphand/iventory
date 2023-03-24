@@ -43,7 +43,7 @@ class ProsesController extends Controller
             $index = $i + 1;
             $id = $record->id;
             $customer_id = $record->customer_id;
-            $proses_id = $record->proses_id;
+            $unloading_id = $record->unloading_id;
             $waktu_mulai = $record->waktu_mulai;
             $waktu_selesai = $record->waktu_selesai;
             $tipe_produk = $record->tipe_produk;
@@ -55,7 +55,7 @@ class ProsesController extends Controller
                 // "index" => $index,
                 "id" => $id,
                 "customer_id" => $customer_id,
-                "proses_id" => $proses_id,
+                "unloading_id" => $unloading_id,
                 "waktu_mulai" => $waktu_mulai,
                 "waktu_selesai" => $waktu_selesai,
                 "tipe_produk" => $tipe_produk,
