@@ -43,6 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-unloading', [ProsesController::class, 'getUnloading'])->name('getUnloading');
 
     Route::view('kendaraan', 'pages.kendaraan.index')->name('kendaraan');
+
+    Route::view('pengiriman', 'pages.pengiriman.index')->name('pengiriman');
 });
 
 require __DIR__ . '/auth.php';
