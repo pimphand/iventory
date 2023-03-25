@@ -9,5 +9,5 @@ class Proses extends Model
 {
     use HasFactory;
     protected $table = 'proses';
-    protected $fillable = ['id','customer_id','unloading_id','waktu_mulai','waktu_selesai','tipe_produk','grade','berat_pokok','jumlah_produk','randemen','berat_gagal','jumlah_gagal'];
+    protected $fillable = ['id','customer_id','unloading_id','waktu_mulai','waktu_selesai','tipe_produk','grade','berat_produk','jumlah_produk','randemen','berat_gagal','jumlah_gagal'];
 }

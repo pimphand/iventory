@@ -6,6 +6,7 @@ use App\Http\Requests\ProsesRequest;
 use App\Models\Proses;
 use App\Models\Unloading;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProsesController extends Controller
 {
@@ -86,8 +87,8 @@ class ProsesController extends Controller
      */
     public function store(ProsesRequest $request)
     {
-        dd($request->all());
-        $proses = Proses::create($request->validate());
+        // dd($request->all());
+        $proses = Proses::create($request->validated());
         if (!$proses) {
             return response([
                 "success" => false,
@@ -97,6 +98,20 @@ class ProsesController extends Controller
         return response([
             "success" => true,
         ], 200);
+
+        // return DB::transaction(function () use ($request) {
+        //     // $prosesRequest['customer_id'] = $request->customer_id;
+        //     $proses = Proses::create($request->validate());
+        //     if (!$proses) {
+        //         return response([
+        //             "success" => false,
+        //         ], 400);
+        //     }
+
+        //     return response([
+        //         "success" => true,
+        //     ], 200);
+        // });
     }
 
     /**

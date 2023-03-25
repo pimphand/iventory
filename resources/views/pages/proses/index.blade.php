@@ -116,15 +116,21 @@
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Tipe Produk</label>
-                                    <input type="number" class="form-control" id="tipe_produk"
+                                    <input type="text" class="form-control" id="tipe_produk"
                                         placeholder="Masukkan Tipe Produk" name="tipe_produk">
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Grade</label>
-                                    <input type="number" class="form-control" id="grade" placeholder="Masukkan Grade"
-                                        name="grade">
+                                    {{-- <input type="number" class="form-control" id="grade" placeholder="Masukkan Grade"
+                                        name="grade"> --}}
+                                    <select class="form-control form-select" id="grade" name="grade"
+                                        data-placeholder="- Pilih Grade -">
+                                        <option hidden selected value="">- Pilih Grade -</option>
+                                        <option value="a">A</option>
+                                        <option value="b">B</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
@@ -174,6 +180,76 @@
             </div>
         </div>
     </div>
+    <!-- DETAIL -->
+<div class="modal fade" id="modal-detail">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <strong id="customer">PT. GLOBAL FARMINDO LESTARI</strong><br>
+                    <strong id="tanggal_pengiriman">SABTU,10 DESEMBER 2022</strong>
+                </h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="row" id="show-detail">
+                    <div class="col-6">
+                        <div class="example">
+                            {{-- <label for="">Mobile Ke-1</label> --}}
+                            {{-- HASIL PRODUKSI
+                                Grade A: 1.265 ekor/2.508,92 kg
+                                Randemen: 77,40 %
+                                Grade B: ekor/kg
+                                Randemen: %
+                                Total Hasil Karkas: 1.265 ekor/2.508,92 kg
+                                Randemen: 77,40 %
+                                Gagal Proses: ekor/ kg
+                                Rendemen: % --}}
+                            <dl class="row">
+                                <dt class="col-sm-3">Customer</dt>
+                                <dd class="col-sm-9">
+                                    <span id="customer_id">dummy</span>
+                                </dd>
+
+                                <dt class="col-sm-3">Tanggal Bongkar</dt>
+                                <dd class="col-sm-9">
+                                    <span id="unloading_id">06:45</span>
+                                </dd>
+
+                                <dt class="col-sm-3">Waktu Mulai</dt>
+                                <dd class="col-sm-9" id="waktu_mulai">17:07</dd>
+
+                                <dt class="col-sm-3">Waktu Selesai</dt>
+                                <dd class="col-sm-9" id="waktu_selesai">17:07</dd>
+
+                                <dt class="col-sm-3">Tipe Produk</dt>
+                                <dd class="col-sm-9" id="tipe_produk">Dummy</dd>
+
+                                <dt class="col-sm-3">Grade</dt>
+                                <dd class="col-sm-9" id="grade">B</dd>
+
+                                <dt class="col-sm-3">Berat Produk</dt>
+                                <dd class="col-sm-9" id="berat_produk">177</dd>Kg
+
+                                <dt class="col-sm-3">Jumlah Produk</dt>
+                                <dd class="col-sm-9" id="jumlah_produk">17:07</dd>
+
+                                <dt class="col-sm-3">Randemen</dt>
+                                <dd class="col-sm-9" id="randemen">17</dd> %
+
+                                <dt class="col-sm-3">Berat Gagal</dt>
+                                <dd class="col-sm-9" id="berat_gagal">17</dd>Kg
+
+                                <dt class="col-sm-3">Jumlah Gagal</dt>
+                                <dd class="col-sm-9" id="jumah_gagal">17</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('js')
@@ -194,7 +270,8 @@
                         for (var i = 0; i < len; i++) {
                             var id = response[i]['id'];
                             var tanggal_datang = response[i]['tanggal_datang'];
-                            $("#unloading_id").append("<option value='" + id + "'>" + tanggal_datang +
+                            $("#unloading_id").append("<option value='" + id + "'>" +
+                                tanggal_datang +
                                 "</option>");
                         }
                     }
@@ -204,8 +281,18 @@
     </script>
 
     <script>
+
         const table = new DataTable('proses', "{{ route('api.proses.index') }}", [{
-                data: 'customer_id'
+                data: 'customer_id',
+                // render: (data, type, row, meta) => {
+                //     // cari index customer dengan id yang sesuai
+                //     const index = customers.findIndex(customer => customer.id == data);
+                //     if (index !== -1) {
+                //         return customers[index].nama;
+                //     } else {
+                //         return data;
+                //     }
+                // }
             },
             {
                 data: 'waktu_mulai'
