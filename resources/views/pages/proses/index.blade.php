@@ -71,109 +71,109 @@
 </div>
 <!--app-content closed-->
 
-    <!-- MODAL ADD DATA -->
-    <div class="modal fade" id="modal-form">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content modal-content-demo">
-                <div class="modal-header">
-                    <h6 class="modal-title"><strong>Add Data</strong></h6><button aria-label="Close" class="btn-close"
-                        data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <form method="post">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <x-customer-component></x-customer-component>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Tanggal Bongkar</label>
-                                    <select class="form-control select2-show-search form-select" id="unloading_id"
-                                        name="unloading_id" data-placeholder="- Pilih Tanggal Bongkar -">
-                                    </select>
-                                </div>
+<!-- MODAL ADD DATA -->
+<div class="modal fade" id="modal-form">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title"><strong>Add Data</strong></h6><button aria-label="Close" class="btn-close"
+                    data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <x-customer-component></x-customer-component>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Waktu Mulai</label>
-                                    <input type="time" class="form-control" id="waktu_mulai" placeholder="Waktu Mulai"
-                                        name="waktu_mulai">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">Waktu Selesai</label>
-                                    <input type="time" class="form-control" id="waktu_selesai"
-                                        placeholder="Waktu Selesai" name="waktu_selesai">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Tipe Produk</label>
-                                    <input type="number" class="form-control" id="tipe_produk"
-                                        placeholder="Masukkan Tipe Produk" name="tipe_produk">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Grade</label>
-                                    <input type="number" class="form-control" id="grade" placeholder="Masukkan Grade"
-                                        name="grade">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Berat Produk</label>
-                                    <input type="number" class="form-control" id="berat_produk"
-                                        placeholder="Masukkan Berat Produk" name="berat_produk">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-3">
-                                <div class="form-group">
-                                    <label class="form-label">Jumlah Produk</label>
-                                    <input type="number" class="form-control" id="jumlah_produk"
-                                        placeholder="Masukkan Jumlah Produk" name="jumlah_produk">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Randemen</label>
-                                    <input type="number" class="form-control" id="randemen"
-                                        placeholder="Masukkan Randemen" name="randemen">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Berat Gagal</label>
-                                    <input type="number" class="form-control" id="berat_gagal"
-                                        placeholder="Masukkan Berat Gagal" name="berat_gagal">
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Jumlah Gagal</label>
-                                    <input type="number" class="form-control" id="jumlah_gagal"
-                                        placeholder="Masukkan Jumlah Gagal" name="jumlah_gagal">
-                                </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Tanggal Bongkar</label>
+                                <select class="form-control select2-show-search form-select" id="unloading_id"
+                                    name="unloading_id" data-placeholder="- Pilih Tanggal Bongkar -">
+                                </select>
                             </div>
                         </div>
                     </div>
-                </form>
-                <div class="modal-footer">
-                    <button class="btn btn-primary simpan" type="submit">Submit</button>
-                    <button class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Waktu Mulai</label>
+                                <input type="time" class="form-control" id="waktu_mulai" placeholder="Waktu Mulai"
+                                    name="waktu_mulai">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Waktu Selesai</label>
+                                <input type="time" class="form-control" id="waktu_selesai" placeholder="Waktu Selesai"
+                                    name="waktu_selesai">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Tipe Produk</label>
+                                <input type="number" class="form-control" id="tipe_produk"
+                                    placeholder="Masukkan Tipe Produk" name="tipe_produk">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Grade</label>
+                                <input type="number" class="form-control" id="grade" placeholder="Masukkan Grade"
+                                    name="grade">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Berat Produk</label>
+                                <input type="number" class="form-control" id="berat_produk"
+                                    placeholder="Masukkan Berat Produk" name="berat_produk">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="form-group">
+                                <label class="form-label">Jumlah Produk</label>
+                                <input type="number" class="form-control" id="jumlah_produk"
+                                    placeholder="Masukkan Jumlah Produk" name="jumlah_produk">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Randemen</label>
+                                <input type="number" class="form-control" id="randemen" placeholder="Masukkan Randemen"
+                                    name="randemen">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Berat Gagal</label>
+                                <input type="number" class="form-control" id="berat_gagal"
+                                    placeholder="Masukkan Berat Gagal" name="berat_gagal">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Jumlah Gagal</label>
+                                <input type="number" class="form-control" id="jumlah_gagal"
+                                    placeholder="Masukkan Jumlah Gagal" name="jumlah_gagal">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-primary simpan" type="submit">Submit</button>
+                <button class="btn btn-light" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @section('js')
@@ -205,8 +205,8 @@
         });
 </script>
 
-    <script>
-        const table = new DataTable('proses', "{{ route('api.proses.index') }}", [{
+<script>
+    const table = new DataTable('proses', "{{ route('api.proses.index') }}", [{
                 data: 'customer_id'
             },
             {
@@ -279,7 +279,7 @@
         });
         $("#proses").on('click', ' .btn-detail', (e) => {
             $('#modal-detail').modal('show');
-            const data = table.row($(this).closest('tr')).data();
+            const data = $(this).closest('tr')
             console.log(data);
         });
         $("#proses").on('click', ' .btn-edit', (e) => {

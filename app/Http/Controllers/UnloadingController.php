@@ -102,7 +102,7 @@ class UnloadingController extends Controller
      */
     public function show(Unloading $unloading)
     {
-        return $unloading;
+        return $unloading->load('muatan');
     }
 
     /**

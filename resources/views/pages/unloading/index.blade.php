@@ -187,51 +187,14 @@
     <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h5 class="modal-title">
-                    <strong id="customer">PT. GLOBAL FARMINDO LESTARI</strong><br>
-                    <strong id="tanggal_pengiriman">SABTU,10 DESEMBER 2022</strong>
+                <h5 class="modal-1">
+                    <strong id="customer">PT. GLOBAL FARMINDO LESTARI</strong><br><br>
+                    <strong id="tanggal_pengiriman" class="mt-2">SABTU,10 DESEMBER 2022</strong>
                 </h5>
 
             </div>
             <div class="modal-body">
-                <div class="row" id="show-detail">
-                    <div class="col-6">
-                        <div class="example">
-                            <label for="">Mobile Ke-1</label>
-                            <dl class="row">
-                                <dt class="col-sm-3">Jam Tiba</dt>
-                                <dd class="col-sm-9">
-                                    <span id="waktu_datang">06:45</span> WIB
-                                </dd>
-
-                                <dt class="col-sm-3">Jam Bongkar</dt>
-                                <dd class="col-sm-9">
-                                    <span id="waktu_bongkar">06:45</span> WIB
-                                </dd>
-
-                                <dt class="col-sm-3">Durasi Waktu Tiba-Selesai</dt>
-                                <dd class="col-sm-9" id="waktu_selesai">1 jam 15 menit</dd>
-
-                                <dt class="col-sm-3 text-truncate">Berat Kotor DO</dt>
-                                <dd class="col-sm-9"><span id="jumlah_do">1.560</span> ekor/<span
-                                        id="berat_do">4.689,60</span>kg</dd>
-                                <dt class="col-sm-3">Mati</dt>
-                                <dd class="col-sm-9"><span id="jumlah_mati">1.560</span> ekor/<span
-                                        id="berat_mati">4.689,60</span>kg</dd>
-                                <dt class="col-sm-3">Keranjang</dt>
-                                <dd class="col-sm-9"><span id="keranjang">1.560</span> kg</dd>
-                                <dt class="col-sm-3">Ayam Kembali</dt>
-                                <dd class="col-sm-9"><span id="jumlah_ditolak">1.560</span> ekor/<span
-                                        id="berat_ditolak">4.689,60</span>kg</dd>
-                                <dt class="col-sm-3">Timbang Ulang LB RPA</dt>
-                                <dd class="col-sm-9"><span id="jumlah_ditolak">1.560</span> ekor/<span
-                                        id="berat_ditolak">4.689,60</span>kg</dd>
-                                <dt class="col-sm-3">Berat Rata-rata</dt>
-                                <dd class="col-sm-9"><span id="berat_ratarata"></span> Kg</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
+                <div class="row" id="show-detail"></div>
             </div>
         </div>
     </div>
@@ -255,7 +218,6 @@
                 name: 'id',
                 data: 'id',
                 render: (id, type, row, meta) => {
-                    console.log(row);
                     const button_detail = $('<button>', {
                         html: $('<i>', {
                             class: 'fa fa-info-circle'
@@ -300,9 +262,58 @@
             table.delete(url);
         });
         $("#unloading").on('click', ' .btn-detail', (e) => {
-            $('#modal-detail').modal('show');
-            const data = table.row($(this).closest('tr')).data();
-            console.log(data);
+            const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
+            let url = "{{ route('api.unloading.show', ':id') }}".replace(':id', id);
+            $.ajax({
+                type: "get",
+                url: url,
+                success: function (data) {
+                    $('#modal-detail').modal('show');
+                    $('#show-detail').html('');
+                    $('#customer').text(data.nama_customer)
+                    $('#tanggal_pengiriman').text(data.tanggal)
+                    $.each(data.muatan, function (i, v) { 
+                        let content = `
+                            <div class="col-6 mt-2 mb-2">
+                                <div class="example">
+                                    <label for="">Mobile Ke-${v.kendaraan}</label>
+                                    <dl class="row">
+                                        <dt class="col-sm-5">Jam Tiba</dt>
+                                        <dd class="col-sm-7">
+                                            <span id="waktu_datang">${v.waktu_datang}</span> WIB
+                                        </dd>
+                            
+                                        <dt class="col-sm-5">Jam Bongkar</dt>
+                                        <dd class="col-sm-7">
+                                            <span id="waktu_bongkar">${v.waktu_bongkar}</span> WIB
+                                        </dd>
+                            
+                                        <dt class="col-sm-5">Durasi Waktu Tiba-Selesai</dt>
+                                        <dd class="col-sm-7" id="waktu_selesai">${v.waktu_selesai}</dd>
+                            
+                                        <dt class="col-sm-5 text-truncate">Berat Kotor DO</dt>
+                                        <dd class="col-sm-7"><span id="jumlah_do">${v.jumlah_ayam_do}</span> ekor/<span id="berat_do">${v.berat_do}</span>kg</dd>
+                                        <dt class="col-sm-5">Mati</dt>
+                                        <dd class="col-sm-7"><span id="jumlah_mati">${v.berat_mati}</span> ekor/<span id="berat_mati">${v.jumlah_mati}</span>kg</dd>
+                                        <dt class="col-sm-5">Keranjang</dt>
+                                        <dd class="col-sm-7"><span id="keranjang">${v.berat_keranjang}</span> kg</dd>
+                                        <dt class="col-sm-5">Ayam Kembali</dt>
+                                        <dd class="col-sm-7"><span id="jumlah_ditolak">${v.jumlah_ditolak}</span> ekor/<span id="berat_ditolak">${v.berat_ditolak}</span>kg
+                                        </dd>
+                                        <dt class="col-sm-5">Timbang Ulang LB RPA</dt>
+                                        <dd class="col-sm-7"><span id="jumlah_ditolak">${v.berat_timbangan}</span> ekor/<span id="berat_ditolak">${v.berat_timbangan}</span>kg
+                                        </dd>
+                                        <dt class="col-sm-5">Berat Rata-rata</dt>
+                                        <dd class="col-sm-7"><span id="berat_ratarata"></span>${v.berat_ratarata} Kg</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        `
+                        $('#show-detail').append(content);
+
+                    });
+                }
+            });
         });
         $("#unloading").on('click', ' .btn-edit', (e) => {
             const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
@@ -315,18 +326,7 @@
                 type: "get",
                 url: url,
                 success: function (data) {
-                    $("#waktu_datang").val(data.waktu_datang);
-                    $("#waktu_bongkar").val(data.waktu_bongkar);
-                    $("#berat_do").val(data.berat_do);
-                    $("#jumlah_ayam_do").val(data.jumlah_ayam_do);
-                    $("#berat_timbangan").val(data.berat_timbangan);
-                    $("#jumlah_diterima").val(data.jumlah_diterima);
-                    $("#berat_mati").val(data.berat_mati);
-                    $("#jumlah_mati").val(data.jumlah_mati);
-                    $("#berat_ditolak").val(data.berat_ditolak);
-                    $("#jumlah_ditolak").val(data.jumlah_ditolak);
-                    $("#berat_keranjang").val(data.berat_keranjang);
-                    $("#berat_ratarata").val(data.berat_ratarata);
+                    console.log(data);
                 }
             });
             
