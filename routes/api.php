@@ -31,4 +31,6 @@ Route::name('api.')->group(function () {
     Route::apiResource('customer', CustomerController::class);
     Route::apiResource('proses', ProsesController::class);
     Route::apiResource('kendaraan', KendaraanController::class);
+
+    Route::get('/get-unloading', [ProsesController::class, 'getUnloading'])->name('getUnloading');
 });

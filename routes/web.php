@@ -40,9 +40,10 @@ Route::middleware('auth')->group(function () {
     /** Proses - produksi */
     // Route::view('proses-produksi', 'pages.produksi.index')->name('produksi');
     Route::view('hasil-produksi', 'pages.proses.index')->name('produksi');
-    Route::get('/get-unloading', [ProsesController::class, 'getUnloading'])->name('getUnloading');
 
     Route::view('kendaraan', 'pages.kendaraan.index')->name('kendaraan');
+
+    Route::view('pengiriman', 'pages.pengiriman.index')->name('pengiriman');
 });
 
 require __DIR__ . '/auth.php';

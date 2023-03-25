@@ -5,6 +5,7 @@ namespace App\View\Components;
 use App\Models\Customer;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
 
 class CustomerComponent extends Component
@@ -22,7 +23,16 @@ class CustomerComponent extends Component
      */
     public function render(): View|Closure|string
     {
-        $customers = Customer::all();
+        if (request()->path() == "hasil-produksi") {
+            $customers = DB::table('customer')
+                ->join('unloading', 'customer.id', '=', 'unloading.customer_id')
+                ->select('customer.*')
+                ->distinct()
+                ->get();
+        } else {
+            $customers = Customer::all();
+        }
+
         return view('components.customer-component', compact('customers'));
     }
 }
