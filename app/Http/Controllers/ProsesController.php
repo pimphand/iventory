@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProsesRequest;
+use App\Models\Customer;
 use App\Models\Proses;
 use App\Models\Unloading;
 use Illuminate\Http\Request;
@@ -44,8 +45,9 @@ class ProsesController extends Controller
         foreach ($records as $i => $record) {
             $index = $i + 1;
             $id = $record->id;
-            $customer_id = $record->customer_id;
+            $customer_id = $record->customer->nama;
             $unloading_id = $record->unloading_id;
+            // $unloading_id = $record->unloading->tanggal_bongkar;
             $waktu_mulai = $record->waktu_mulai;
             $waktu_selesai = $record->waktu_selesai;
             $tipe_produk = $record->tipe_produk;
@@ -84,6 +86,7 @@ class ProsesController extends Controller
      */
     public function store(ProsesRequest $request)
     {
+        // dd($request->all());
         $proses = Proses::create($request->validated());
         if (!$proses) {
             return response([
@@ -95,15 +98,15 @@ class ProsesController extends Controller
             "success" => true,
         ], 200);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $proses = Proses::findOrFail($id);
+        $customer = Customer::findOrFail($proses->customer_id);
+        $unloading = Unloading::findOrFail($proses->unloading_id);
+        $proses->nama = $customer->nama;
+        $proses->tanggal_bongkar = $customer->tanggal_bongkar;
+        return $proses;
     }
-
     /**
      * Update the specified resource in storage.
      */
@@ -142,7 +145,8 @@ class ProsesController extends Controller
     {
         if ($request->unloading_id) {
             $d = Unloading::findOrFail($request->unloading_id);
-            return response()->json($d->muatan);
+            return response()->json($d);
+            // return response()->json($d->muatan);
         }
 
         $unloading = Unloading::where('customer_id', $request->customer_id)->get();

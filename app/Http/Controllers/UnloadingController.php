@@ -81,6 +81,7 @@ class UnloadingController extends Controller
             $unloadingRequest = $request->bongkar;
             $unloadingRequest['customer_id'] = $request->customer_id;
             $unloadingRequest['tanggal_datang'] = now();
+            $unloadingRequest['tanggal_bongkar'] = $request->tanggal_bongkar; 
             $unloading = Unloading::create($unloadingRequest);
 
             $muatans = $request->muatan;
