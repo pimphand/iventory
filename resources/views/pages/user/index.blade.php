@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Pengiriman - RPU')
+@section('title', 'User - RPU')
 @include('vendor.datatable')
 @section('content')
     <!--app-content open-->
@@ -11,7 +11,7 @@
 
                 <!-- PAGE-HEADER -->
                 <div class="page-header">
-                    <h1 class="page-title">Pengiriman</h1>
+                    <h1 class="page-title">User</h1>
                     <div>
                         <ol class="breadcrumb">
 
@@ -25,7 +25,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Pengiriman</h3>
+                                <h3 class="card-title">User</h3>
                             </div>
                             <div class="card-body">
                                 <div>
@@ -33,16 +33,14 @@
                                         data-bs-toggle="modal" id="btn-tambah">Add Data</a>
                                 </div><br>
                                 <div class="table-responsive">
-                                    <table id="pengiriman" class="table table-bordered">
+                                    <table id="user" class="table table-bordered">
                                         <thead>
                                             <tr>
-                                                {{-- <th class="border-bottom-0">#</th> --}}
-                                                <th class="">Customer</th>
-
-                                                <th class="">waktu kirim</th>
-                                                <th class="">berat kirim</th>
-                                                <th class="">jumlah kirim</th>
-                                                <th class="">aksi</th>
+                                                <th class="">Nama</th>
+                                                <th class="">telepon</th>
+                                                <th class="">jabatan</th>
+                                                <th class="">email</th>
+                                                <th class="">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -68,50 +66,48 @@
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
-                                            <div class="form-group">
-                                                <x-customer-component></x-customer-component>
-                                            </div>
+                                            <label class="form-label">Nama</label>
+                                            <input type="text" class="form-control" id="name" placeholder="masukan nama"
+                                                name="name">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Tanggal Bongkar</label>
-                                            <select class="form-control select2-show-search form-select" id="unloading_id"
-                                                name="unloading_id" data-placeholder="- Pilih Tanggal Bongkar -">
-                                            </select>
+                                            <label class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" placeholder="masukkan email"
+                                                name="email">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">proses id</label>
-                                            <select class="form-control select2-show-search form-select" id="proses_id"
-                                                name="proses_id" data-placeholder="- Pilih grade | tipe -">
-                                            </select>
+                                            <label class="form-label">telepon</label>
+                                            <input type="text" class="form-control" id="telepon" placeholder="masukan telepon"
+                                                name="telepon">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">waktu kirim</label>
-                                            <input type="time" class="form-control" id="waktu_kirim" placeholder=""
-                                                name="waktu_kirim">
+                                            <label class="form-label">username</label>
+                                            <input type="text" class="form-control" id="username" placeholder="masukkan username"
+                                                name="username">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">berat kirim</label>
-                                            <input type="text" class="form-control" id="berat_kirim" placeholder=""
-                                                name="berat_kirim">
+                                            <label class="form-label">jabatan</label>
+                                            <input type="text" class="form-control" id="jabatan" placeholder="masukan jabatan"
+                                                name="jabatan">
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
-                                         <div class="form-group">
-                                            <label class="form-label">jumlah kirim</label>
-                                            <input type="text" class="form-control" id="jumlah_kirim" placeholder=""
-                                                name="jumlah_kirim">
+                                        <div class="form-group">
+                                            <label class="form-label">password</label>
+                                            <input type="password" class="form-control" id="password" placeholder="masukkan password"
+                                                name="password">
                                         </div>
                                     </div>
                                 </div>
@@ -143,48 +139,48 @@
 @endsection
 @section('js')
 <script>
-    $(document).ready(function() {
-            $('#customer_id').change(function() {
-                var customer_id = $(this).val();
-                $.ajax({
-                    url: '{{ route("api.getUnloading") }}',
-                    type: 'get',
-                    data: {
-                        customer_id: customer_id
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        var len = response.length;
-                        $("#unloading_id").empty();
-                        $("#unloading_id").append("<option value=''>Pilih tanggal bongkar</option>");
-                        for (var i = 0; i < len; i++) {
-                            var id = response[i]['id'];
-                            var tanggal_datang = response[i]['tanggal_datang'];
-                            $("#unloading_id").append("<option value='" + id + "'>" + tanggal_datang +
-                                "</option>");
-                        }
+    // $(document).ready(function() {
+    //         $('#customer_id').change(function() {
+    //             var customer_id = $(this).val();
+    //             $.ajax({
+    //                 url: '{{ route("api.getUnloading") }}',
+    //                 type: 'get',
+    //                 data: {
+    //                     customer_id: customer_id
+    //                 },
+    //                 dataType: 'json',
+    //                 success: function(response) {
+    //                     var len = response.length;
+    //                     $("#unloading_id").empty();
+    //                     $("#unloading_id").append("<option value=''>Pilih tanggal bongkar</option>");
+    //                     for (var i = 0; i < len; i++) {
+    //                         var id = response[i]['id'];
+    //                         var tanggal_datang = response[i]['tanggal_datang'];
+    //                         $("#unloading_id").append("<option value='" + id + "'>" + tanggal_datang +
+    //                             "</option>");
+    //                     }
 
-                    }
-                });
+    //                 }
+    //             });
 
-                 $.ajax({
-                    url:'{{route("api.getProses")}}',
-                    type:'get',
-                    data:{
-                        customer_id:customer_id
-                    },
-                    dataType: 'json',
-                    success:function(respone){
-                        let option_processid = $('#proses_id');
-                        let html = "<option value=''>Pilih grade | tipe</option>";
-                        for(let x in respone){
-                            html += "<option value='"+respone[x].id+"'>" + respone[x].grade + " | " + respone[x].tipe_produk +"</option>";
-                        }
-                        option_processid.html(html);
-                    }
-                });
-            });
-        });
+    //              $.ajax({
+    //                 url:'{{route("api.getProses")}}',
+    //                 type:'get',
+    //                 data:{
+    //                     customer_id:customer_id
+    //                 },
+    //                 dataType: 'json',
+    //                 success:function(respone){
+    //                     let option_processid = $('#proses_id');
+    //                     let html = "<option value=''>Pilih grade | tipe</option>";
+    //                     for(let x in respone){
+    //                         html += "<option value='"+respone[x].id+"'>" + respone[x].grade + " | " + respone[x].tipe_produk +"</option>";
+    //                     }
+    //                     option_processid.html(html);
+    //                 }
+    //             });
+    //         });
+    //     });
 
         // $(document).ready(function(){
         //     $('#customer_id').change(function(){
@@ -203,12 +199,11 @@
         // });
 </script>
 <script>
-    const table = new DataTable('pengiriman', "{{ route('api.pengiriman.index') }}", [
-        // { data: 'index' },
-        { data: 'customer_id' },
-        { data: 'waktu_kirim' },
-        { data: 'berat_kirim' },
-        { data: 'jumlah_kirim' },
+    const table = new DataTable('user', "{{ route('api.users.index') }}", [
+        { data: 'name' },
+        { data: 'telepon' },
+        { data: 'jabatan' },
+        { data: 'email' },
         {
             name: 'id',
             data: 'id',
@@ -231,19 +226,19 @@
                     title: `Edit Data`,
                 })
 
-                const button_delete = $('<button>', {
-                    html: $('<i>', {
-                        class: 'fa fa-trash'
-                    }).prop('outerHTML'),
-                    class: 'btn btn-danger btn-delete',
-                    'data-data': id,
-                    title: `Hapus Data`,
-                })
+                // const button_delete = $('<button>', {
+                //     html: $('<i>', {
+                //         class: 'fa fa-trash'
+                //     }).prop('outerHTML'),
+                //     class: 'btn btn-danger btn-delete',
+                //     'data-data': id,
+                //     title: `Hapus Data`,
+                // })
 
                 const button_group = $('<div>', {
                     class: 'btn-group btn-group-sm',
                     role: 'group',
-                    html: [button_detail,button_edit,button_delete]
+                    html: [button_detail,button_edit]
                 })
                 return button_group.prop('outerHTML')
             }
@@ -251,43 +246,39 @@
     ]);
 
     table.init();
-    $("#pengiriman").on('click', ' .btn-detail', (e) => {
+    $("#user").on('click', ' .btn-detail', (e) => {
             const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
-            let url = "{{ route('api.pengiriman.show', ':id') }}".replace(':id', id);
+            let url = "{{ route('api.users.show', ':id') }}".replace(':id', id);
              $.ajax({
                 type: "get",
                 url: url,
                 success: function (data) {
                     $('#modal-detail').modal('show');
                     $('#show-detail').html('');
-                    $('#customer').text(data.nama)
+                    $('#customer').text(data.name)
                     let content =`
-                        <div class="col-6 mt-2 mb-2">
+                        <div class="col-8 mt-2 mb-2">
                                 <div class="example">
                                     <dl class="row">
-                                        <dt class="col-sm-5">tanggal bongkar</dt>
+                                        <dt class="col-sm-5">Nama</dt>
                                         <dd class="col-sm-7">
-                                            <span id="">${data.tanggal_bongkar}</span>
+                                            <span id="">${data.name}</span>
                                         </dd>
-                                        <dt class="col-sm-5">grade | tipe produk</dt>
+                                        <dt class="col-sm-5">email</dt>
                                         <dd class="col-sm-7">
-                                            <span id="">${data.grade} | ${data.tipe_produk}</span>
+                                            <span id="">${data.email}</span>
                                         </dd>
-                                        <dt class="col-sm-5">waktu kirim</dt>
+                                        <dt class="col-sm-5">username</dt>
                                         <dd class="col-sm-7">
-                                            <span id="">${data.waktu_kirim} WIB</span>
+                                            <span id="">${data.username}</span>
                                         </dd>
-                                        <dt class="col-sm-5">waktu mulai</dt>
+                                        <dt class="col-sm-5">role id</dt>
                                         <dd class="col-sm-7">
-                                            <span id="">${data.waktu_mulai} WIB</span>
+                                            <span id="">${data.role_id}</span>
                                         </dd>
-                                        <dt class="col-sm-5">berat kirim</dt>
+                                        <dt class="col-sm-5">jabatan</dt>
                                         <dd class="col-sm-7">
-                                            <span id="">${data.berat_kirim} Kg</span>
-                                        </dd>
-                                        <dt class="col-sm-5">jumlah kirim</dt>
-                                        <dd class="col-sm-7">
-                                            <span id="">${data.jumlah_kirim} Kg</span>
+                                            <span id="">${data.jabatan}</span>
                                         </dd>
                                     </dl>
                                 </div>
@@ -297,9 +288,9 @@
                 }
             });
     })
-    $("#pengiriman").on('click',' .btn-edit', (e) => {
+    $("#user").on('click',' .btn-edit', (e) => {
         const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
-        let url = "{{ route('api.pengiriman.update',':id') }}".replace(':id', id);
+        let url = "{{ route('api.users.update',':id') }}".replace(':id', id);
 
         // ganti url
         $("form").attr('action', url);
@@ -308,13 +299,13 @@
         $('#modal-form').modal('show');
         $('.modal-title').text('Edit Data');
     });
-    $("#pengiriman").on('click', ' .btn-delete', (e) => {
-        const id = $(e.currentTarget).data("data");
-        let url = "{{ route('api.pengiriman.destroy', ':id') }}".replace(':id', id);
-        table.delete(url);
-    });
+    // $("#pengiriman").on('click', ' .btn-delete', (e) => {
+    //     const id = $(e.currentTarget).data("data");
+    //     let url = "{{ route('api.pengiriman.destroy', ':id') }}".replace(':id', id);
+    //     table.delete(url);
+    // });
     $("#btn-tambah").on('click', (e) => {
-        let url = "{{ route('api.pengiriman.store') }}";
+        let url = "{{ route('api.users.store') }}";
         $("form")[0].reset();
         // ganti url
         $("form").attr('action', url);
@@ -328,7 +319,7 @@
         e.preventDefault();
         let data = $('form').serialize()
         let url = $("form").attr('action');
-
+        console.log(e);
         let type = $('#modal-form .modal-title').text();
         if (type == "Tambah Data") {
             table.create(data, url);

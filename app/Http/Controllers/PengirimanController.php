@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Pengiriman;
+use App\Models\Proses;
 use App\Http\Requests\PengirimanRequest;
 
 class PengirimanController extends Controller
@@ -48,8 +50,6 @@ class PengirimanController extends Controller
         //     $index = $i + 1;
             $id = $record->id;
             $customer_id = $record->customer->nama;
-            $unloading_id = $record->unloading_id;
-            $proses_id = $record->proses_id;
             $waktu_kirim = $record->waktu_kirim;
             $berat_kirim = $record->berat_kirim;
             $jumlah_kirim = $record->jumlah_kirim;
@@ -64,8 +64,6 @@ class PengirimanController extends Controller
                 // "index" => $index,
                 "id" => $id,
                 "customer_id" => $customer_id,
-                "unloading_id" => $unloading_id,
-                "proses_id" => $proses_id,
                 "waktu_kirim" => $waktu_kirim,
                 "berat_kirim" => $berat_kirim,
                 "jumlah_kirim" => $jumlah_kirim
@@ -96,9 +94,16 @@ class PengirimanController extends Controller
         ], 200);
     }
 
-     public function show(Pengiriman $pengiriman)
+     public function show($id)
     {
-        //
+        $pengiriman = DB::table('pengiriman')
+                        // ->select('pengiriman.id','unloading.id','proses.id',"unloading.tanggal_bongkar")
+                        ->leftJoin('customer', 'pengiriman.customer_id', '=', 'customer.id')
+                        ->leftJoin('unloading', 'pengiriman.unloading_id', '=', 'unloading.id')
+                        ->leftJoin('proses', 'pengiriman.proses_id', '=', 'proses.id')
+                        ->where('pengiriman.id','=',$id)
+                        ->first();
+        return response()->json($pengiriman);
     }
 
     public function update(PengirimanRequest $request, Pengiriman $pengiriman)
@@ -129,5 +134,13 @@ class PengirimanController extends Controller
             ], 400);
         }
     }
+
+    public function getProses(Request $request)
+    {
+        $proses = Proses::where('customer_id', $request->customer_id)->get();
+        return response()->json($proses);
+    }
+
+
 
 }

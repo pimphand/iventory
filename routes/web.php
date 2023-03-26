@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // page user
-    Route::view('users', 'pages.user');
+    Route::view('users', 'pages.user.index')->name('users');
     /** Customer */
     Route::view('pelanggan', 'pages.customer.index')->name('customer');
     /** Bongkar Muat /Unloading */

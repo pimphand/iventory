@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\user;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -43,10 +44,16 @@ class UserController extends Controller
         foreach ($records as $record) {
             $id = $record->id;
             $nip = $record->name;
+            $telepon = $record->telepon;
+            $jabatan = $record->jabatan;
+            $email = $record->email;
 
             $data_arr[] = array(
                 "id" => $id,
                 "name" => $nip,
+                "telepon" => $telepon,
+                "jabatan" => $jabatan,
+                "email" => $email,
             );
         }
 
@@ -66,7 +73,17 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        User::create($request->validate());
+        // User::create($request->validate());
+        // $request->validate();
+         $user = User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'telepon' => $request->telepon,
+            'role_id' =>'admin',
+            'jabatan' => $request->jabatan,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
         return response([
             'success' => true,
@@ -76,17 +93,27 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(user $user)
+    public function show($id)
     {
-        //
+       $user =  User::where('id',$id)->first();
+        return response()->json($user);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, user $user)
+    public function update(UserRequest $request, user $user)
     {
-        //
+        $user->update($request->validated());
+        if (!$user) {
+            return response([
+                "success" => false,
+            ], 400);
+        }
+
+        return response([
+            "success" => true,
+        ], 200);
     }
 
     /**

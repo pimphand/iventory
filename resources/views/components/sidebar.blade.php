@@ -80,7 +80,7 @@
                     <h3>USER ACCOUNT</h3>
                 </li>
                 <li>
-                    <a class="side-menu__item has-link" href="landing-page.html"><i
+                    <a class="side-menu__item has-link" href="{{ route('users') }}"><i
                             class="side-menu__icon fe fe-user"></i><span class="side-menu__label">User</span></a>
                 </li>
             </ul>
