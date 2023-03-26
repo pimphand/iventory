@@ -18,12 +18,12 @@ class Pengiriman extends Model
 
     public function unloading()
     {
-        return $this->hasOne(Customer::class,  'id', 'unloading_id');
+        return $this->hasOne(Unloading::class,  'id', 'unloading_id');
     }
 
     public function proses()
     {
-        return $this->hasOne(Customer::class,  'id', 'proses_id');
+        return $this->hasOne(Proses::class,  'id', 'proses_id');
     }
 
 }

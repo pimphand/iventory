@@ -37,5 +37,5 @@ Route::name('api.')->group(function () {
     Route::apiResource('pengiriman', PengirimanController::class);
 
     Route::get('/get-unloading', [ProsesController::class, 'getUnloading'])->name('getUnloading');
-    Route::get('/get-proses', [SampinganController::class, 'getProses'])->name('getProses');
+    Route::get('/get-proses', [PengirimanController::class, 'getProses'])->name('getProses');
 });
