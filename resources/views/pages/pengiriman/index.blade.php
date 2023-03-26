@@ -38,8 +38,7 @@
                                             <tr>
                                                 {{-- <th class="border-bottom-0">#</th> --}}
                                                 <th class="">Customer</th>
-                                                <th class="">unloading</th>
-                                                <th class="">prosess</th>
+
                                                 <th class="">waktu kirim</th>
                                                 <th class="">berat kirim</th>
                                                 <th class="">jumlah kirim</th>
@@ -76,9 +75,10 @@
                                     </div>
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">unloading id</label>
-                                            <input type="text" class="form-control" id="text" placeholder=""
-                                                name="unloading_id">
+                                            <label class="form-label">Tanggal Bongkar</label>
+                                            <select class="form-control select2-show-search form-select" id="unloading_id"
+                                                name="unloading_id" data-placeholder="- Pilih Tanggal Bongkar -">
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +86,9 @@
                                     <div class="col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <label class="form-label">proses id</label>
-                                            <input type="text" class="form-control" id="proses_id" placeholder=""
-                                                name="proses_id">
+                                            <select class="form-control select2-show-search form-select" id="proses_id"
+                                                name="proses_id" data-placeholder="- Pilih grade | tipe -">
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
@@ -123,14 +124,88 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="modal-detail">
+                <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                    <div class="modal-content modal-content-demo">
+                        <div class="modal-header">
+                            <h5 class="modal-1">
+                                <strong id="customer">PT. GLOBAL FARMINDO LESTARI</strong><br><br>
+                                {{-- <strong id="tanggal_pengiriman" class="mt-2">SABTU,10 DESEMBER 2022</strong> --}}
+                            </h5>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="row" id="show-detail"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 @endsection
 @section('js')
+<script>
+    $(document).ready(function() {
+            $('#customer_id').change(function() {
+                var customer_id = $(this).val();
+                $.ajax({
+                    url: '{{ route("api.getUnloading") }}',
+                    type: 'get',
+                    data: {
+                        customer_id: customer_id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        var len = response.length;
+                        $("#unloading_id").empty();
+                        $("#unloading_id").append("<option value=''>Pilih tanggal bongkar</option>");
+                        for (var i = 0; i < len; i++) {
+                            var id = response[i]['id'];
+                            var tanggal_datang = response[i]['tanggal_datang'];
+                            $("#unloading_id").append("<option value='" + id + "'>" + tanggal_datang +
+                                "</option>");
+                        }
+
+                    }
+                });
+
+                 $.ajax({
+                    url:'{{route("api.getProses")}}',
+                    type:'get',
+                    data:{
+                        customer_id:customer_id
+                    },
+                    dataType: 'json',
+                    success:function(respone){
+                        let option_processid = $('#proses_id');
+                        let html = "<option value=''>Pilih grade | tipe</option>";
+                        for(let x in respone){
+                            html += "<option value='"+respone[x].id+"'>" + respone[x].grade + " | " + respone[x].tipe_produk +"</option>";
+                        }
+                        option_processid.html(html);
+                    }
+                });
+            });
+        });
+
+        // $(document).ready(function(){
+        //     $('#customer_id').change(function(){
+        //         $.ajax({
+        //             url:"{{route('api.getProses')}}",
+        //             type:'get',
+        //             data:{
+        //                 customer_id:customer_id
+        //             },
+        //             dataType: 'json',
+        //             success:function(response){
+        //                 console.log(response);
+        //             }
+        //         });
+        //     });
+        // });
+</script>
 <script>
     const table = new DataTable('pengiriman', "{{ route('api.pengiriman.index') }}", [
         // { data: 'index' },
         { data: 'customer_id' },
-        { data: 'unloading_id' },
-        { data: 'proses_id' },
         { data: 'waktu_kirim' },
         { data: 'berat_kirim' },
         { data: 'jumlah_kirim' },
@@ -138,6 +213,14 @@
             name: 'id',
             data: 'id',
             render: (id, type, row, meta) => {
+                const button_detail = $('<button>', {
+                    html: $('<i>', {
+                        class: 'fa fa-info-circle'
+                    }).prop('outerHTML'),
+                    class: 'btn btn-warning btn-detail',
+                    'data-id': id,
+                    title: `Detail Data`,
+                })
 
                 const button_edit = $('<button>', {
                     html: $('<i>', {
@@ -160,7 +243,7 @@
                 const button_group = $('<div>', {
                     class: 'btn-group btn-group-sm',
                     role: 'group',
-                    html: [button_edit,button_delete]
+                    html: [button_detail,button_edit,button_delete]
                 })
                 return button_group.prop('outerHTML')
             }
@@ -168,7 +251,52 @@
     ]);
 
     table.init();
-
+    $("#pengiriman").on('click', ' .btn-detail', (e) => {
+            const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
+            let url = "{{ route('api.pengiriman.show', ':id') }}".replace(':id', id);
+             $.ajax({
+                type: "get",
+                url: url,
+                success: function (data) {
+                    $('#modal-detail').modal('show');
+                    $('#show-detail').html('');
+                    $('#customer').text(data.nama)
+                    let content =`
+                        <div class="col-6 mt-2 mb-2">
+                                <div class="example">
+                                    <dl class="row">
+                                        <dt class="col-sm-5">tanggal bongkar</dt>
+                                        <dd class="col-sm-7">
+                                            <span id="">${data.tanggal_bongkar}</span>
+                                        </dd>
+                                        <dt class="col-sm-5">grade | tipe produk</dt>
+                                        <dd class="col-sm-7">
+                                            <span id="">${data.grade} | ${data.tipe_produk}</span>
+                                        </dd>
+                                        <dt class="col-sm-5">waktu kirim</dt>
+                                        <dd class="col-sm-7">
+                                            <span id="">${data.waktu_kirim} WIB</span>
+                                        </dd>
+                                        <dt class="col-sm-5">waktu mulai</dt>
+                                        <dd class="col-sm-7">
+                                            <span id="">${data.waktu_mulai} WIB</span>
+                                        </dd>
+                                        <dt class="col-sm-5">berat kirim</dt>
+                                        <dd class="col-sm-7">
+                                            <span id="">${data.berat_kirim} Kg</span>
+                                        </dd>
+                                        <dt class="col-sm-5">jumlah kirim</dt>
+                                        <dd class="col-sm-7">
+                                            <span id="">${data.jumlah_kirim} Kg</span>
+                                        </dd>
+                                    </dl>
+                                </div>
+                        </div>
+                    `;
+                    $('#show-detail').html(content);
+                }
+            });
+    })
     $("#pengiriman").on('click',' .btn-edit', (e) => {
         const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
         let url = "{{ route('api.pengiriman.update',':id') }}".replace(':id', id);
