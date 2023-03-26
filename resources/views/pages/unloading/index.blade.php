@@ -50,7 +50,7 @@
 
 <!-- MODAL ADD DATA -->
 <div class="modal fade" id="modal-form">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
                 <h6 class="modal-title"><strong>Add Data</strong></h6><button aria-label="Close" class="btn-close"
@@ -72,11 +72,10 @@
                             </div>
                         </div>
                     </div>
+                    <div id="update"></div>
                     <div id="muatan">
                         <label class="form-label" id="kendaraan"><strong>Data Kendaraan</strong></label>
                         <div class="row">
-                            <div id="error-message"></div>
-
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Waktu Datang</label>
@@ -252,7 +251,7 @@
                     return button_group.prop('outerHTML')
                 }
             },
-        ]);
+    ]);
 
         table.init();
      
@@ -315,6 +314,7 @@
                 }
             });
         });
+
         $("#unloading").on('click', ' .btn-edit', (e) => {
             const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
             let url = "{{ route('api.unloading.update', ':id') }}".replace(':id', id);
@@ -326,12 +326,118 @@
                 type: "get",
                 url: url,
                 success: function (data) {
-                    console.log(data);
+                    $('#customer_id').val(data.customer_id).trigger('change');
+                    $('#tanggal_bongkar').val(data.tanggal_datang);
+                    $('#update').html('');
+
+                    $.each(data.muatan, function (i, v) { 
+                        let content = `
+                        <div>
+                            <label class="form-label" id="kendaraan"><strong>Data Kendaraan ${v.kendaraan}</strong></label>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Waktu Datang</label>
+                                        <input type="time" class="form-control" id="update.${i}.waktu_datang" placeholder="Waktu Datang"
+                                            name="update[${i}][waktu_datang]" value="${v.waktu_datang}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Waktu Bongkar</label>
+                                        <input type="time" class="form-control" id="update.${i}.waktu_bongkar" placeholder="Waktu Bongkar"
+                                            name="update[${i}][waktu_bongkar]" value="${v.waktu_bongkar}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Jumlah Ayam Delivery Order</label>
+                                        <input type="number" class="form-control" id="update.${i}.jumlah_ayam_do"
+                                            placeholder="Masukkan Jumlah Ayam DO" name="update[${i}][jumlah_ayam_do]" value="${v.jumlah_ayam_do}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Berat Delivery Order</label>
+                                        <input type="number" class="form-control" id="update.${i}.berat_do" placeholder="Masukkan Berat DO"
+                                            name="update[${i}][berat_do]" value="${v.berat_do}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Berat Mati</label>
+                                        <input type="number" class="form-control" id="update.${i}.berat_mati" placeholder="Masukkan Berat Mati"
+                                            name="update[${i}][berat_mati]" value="${v.berat_mati}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Jumlah Mati</label>
+                                        <input type="number" class="form-control" id="update.${i}.jumlah_mati" placeholder="Masukkan Jumlah Mati"
+                                            name="update[${i}][jumlah_mati]" value="${v.jumlah_mati}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Berat Ditolak</label>
+                                        <input type="number" class="form-control" id="update.${i}.berat_ditolak"
+                                            placeholder="Masukkan Berat Ditolak" name="update[${i}][berat_ditolak]" value="${v.berat_ditolak}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Jumlah Ditolak</label>
+                                        <input type="number" class="form-control" id="update.${i}.jumlah_ditolak"
+                                            placeholder="Masukkan Jumlah Ditolak" name="update[${i}][jumlah_ditolak]" value="${v.jumlah_ditolak}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Berat Keranjang</label>
+                                        <input type="number" class="form-control" id="update.${i}.berat_keranjang"
+                                            placeholder="Masukkan Berat Keranjang" name="update[${i}][berat_keranjang]" value="${v.berat_keranjang}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Berat Rata-rata</label>
+                                        <input type="number" class="form-control" id="update.${i}.berat_ratarata"
+                                            placeholder="Masukkan Berat Rata-rata" name="update[${i}][berat_ratarata]" value="${v.berat_ratarata}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Berat Timbangan</label>
+                                        <input type="number" class="form-control" id="update.${i}.berat_timbangan"
+                                            placeholder="Masukkan Berat Timbangan" name="update[${i}][berat_timbangan]" value="${v.berat_timbangan}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label">Jumlah Diterima</label>
+                                        <input type="number" class="form-control" id="update.${i}.jumlah_diterima"
+                                            placeholder="Masukkan Jumlah Diterima" name="update[${i}][jumlah_diterima]" value="${v.jumlah_diterima}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        `
+
+                        $('#update').append(content);                    
+                    });
+
+                    $('#modal-form').modal('show');
+                    $('.modal-title').text('Edit Data');
                 }
             });
-            
-            $('#modal-form').modal('show');
-            $('.modal-title').text('Edit Data')
         });
 
         $("#btn-tambah").on('click', (e) => {

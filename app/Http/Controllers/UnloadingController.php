@@ -110,11 +110,28 @@ class UnloadingController extends Controller
      */
     public function update(UnloadingRequest $request, Unloading $unloading)
     {
-        $unloading->update($request->validated());
+        return DB::transaction(function () use ($request, $unloading) {
+            $muatansUpdate = $request->update;
+            if (!empty($request->muatan['waktu_bongkar'])) {
+                $muatans = $request->muatan;
+                foreach ($muatans as $muatan) {
+                    $waktu_selesai = self::duration($muatan['waktu_bongkar'], $muatan['waktu_datang']);
+                    $muatan['waktu_selesai'] = $waktu_selesai;
+                    $muatan['kendaraan'] = $unloading->muatan->count() + 1;
+                    $unloading->muatan()->create($muatan);
+                }
+            }
 
-        return response([
-            "success" => true,
-        ], 200);
+            foreach ($muatansUpdate as $update) {
+                $waktu_selesai = self::duration($update['waktu_bongkar'], $update['waktu_datang']);
+                $update['waktu_selesai'] = $waktu_selesai;
+                $unloading->muatan()->update($update);
+            }
+
+            return response([
+                "success" => true,
+            ], 200);
+        });
     }
 
     /**

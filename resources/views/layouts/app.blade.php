@@ -191,6 +191,15 @@
                         },
                         error: (xhr, status, error) => {
                             toast('Telah terjadi kesalahan','error','Update data')
+                            $('.is-invalid').removeClass('is-invalid');
+                            // menghapus elemen <span> dengan class 'error'
+                            $('.error').remove();
+                            $.each(xhr.responseJSON.errors, function (key, value) {
+                                let escapedKey = key.replace(/\./g, '\\.');
+                                let inputan = $(`input#${escapedKey}`);
+                                inputan.addClass("is-invalid");
+                                inputan.parent().append("<span class='error text-danger'>" + value[0] + "</span>");
+                            });
                         }
                     });
                 }
