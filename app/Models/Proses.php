@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Proses extends Model
 {
@@ -17,7 +18,10 @@ class Proses extends Model
     {
         return $this->belongsTo(Customer::class);
     }
-
+    public function sampingan(): HasMany
+    {
+        return $this->hasMany(Sampingan::class);
+    }
     public function getWaktuSelesaiAttribute($value)
     {
         return Carbon::parse($value)->format('H:i');

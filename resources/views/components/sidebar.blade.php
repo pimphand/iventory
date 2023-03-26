@@ -53,7 +53,7 @@
                                     <div class="tab-pane active" id="side9">
                                         <ul class="sidemenu-list">
                                             <li><a href="{{ route('produksi') }}" class="slide-item">Hasil Produksi</a></li>
-                                            <li><a href="editprofile.html" class="slide-item">Sampingan</a></li>
+                                            <li><a href="{{ route('sampingan') }}" class="slide-item">Sampingan</a></li>
                                         </ul>
                                     </div>
                                 </div>

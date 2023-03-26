@@ -7,6 +7,7 @@ use App\Http\Controllers\ProsesController;
 use App\Http\Controllers\UnloadingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PengirimanController;
+use App\Http\Controllers\SampinganController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -31,8 +32,10 @@ Route::name('api.')->group(function () {
     Route::apiResource('unloading', UnloadingController::class);
     Route::apiResource('customer', CustomerController::class);
     Route::apiResource('proses', ProsesController::class);
+    Route::apiResource('sampingan', SampinganController::class);
     Route::apiResource('kendaraan', KendaraanController::class);
     Route::apiResource('pengiriman', PengirimanController::class);
 
     Route::get('/get-unloading', [ProsesController::class, 'getUnloading'])->name('getUnloading');
+    Route::get('/get-proses', [SampinganController::class, 'getProses'])->name('getProses');
 });

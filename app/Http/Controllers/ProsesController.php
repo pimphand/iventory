@@ -81,9 +81,6 @@ class ProsesController extends Controller
         return $response;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ProsesRequest $request)
     {
         // dd($request->all());
@@ -107,9 +104,7 @@ class ProsesController extends Controller
         $proses->tanggal_bongkar = $customer->tanggal_bongkar;
         return $proses;
     }
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(ProsesRequest $request, Proses $proses)
     {
         $proses->update($request->validated());
@@ -124,9 +119,6 @@ class ProsesController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Proses $proses)
     {
         $proses->delete();
