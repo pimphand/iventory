@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'pengiriman - RPU')
+@section('title', 'Pengiriman - RPU')
 @include('vendor.datatable')
 @section('content')
     <!--app-content open-->
