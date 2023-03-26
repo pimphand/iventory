@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Proses - RPU')
 @include('vendor.datatable')
+@include('vendor.select2')
 @section('content')
     <!--app-content open-->
     <div class="main-content app-content mt-0">

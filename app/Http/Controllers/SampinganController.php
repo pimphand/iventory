@@ -112,12 +112,12 @@ class SampinganController extends Controller
     }
     public function show($id)
     {
-        $sampingan = Sampingan::findOrFail($id);
-        $customer = Customer::findOrFail($sampingan->customer_id);
-        $unloading = Unloading::findOrFail($sampingan->unloading_id);
-        $proses = Proses::findOrFail($sampingan->proses_id);
-        $sampingan->nama = $customer->nama;
-        $sampingan->tanggal_bongkar = $customer->tanggal_bongkar;
+        $sampingan = Sampingan::findOrFail($id)
+            ->join('customer', 'sampingan.customer_id', '=', 'customer.id')
+            ->join('unloading', 'sampingan.unloading_id', '=', 'unloading.id')
+            ->join('proses', 'sampingan.proses_id', '=', 'proses.id')
+            ->select('sampingan.*', 'customer.nama', 'unloading.tanggal_bongkar', 'proses.tipe_produk')
+            ->firstOrFail();
         return $sampingan;
     }
 

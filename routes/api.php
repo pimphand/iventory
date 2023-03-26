@@ -31,6 +31,7 @@ Route::name('api.')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('unloading', UnloadingController::class);
     Route::apiResource('customer', CustomerController::class);
+    
     Route::apiResource('proses', ProsesController::class);
     Route::apiResource('sampingan', SampinganController::class);
     Route::apiResource('kendaraan', KendaraanController::class);

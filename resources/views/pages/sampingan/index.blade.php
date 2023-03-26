@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Sampingan - RPU')
 @include('vendor.datatable')
+@include('vendor.select2')
 @section('content')
     <!--app-content open-->
     <div class="main-content app-content mt-0">
@@ -108,7 +109,7 @@
                                     <label class="form-label">Tipe Produk(?)</label>
                                     <select class="form-control select2-show-search form-select" id="proses_id"
                                         data-minimum-input-length="0" name="proses_id"
-                                        data-placeholder="- Pilih Tanggal Bongkar -">
+                                        data-placeholder="- Pilih Tipe Produk -">
                                     </select>
                                 </div>
                             </div>
@@ -278,8 +279,7 @@
                     success: function(response) {
                         var len = response.length;
                         $("#proses_id").empty();
-                        $("#proses_id").append("<option value='" + id +
-                            "'>Pilih Tipe Produk</option>");
+                        // $("#proses_id").append("<option value='" + id + "'>" + tipe_produk + "</option>");
                         for (var i = 0; i < len; i++) {
                             var id = response[i]['id'];
                             var tipe_produk = response[i]['tipe_produk'];
@@ -366,39 +366,43 @@
             let url = "{{ route('api.sampingan.destroy', ':id') }}".replace(':id', id);
             table.delete(url);
         });
-        // $("#sampingan").on('click', ' .btn-detail', (e) => {
-        //     const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
-        //     let url = "{{ route('api.sampingan.show', ':id') }}".replace(':id', id);
-        //     $.ajax({
-        //         type: "get",
-        //         url: url,
-        //         success: function(data) {
-        //             $('#modal-detail').modal('show');
-        //             $('#show-detail').html('');
-        //             $('#show-detail').append(`
-        //                 <div class="col-md-6">
-        //                 <p>Nama Customer: ${data.nama}</p>
-        //                 <p>Tanggal Bongkar: ${data.tanggal_bongkar}</p>
-        //                 <p>Waktu Mulai: ${data.waktu_mulai}</p>
-        //                 <p>Waktu Selesai: ${data.waktu_selesai}</p>
-        //                 <p>Berat Produk: ${data.berat_produk}</p>
-        //                 </div>
-        //                 <div class="col-md-6">
-        //                 <p>Tipe Produk: ${data.tipe_produk}</p>
-        //                 <p>Grade: ${data.grade}</p>
-        //                 <p>Berat Produk: ${data.berat_produk}</p>
-        //                 <p>Jumlah Produk: ${data.jumlah_produk}</p>
-        //                 <p>Randemen: ${data.randemen}</p>
-        //                 <p>Berat Gagal: ${data.berat_gagal}</p>
-        //                 <p>Jumlah Gagal: ${data.jumlah_gagal}</p>
-        //                 </div>
-        //             `);
-        //         },
-        //         error: function(jqXHR, textStatus, errorThrown) {
-        //             console.log(textStatus, errorThrown);
-        //         }
-        //     });
-        // });
+        $("#sampingan").on('click', ' .btn-detail', (e) => {
+            const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
+            let url = "{{ route('api.sampingan.show', ':id') }}".replace(':id', id);
+            $.ajax({
+                type: "get",
+                url: url,
+                success: function(data) {
+                    $('#modal-detail').modal('show');
+                    $('#show-detail').html('');
+                    $('#show-detail').append(`
+                        <div class="col-md-6">
+                            <p>Nama Customer: ${data.nama}</p>
+                            <p>Tanggal Bongkar: ${data.tanggal_bongkar}</p>
+                            <p>Tipe Produk: ${data.tipe_produk}</p>
+                            <p>Grade: ${data.grade}</p>
+                            <p>Berat Kepala Leher: ${data.berat_kepala_leher}</p>
+                            <p>Prosentase Kepala Leher: ${data.prosentase_kepala_leher}</p>
+                            <p>Berat Kepala Tanpa Leher: ${data.berat_kepala_tanpa_leher}</p>
+                            <p>Prosentase Kepala Tanpa Leher: ${data.prosentase_kepala_tanpa_leher}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Berat Usus: ${data.berat_usus}</p>
+                            <p>Prosentase Usus: ${data.prosentase_usus}</p>
+                            <p>Berat HJA: ${data.berat_hja}</p>
+                            <p>Prosentase HJA: ${data.prosentase_hja}</p>
+                            <p>Berat Ceker: ${data.berat_ceker}</p>
+                            <p>Prosentase Ceker: ${data.prosentase_ceker}</p>
+                            <p>Berat Tembolok: ${data.berat_tembolok}</p>
+                            <p>Prosentase Tembolok: ${data.prosentase_tembolok}</p>
+                        </div>
+                    `);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
         // $("#sampingan").on('click', ' .btn-edit', (e) => {
         //     const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
         //     let url = "{{ route('api.sampingan.update', ':id') }}".replace(':id', id);
@@ -445,16 +449,16 @@
         //         }
         //     });
         // });
-        // $("#btn-tambah").on('click', (e) => {
-        //     let url = "{{ route('api.sampingan.store') }}";
-        //     $("form")[0].reset();
-        //     // ganti url
-        //     $("form").attr('action', url);
-        //     $('.method').html(' ');
-        //     $("#nama").val("");
-        //     $('#modal-form').modal('show');
-        //     $('.modal-title').text('Tambah Data')
-        // });
+        $("#btn-tambah").on('click', (e) => {
+            let url = "{{ route('api.sampingan.store') }}";
+            $("form")[0].reset();
+            // ganti url
+            $("form").attr('action', url);
+            $('.method').html(' ');
+            $("#nama").val("");
+            $('#modal-form').modal('show');
+            $('.modal-title').text('Tambah Data')
+        });
 
 
         $('.simpan').click((e) => {
