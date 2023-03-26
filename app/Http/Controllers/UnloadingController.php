@@ -43,7 +43,6 @@ class UnloadingController extends Controller
             ->skip($start)
             ->take($rowperpage)
             ->get();
-
         $data_arr = [];
 
         foreach ($records as $i => $record) {
@@ -51,21 +50,15 @@ class UnloadingController extends Controller
             $customer_id = $record->customer->nama;
             $waktu_datang = $record->waktu_datang;
             $waktu_bongkar = $record->waktu_bongkar;
-            $berat_do = $record->berat_do;
-            $jumlah_ayam_do = $record->jumlah_ayam_do;
-            $berat_timbangan = $record->berat_timbangan;
-            $jumlah_diterima = $record->jumlah_diterima;
-
+            $waktu_selesai = $record->waktu_selesai;
+            $tanggal_datang = $record->tanggal_datang;
+            $muatan = $record->muatan;
             $data_arr[] = [
-                // "index" => $index,
                 "id" => $id,
                 "customer_id" => $customer_id,
-                "waktu_datang" => $waktu_datang,
-                "waktu_bongkar" => $waktu_bongkar,
-                "berat_do" => $berat_do,
-                "jumlah_ayam_do" => $jumlah_ayam_do,
-                "berat_timbangan" => $berat_timbangan,
-                "jumlah_diterima" => $jumlah_diterima,
+                "tanggal_datang" => $tanggal_datang,
+                "jumlah_mobil" => count($muatan),
+                "muatan" => $muatan,
             ];
         }
 
@@ -86,14 +79,15 @@ class UnloadingController extends Controller
     {
         return DB::transaction(function () use ($request) {
             $unloadingRequest = $request->bongkar;
-            $waktu_selesai = self::duration($unloadingRequest['waktu_bongkar'], $unloadingRequest['waktu_datang']);
             $unloadingRequest['customer_id'] = $request->customer_id;
             $unloadingRequest['tanggal_datang'] = now();
-            $unloadingRequest['waktu_selesai'] = $waktu_selesai;
             $unloading = Unloading::create($unloadingRequest);
 
             $muatans = $request->muatan;
             foreach ($muatans as $key => $muatan) {
+                $waktu_selesai = self::duration($muatan['waktu_bongkar'], $muatan['waktu_datang']);
+                $muatan['waktu_selesai'] = $waktu_selesai;
+                $muatan['kendaraan'] = $key + 1;
                 $unloading->muatan()->create($muatan);
             }
 
@@ -108,7 +102,7 @@ class UnloadingController extends Controller
      */
     public function show(Unloading $unloading)
     {
-        return $unloading;
+        return $unloading->load('muatan');
     }
 
     /**
@@ -116,11 +110,28 @@ class UnloadingController extends Controller
      */
     public function update(UnloadingRequest $request, Unloading $unloading)
     {
-        $unloading->update($request->validated());
+        return DB::transaction(function () use ($request, $unloading) {
+            $muatansUpdate = $request->update;
+            if (!empty($request->muatan['waktu_bongkar'])) {
+                $muatans = $request->muatan;
+                foreach ($muatans as $muatan) {
+                    $waktu_selesai = self::duration($muatan['waktu_bongkar'], $muatan['waktu_datang']);
+                    $muatan['waktu_selesai'] = $waktu_selesai;
+                    $muatan['kendaraan'] = $unloading->muatan->count() + 1;
+                    $unloading->muatan()->create($muatan);
+                }
+            }
 
-        return response([
-            "success" => true,
-        ], 200);
+            foreach ($muatansUpdate as $update) {
+                $waktu_selesai = self::duration($update['waktu_bongkar'], $update['waktu_datang']);
+                $update['waktu_selesai'] = $waktu_selesai;
+                $unloading->muatan()->update($update);
+            }
+
+            return response([
+                "success" => true,
+            ], 200);
+        });
     }
 
     /**
@@ -128,11 +139,17 @@ class UnloadingController extends Controller
      */
     public function destroy(Unloading $unloading)
     {
-        $unloading->delete();
+        try {
+            $unloading->delete();
 
-        return response([
-            "success" => true,
-        ], 200);
+            return response([
+                "success" => true,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response([
+                "success" => false,
+            ], 400);
+        }
     }
 
     public function duration($waktu_bongkar, $waktu_datang)

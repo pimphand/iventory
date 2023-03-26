@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProsesRequest;
 use App\Models\Proses;
+use App\Models\Unloading;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProsesController extends Controller
 {
@@ -50,11 +52,13 @@ class ProsesController extends Controller
             $grade = $record->grade;
             $berat_produk = $record->berat_produk;
             $jumlah_produk = $record->jumlah_produk;
+            $nama = $record->customer->nama;
 
             $data_arr[] = [
                 // "index" => $index,
                 "id" => $id,
                 "customer_id" => $customer_id,
+                "nama" => $nama,
                 "unloading_id" => $unloading_id,
                 "waktu_mulai" => $waktu_mulai,
                 "waktu_selesai" => $waktu_selesai,
@@ -74,12 +78,13 @@ class ProsesController extends Controller
 
         return $response;
     }
-        /**
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(ProsesRequest $request)
     {
-        $proses = Proses::create($request->validate());
+        $proses = Proses::create($request->validated());
         if (!$proses) {
             return response([
                 "success" => false,
@@ -104,7 +109,7 @@ class ProsesController extends Controller
      */
     public function update(ProsesRequest $request, Proses $proses)
     {
-        $proses->update($request->validate());
+        $proses->update($request->validated());
         if (!$proses) {
             return response([
                 "success" => false,
@@ -131,5 +136,17 @@ class ProsesController extends Controller
         return response([
             "success" => true,
         ], 200);
+    }
+
+    public function getUnloading(Request $request)
+    {
+        if ($request->unloading_id) {
+            $d = Unloading::findOrFail($request->unloading_id);
+            return response()->json($d->muatan);
+        }
+
+        $unloading = Unloading::where('customer_id', $request->customer_id)->get();
+        $unloading->load('muatan');
+        return response()->json($unloading);
     }
 }

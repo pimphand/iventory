@@ -15,27 +15,30 @@ class Unloading extends Model
     protected $table = 'unloading';
     protected $guarded = [];
 
+    protected $appends = ['nama_customer', 'tanggal'];
+
     public function customer()
     {
         return $this->hasOne(Customer::class,  'id', 'customer_id');
     }
 
-    public function getWaktuDatangAttribute($value)
-    {
-        return Carbon::parse($value)->format('H:i');
-    }
-    public function getWaktuBongkarAttribute($value)
-    {
-        return Carbon::parse($value)->format('H:i');
-    }
-    public function getWaktuSelesaiAttribute($value)
-    {
-        $duration = CarbonInterval::minutes($value);
-        return $duration->cascade()->format('%hh %im');
-    }
-
     public function muatan(): HasMany
     {
         return $this->hasMany(Muatan::class);
+    }
+
+    public function getnamaCustomerAttribute()
+    {
+        return $this->customer->nama;
+    }
+
+    public function getTanggalAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $this->tanggal_datang);
+        setlocale(LC_TIME, 'id_ID.UTF-8');
+        $formatted_date = $date->formatLocalized('%A, %d %B %Y');
+
+
+        return $formatted_date;
     }
 }
