@@ -73,7 +73,7 @@
                             class="side-menu__icon fe fe-truck"></i><span class="side-menu__label">Kendaraan</span></a>
                 </li>
                 <li>
-                    <a class="side-menu__item has-link" href="landing-page.html"><i
+                    <a class="side-menu__item has-link" href="{{route('pengiriman')}}"><i
                             class="side-menu__icon fe fe-box"></i><span class="side-menu__label">Pengiriman</span></a>
                 </li>
                 <li class="sub-category">
