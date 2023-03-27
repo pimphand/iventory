@@ -121,16 +121,17 @@ class ProsesController extends Controller
 
     public function destroy(Proses $proses)
     {
-        $proses->delete();
-        if (!$proses) {
+        try {
+            $proses->delete();
+
+            return response([
+                "success" => true,
+            ], 200);
+        } catch (\Throwable $th) {
             return response([
                 "success" => false,
             ], 400);
         }
-
-        return response([
-            "success" => true,
-        ], 200);
     }
 
     public function getUnloading(Request $request)

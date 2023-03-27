@@ -98,19 +98,25 @@
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Tanggal Bongkar</label>
-                                    <select class="form-control select2-show-search form-select" id="unloading_id"
+                                    <select class="form-control select2-show-search form-select @error('unloading_id') is-invalid @enderror" id="unloading_id"
                                         data-minimum-input-length="0" name="unloading_id"
                                         data-placeholder="- Pilih Tanggal Bongkar -">
                                     </select>
+                                    @error('unloading_id')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Tipe Produk(?)</label>
-                                    <select class="form-control select2-show-search form-select" id="proses_id"
+                                    <select class="form-control select2-show-search form-select @error('proses_id') is-invalid @enderror" id="proses_id"
                                         data-minimum-input-length="0" name="proses_id"
                                         data-placeholder="- Pilih Tipe Produk -">
                                     </select>
+                                    @error('proses_id')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -118,15 +124,21 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Berat Kepala Leher</label>
-                                    <input type="number" class="form-control" id="berat_kepala_leher"
+                                    <input type="number" class="form-control @error('berat_kepala_leher') is-invalid @enderror" id="berat_kepala_leher"
                                         placeholder="Masukkan Berat Kepala Leher" name="berat_kepala_leher">
+                                    @error('berat_kepala_leher')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Prosentase Kepala Leher</label>
-                                    <input type="number" class="form-control" id="prosentase_kepala_leher"
+                                    <input type="number" class="form-control @error('prosentase_kepala_leher') is-invalid @enderror" id="prosentase_kepala_leher"
                                         placeholder="Masukkan Prosentase Kepala Leher" name="prosentase_kepala_leher">
+                                    @error('prosentase_kepala_leher')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -134,16 +146,22 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Berat Kepala Tanpa Leher</label>
-                                    <input type="number" class="form-control" id="berat_kepala_tanpa_leher"
+                                    <input type="number" class="form-control @error('berat_kepala_tanpa_leher') is-invalid @enderror" id="berat_kepala_tanpa_leher"
                                         placeholder="Masukkan Berat Kepala Tanpa Leher" name="berat_kepala_tanpa_leher">
+                                    @error('berat_kepala_tanpa_leher')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Prosentase Kepala Tanpa Leher</label>
-                                    <input type="number" class="form-control" id="prosentase_kepala_tanpa_leher"
+                                    <input type="number" class="form-control @error('prosentase_kepala_tanpa_leher') is-invalid @enderror" id="prosentase_kepala_tanpa_leher"
                                         placeholder="Masukkan Prosentase Kepala Tanpa Leher"
                                         name="prosentase_kepala_tanpa_leher">
+                                    @error('prosentase_kepala_tanpa_leher')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -151,29 +169,41 @@
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Berat Usus</label>
-                                    <input type="number" class="form-control" id="berat_usus"
+                                    <input type="number" class="form-control @error('berat_usus') is-invalid @enderror" id="berat_usus"
                                         placeholder="Masukkan Berat Usus" name="berat_usus">
+                                    @error('berat_usus')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Prosentase Usus</label>
-                                    <input type="number" class="form-control" id="prosentase_usus"
+                                    <input type="number" class="form-control @error('prosentase_usus') is-invalid @enderror" id="prosentase_usus"
                                         placeholder="Masukkan Prosentase Usus" name="prosentase_usus">
+                                    @error('prosentase_usus')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Berat HJA</label>
-                                    <input type="number" class="form-control" id="berat_hja"
+                                    <input type="number" class="form-control @error('berat_hja') is-invalid @enderror" id="berat_hja"
                                         placeholder="Masukkan Berat HJA" name="berat_hja">
+                                    @error('berat_hja')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Prosentase HJA</label>
-                                    <input type="number" class="form-control" id="prosentase_hja"
+                                    <input type="number" class="form-control @error('prosentase_hja') is-invalid @enderror" id="prosentase_hja"
                                         placeholder="Masukkan Prosentase HJA" name="prosentase_hja">
+                                    @error('prosentase_hja')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -181,29 +211,41 @@
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Berat Ceker</label>
-                                    <input type="number" class="form-control" id="berat_ceker"
+                                    <input type="number" class="form-control @error('berat_ceker') is-invalid @enderror" id="berat_ceker"
                                         placeholder="Masukkan Berat Ceker" name="berat_ceker">
+                                    @error('berat_ceker')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Prosentase Ceker</label>
-                                    <input type="number" class="form-control" id="prosentase_ceker"
+                                    <input type="number" class="form-control @error('prosentase_ceker') is-invalid @enderror" id="prosentase_ceker"
                                         placeholder="Masukkan Prosentase Ceker" name="prosentase_ceker">
+                                    @error('prosentase_ceker')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Berat Tembolok</label>
-                                    <input type="number" class="form-control" id="berat_tembolok"
+                                    <input type="number" class="form-control @error('berat_tembolok') is-invalid @enderror" id="berat_tembolok"
                                         placeholder="Masukkan Berat Tembolok" name="berat_tembolok">
+                                    @error('berat_tembolok')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Prosentase Tembolok</label>
-                                    <input type="number" class="form-control" id="prosentase_tembolok"
+                                    <input type="number" class="form-control @error('prosentase_tembolok') is-invalid @enderror" id="prosentase_tembolok"
                                         placeholder="Masukkan Prosentase Tembolok" name="prosentase_tembolok">
+                                    @error('prosentase_tembolok')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -403,52 +445,57 @@
                 }
             });
         });
-        // $("#sampingan").on('click', ' .btn-edit', (e) => {
-        //     const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
-        //     let url = "{{ route('api.sampingan.update', ':id') }}".replace(':id', id);
-        //     // ganti url
-        //     $("form").attr('action', url);
-        //     $('.method').html('@method('put')');
-        //     $("form")[0].reset();
-        //     $.ajax({
-        //         type: "get",
-        //         url: url,
-        //         success: function(data) {
-        //             $("#customer_id").val(data.customer_id).trigger('change');
-        //             $("#unloading_id").val(data.unloading_id).trigger('change');
-        //             $("#waktu_mulai").val(data.waktu_mulai);
-        //             $("#waktu_selesai").val(data.waktu_selesai);
-        //             $("#tipe_produk").val(data.tipe_produk);
-        //             $("#grade").val(data.grade).trigger('change');
-        //             $("#berat_produk").val(data.berat_produk);
-        //             $("#jumlah_produk").val(data.jumlah_produk);
-        //             $("#randemen").val(data.randemen);
-        //             $("#berat_gagal").val(data.berat_gagal);
-        //             $("#jumlah_gagal").val(data.jumlah_gagal);
-        //         }
-        //     });
+        $("#sampingan").on('click', ' .btn-edit', (e) => {
+            const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
+            let url = "{{ route('api.sampingan.update', ':id') }}".replace(':id', id);
+            // ganti url
+            $("form").attr('action', url);
+            $('.method').html('@method('put')');
+            $("form")[0].reset();
+            $.ajax({
+                type: "get",
+                url: url,
+                success: function(data) {
+                    $("#customer_id").val(data.customer_id).trigger('change');
+                    $("#unloading_id").val(data.unloading_id).trigger('change');
+                    $("#proses_id").val(data.proses_id).trigger('change');
+                    $("#grade").val(data.grade).trigger('change');
+                    $("#berat_kepala_leher").val(data.berat_kepala_leher);
+                    $("#prosentase_kepala_leher").val(data.prosentase_kepala_leher);
+                    $("#berat_kepala_tanpa_leher").val(data.berat_kepala_tanpa_leher);
+                    $("#prosentase_kepala_tanpa_leher").val(data.prosentase_kepala_tanpa_leher);
+                    $("#berat_usus").val(data.berat_usus);
+                    $("#prosentase_usus").val(data.prosentase_usus);
+                    $("#berat_hja").val(data.berat_hja);
+                    $("#prosentase_hja").val(data.prosentase_hja);
+                    $("#berat_ceker").val(data.berat_ceker);
+                    $("#prosentase_ceker").val(data.prosentase_ceker);
+                    $("#berat_tembolok").val(data.berat_tembolok);
+                    $("#prosentase_tembolok").val(data.prosentase_tembolok);
+                }
+            });
 
-        //     $('#modal-form').modal('show');
-        //     $('.modal-title').text('Edit Data')
-        // });
-        // $('#btn-edit').on('submit', function(e) {
-        //     e.preventDefault();
-        //     let url = $(this).attr('action');
-        //     let data = $(this).serialize();
-        //     $.ajax({
-        //         type: "post",
-        //         url: url,
-        //         data: data,
-        //         success: function(response) {
-        //             $('#modal-form').modal('hide');
-        //             $('#sampingan').DataTable().ajax.reload();
-        //         },
-        //         error: function(xhr, status, error) {
-        //             let err = eval("(" + xhr.responseText + ")");
-        //             alert(err.message);
-        //         }
-        //     });
-        // });
+            $('#modal-form').modal('show');
+            $('.modal-title').text('Edit Data')
+        });
+        $('#btn-edit').on('submit', function(e) {
+            e.preventDefault();
+            let url = $(this).attr('action');
+            let data = $(this).serialize();
+            $.ajax({
+                type: "post",
+                url: url,
+                data: data,
+                success: function(response) {
+                    $('#modal-form').modal('hide');
+                    $('#sampingan').DataTable().ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    let err = eval("(" + xhr.responseText + ")");
+                    alert(err.message);
+                }
+            });
+        });
         $("#btn-tambah").on('click', (e) => {
             let url = "{{ route('api.sampingan.store') }}";
             $("form")[0].reset();

@@ -123,6 +123,7 @@ class SampinganController extends Controller
 
     public function update(SampinganRequest $request, Sampingan $sampingan)
     {
+        dd($request->all());
         $sampingan->update($request->validated());
         if (!$sampingan) {
             return response([

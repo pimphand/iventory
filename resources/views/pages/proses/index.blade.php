@@ -91,10 +91,13 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Tanggal Bongkar</label>
-                                    <select class="form-control select2-show-search form-select" id="unloading_id"
+                                    <select class="form-control  @error('unloading_id') is-invalid @enderror select2-show-search form-select" id="unloading_id"
                                         data-minimum-input-length="0" name="unloading_id"
                                         data-placeholder="- Pilih Tanggal Bongkar -">
                                     </select>
+                                    @error('unloading_id')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -102,15 +105,21 @@
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Waktu Mulai</label>
-                                    <input type="time" class="form-control" id="waktu_mulai" placeholder="Waktu Mulai"
+                                    <input type="time" class="form-control  @error('waktu_mulai') is-invalid @enderror" id="waktu_mulai" placeholder="Waktu Mulai"
                                         name="waktu_mulai">
+                                    @error('waktu_mulai')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <div class="form-group">
                                     <label class="form-label">Waktu Selesai</label>
-                                    <input type="time" class="form-control" id="waktu_selesai"
+                                    <input type="time" class="form-control  @error('waktu_selesai') is-invalid @enderror" id="waktu_selesai"
                                         placeholder="Waktu Selesai" name="waktu_selesai">
+                                    @error('waktu_selesai')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -118,33 +127,45 @@
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Tipe Produk</label>
-                                    <input type="text" class="form-control" id="tipe_produk"
+                                    <input type="text" class="form-control  @error('tipe_produk') is-invalid @enderror" id="tipe_produk"
                                         placeholder="Masukkan Tipe Produk" name="tipe_produk">
+                                    @error('tipe_produk')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Grade</label>
-                                    <select class="form-control select2-show-search form-select" id="grade"
+                                    <select class="form-control  @error('grade') is-invalid @enderror select2-show-search form-select" id="grade"
                                         data-minimum-input-length="0" name="grade" data-placeholder="- Pilih Grade -">
                                         <option hidden value="">- Pilih Grade -</option>
                                         <option value="a">A</option>
                                         <option value="b">B</option>
                                     </select>
+                                    @error('grade')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Berat Produk</label>
-                                    <input type="number" class="form-control" id="berat_produk"
+                                    <input type="number" class="form-control  @error('berat_produk') is-invalid @enderror" id="berat_produk"
                                         placeholder="Masukkan Berat Produk" name="berat_produk">
+                                    @error('berat_produk')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Jumlah Produk</label>
-                                    <input type="number" class="form-control" id="jumlah_produk"
+                                    <input type="number" class="form-control  @error('jumlah_produk') is-invalid @enderror" id="jumlah_produk"
                                         placeholder="Masukkan Jumlah Produk" name="jumlah_produk">
+                                    @error('jumlah_produk')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -152,22 +173,31 @@
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Randemen</label>
-                                    <input type="number" class="form-control" id="randemen"
+                                    <input type="number" class="form-control  @error('randemen') is-invalid @enderror" id="randemen"
                                         placeholder="Masukkan Randemen" name="randemen">
+                                    @error('randemen')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Berat Gagal</label>
-                                    <input type="number" class="form-control" id="berat_gagal"
+                                    <input type="number" class="form-control  @error('berat_gagal') is-invalid @enderror" id="berat_gagal"
                                         placeholder="Masukkan Berat Gagal" name="berat_gagal">
+                                    @error('berat_gagal')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4">
                                 <div class="form-group">
                                     <label class="form-label">Jumlah Gagal</label>
-                                    <input type="number" class="form-control" id="jumlah_gagal"
+                                    <input type="number" class="form-control  @error('jumlah_gagal') is-invalid @enderror" id="jumlah_gagal"
                                         placeholder="Masukkan Jumlah Gagal" name="jumlah_gagal">
+                                    @error('jumlah_gagal')
+                                        <small>{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -281,7 +311,7 @@
                             class: 'fa fa-trash'
                         }).prop('outerHTML'),
                         class: 'btn btn-danger btn-delete',
-                        'data-id': id,
+                        'data-data': id,
                         title: `Hapus Data`,
                     })
 
