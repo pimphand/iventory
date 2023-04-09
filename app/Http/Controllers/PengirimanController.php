@@ -30,16 +30,16 @@ class PengirimanController extends Controller
         // Total records
         $totalRecords = Pengiriman::select('count(*) as allcount')->count();
         $totalRecordswithFilter = Pengiriman::select('count(*) as allcount')
-        ->where('waktu_kirim', 'like', '%' . $searchValue . '%')
-        ->orwhere('berat_kirim','like','%' .$searchValue. '%')
-        ->orwhere('jumlah_kirim','like','%' .$searchValue. '%')
-        ->count();
+            ->where('waktu_kirim', 'like', '%' . $searchValue . '%')
+            ->orwhere('berat_kirim', 'like', '%' . $searchValue . '%')
+            ->orwhere('jumlah_kirim', 'like', '%' . $searchValue . '%')
+            ->count();
 
         // Fetch records
         $records = Pengiriman::orderBy($columnName, $columnSortOrder)
             ->where('waktu_kirim', 'like', '%' . $searchValue . '%')
-            ->orwhere('berat_kirim','like','%' .$searchValue. '%')
-            ->orwhere('jumlah_kirim','like','%' .$searchValue. '%')
+            ->orwhere('berat_kirim', 'like', '%' . $searchValue . '%')
+            ->orwhere('jumlah_kirim', 'like', '%' . $searchValue . '%')
             ->skip($start)
             ->take($rowperpage)
             ->get();
@@ -47,18 +47,18 @@ class PengirimanController extends Controller
         $data_arr = [];
 
         foreach ($records as $i => $record) {
-        //     $index = $i + 1;
+            //     $index = $i + 1;
             $id = $record->id;
             $customer_id = $record->customer->nama;
             $waktu_kirim = $record->waktu_kirim;
             $berat_kirim = $record->berat_kirim;
             $jumlah_kirim = $record->jumlah_kirim;
-        //     $waktu_mulai = $record->waktu_mulai;
-        //     $waktu_selesai = $record->waktu_selesai;
-        //     $tipe_produk = $record->tipe_produk;
-        //     $grade = $record->grade;
-        //     $berat_produk = $record->berat_produk;
-        //     $jumlah_produk = $record->jumlah_produk;
+            //     $waktu_mulai = $record->waktu_mulai;
+            //     $waktu_selesai = $record->waktu_selesai;
+            //     $tipe_produk = $record->tipe_produk;
+            //     $grade = $record->grade;
+            //     $berat_produk = $record->berat_produk;
+            //     $jumlah_produk = $record->jumlah_produk;
 
             $data_arr[] = [
                 // "index" => $index,
@@ -94,15 +94,15 @@ class PengirimanController extends Controller
         ], 200);
     }
 
-     public function show($id)
+    public function show($id)
     {
         $pengiriman = DB::table('pengiriman')
-                        // ->select('pengiriman.id','unloading.id','proses.id',"unloading.tanggal_bongkar")
-                        ->leftJoin('customer', 'pengiriman.customer_id', '=', 'customer.id')
-                        ->leftJoin('unloading', 'pengiriman.unloading_id', '=', 'unloading.id')
-                        ->leftJoin('proses', 'pengiriman.proses_id', '=', 'proses.id')
-                        ->where('pengiriman.id','=',$id)
-                        ->first();
+            // ->select('pengiriman.id','unloading.id','proses.id',"unloading.tanggal_bongkar")
+            ->leftJoin('customer', 'pengiriman.customer_id', '=', 'customer.id')
+            ->leftJoin('unloading', 'pengiriman.unloading_id', '=', 'unloading.id')
+            ->leftJoin('proses', 'pengiriman.proses_id', '=', 'proses.id')
+            ->where('pengiriman.id', '=', $id)
+            ->first();
         return response()->json($pengiriman);
     }
 
@@ -137,10 +137,7 @@ class PengirimanController extends Controller
 
     public function getProses(Request $request)
     {
-        $proses = Proses::where('customer_id', $request->customer_id)->get();
+        $proses = Proses::whereUnloadingId($request->proses_id)->get();
         return response()->json($proses);
     }
-
-
-
 }

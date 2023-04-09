@@ -259,6 +259,7 @@
                     afterHidden: function () {}  // will be triggered after the toast has been hidden
                 });
             }
+
         </script>
         @yield('js')
 </body>

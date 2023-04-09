@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProsesRequest;
+use App\Http\Resources\ProsesResource;
+use App\Http\Resources\UnloadingResource;
 use App\Models\Customer;
 use App\Models\Proses;
 use App\Models\Unloading;
@@ -98,11 +100,8 @@ class ProsesController extends Controller
     public function show($id)
     {
         $proses = Proses::findOrFail($id);
-        $customer = Customer::findOrFail($proses->customer_id);
-        $unloading = Unloading::findOrFail($proses->unloading_id);
-        $proses->nama = $customer->nama;
-        $proses->tanggal_bongkar = $customer->tanggal_bongkar;
-        return $proses;
+        $proses->load(['customer', 'unloading']);
+        return new ProsesResource($proses);
     }
 
     public function update(ProsesRequest $request, Proses $proses)
@@ -136,13 +135,15 @@ class ProsesController extends Controller
     public function getUnloading(Request $request)
     {
         if ($request->unloading_id) {
-            $d = Unloading::findOrFail($request->unloading_id);
+            $unloading = Unloading::findOrFail($request->unloading_id);
+            return new UnloadingResource($unloading);
+        }
+        if ($request->proses_id) {
+            $d = Proses::findOrFail($request->proses_id);
             return response()->json($d);
-            // return response()->json($d->muatan);
         }
 
         $unloading = Unloading::where('customer_id', $request->customer_id)->get();
-        $unloading->load('muatan');
-        return response()->json($unloading);
+        return UnloadingResource::collection($unloading);
     }
 }

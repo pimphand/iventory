@@ -18,14 +18,22 @@ class Proses extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function unloading(): BelongsTo
+    {
+        return $this->belongsTo(Unloading::class);
+    }
+
     public function sampingan(): HasMany
     {
         return $this->hasMany(Sampingan::class);
     }
+
     public function getWaktuSelesaiAttribute($value)
     {
         return Carbon::parse($value)->format('H:i');
     }
+
     public function getWaktuMulaiAttribute($value)
     {
         return Carbon::parse($value)->format('H:i');

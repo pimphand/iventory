@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SampinganRequest;
+use App\Http\Resources\ProsesResource;
 use App\Models\Customer;
 use App\Models\Proses;
 use App\Models\Sampingan;
@@ -152,8 +153,8 @@ class SampinganController extends Controller
     public function getProses(Request $request)
     {
         if ($request->proses_id) {
-            $d = Proses::findOrFail($request->proses_id);
-            return response()->json($d);
+            $proses = Proses::findOrFail($request->proses_id);
+            return new ProsesResource($proses);
             // return response()->json($d->muatan);
         }
 
