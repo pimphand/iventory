@@ -397,52 +397,57 @@
                 }
             });
         });
-        // $("#sampingan").on('click', ' .btn-edit', (e) => {
-        //     const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
-        //     let url = "{{ route('api.sampingan.update', ':id') }}".replace(':id', id);
-        //     // ganti url
-        //     $("form").attr('action', url);
-        //     $('.method').html('@method('put')');
-        //     $("form")[0].reset();
-        //     $.ajax({
-        //         type: "get",
-        //         url: url,
-        //         success: function(data) {
-        //             $("#customer_id").val(data.customer_id).trigger('change');
-        //             $("#unloading_id").val(data.unloading_id).trigger('change');
-        //             $("#waktu_mulai").val(data.waktu_mulai);
-        //             $("#waktu_selesai").val(data.waktu_selesai);
-        //             $("#tipe_produk").val(data.tipe_produk);
-        //             $("#grade").val(data.grade).trigger('change');
-        //             $("#berat_produk").val(data.berat_produk);
-        //             $("#jumlah_produk").val(data.jumlah_produk);
-        //             $("#randemen").val(data.randemen);
-        //             $("#berat_gagal").val(data.berat_gagal);
-        //             $("#jumlah_gagal").val(data.jumlah_gagal);
-        //         }
-        //     });
+        $("#sampingan").on('click', ' .btn-edit', (e) => {
+            const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
+            let url = "{{ route('api.sampingan.update', ':id') }}".replace(':id', id);
+            // ganti url
+            $("form").attr('action', url);
+            $('.method').html('@method('put')');
+            $("form")[0].reset();
+            $.ajax({
+                type: "get",
+                url: url,
+                success: function(data) {
+                    $("#customer_id").val(data.customer_id).trigger('change');
+                    $("#unloading_id").val(data.unloading_id).trigger('change');
+                    $("#proses_id").val(data.proses_id).trigger('change');
+                    $("#grade").val(data.grade).trigger('change');
+                    $("#berat_kepala_leher").val(data.berat_kepala_leher);
+                    $("#prosentase_kepala_leher").val(data.prosentase_kepala_leher);
+                    $("#berat_kepala_tanpa_leher").val(data.berat_kepala_tanpa_leher);
+                    $("#prosentase_kepala_tanpa_leher").val(data.prosentase_kepala_tanpa_leher);
+                    $("#berat_usus").val(data.berat_usus);
+                    $("#prosentase_usus").val(data.prosentase_usus);
+                    $("#berat_hja").val(data.berat_hja);
+                    $("#prosentase_hja").val(data.prosentase_hja);
+                    $("#berat_ceker").val(data.berat_ceker);
+                    $("#prosentase_ceker").val(data.prosentase_ceker);
+                    $("#berat_tembolok").val(data.berat_tembolok);
+                    $("#prosentase_tembolok").val(data.prosentase_tembolok);
+                }
+            });
 
-        //     $('#modal-form').modal('show');
-        //     $('.modal-title').text('Edit Data')
-        // });
-        // $('#btn-edit').on('submit', function(e) {
-        //     e.preventDefault();
-        //     let url = $(this).attr('action');
-        //     let data = $(this).serialize();
-        //     $.ajax({
-        //         type: "post",
-        //         url: url,
-        //         data: data,
-        //         success: function(response) {
-        //             $('#modal-form').modal('hide');
-        //             $('#sampingan').DataTable().ajax.reload();
-        //         },
-        //         error: function(xhr, status, error) {
-        //             let err = eval("(" + xhr.responseText + ")");
-        //             alert(err.message);
-        //         }
-        //     });
-        // });
+            $('#modal-form').modal('show');
+            $('.modal-title').text('Edit Data')
+        });
+        $('#btn-edit').on('submit', function(e) {
+            e.preventDefault();
+            let url = $(this).attr('action');
+            let data = $(this).serialize();
+            $.ajax({
+                type: "post",
+                url: url,
+                data: data,
+                success: function(response) {
+                    $('#modal-form').modal('hide');
+                    $('#sampingan').DataTable().ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    let err = eval("(" + xhr.responseText + ")");
+                    alert(err.message);
+                }
+            });
+        });
         $("#btn-tambah").on('click', (e) => {
             let url = "{{ route('api.sampingan.store') }}";
             $("form")[0].reset();

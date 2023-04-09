@@ -277,7 +277,7 @@
                             class: 'fa fa-trash'
                         }).prop('outerHTML'),
                         class: 'btn btn-danger btn-delete',
-                        'data-id': id,
+                        'data-data': id,
                         title: `Hapus Data`,
                     })
 
