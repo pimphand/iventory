@@ -23,7 +23,7 @@ class CustomerComponent extends Component
      */
     public function render(): View|Closure|string
     {
-        if (request()->path() == "hasil-produksi") {
+        if (request()->path() == "hasil-produksi" || request()->path() == "hasil-sampingan" || request()->path() == "pengiriman") {
             $customers = DB::table('customer')
                 ->join('unloading', 'customer.id', '=', 'unloading.customer_id')
                 ->select('customer.*')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UnloadingRequest;
+use App\Http\Resources\UnloadingResource;
 use App\Models\Customer;
 use App\Models\Unloading;
 use Illuminate\Http\Request;
@@ -81,6 +82,7 @@ class UnloadingController extends Controller
             $unloadingRequest = $request->bongkar;
             $unloadingRequest['customer_id'] = $request->customer_id;
             $unloadingRequest['tanggal_datang'] = now();
+            $unloadingRequest['tanggal_bongkar'] = $request->tanggal_bongkar;
             $unloading = Unloading::create($unloadingRequest);
 
             $muatans = $request->muatan;
@@ -102,7 +104,8 @@ class UnloadingController extends Controller
      */
     public function show(Unloading $unloading)
     {
-        return $unloading->load('muatan');
+        $unloading->load(['muatan', 'customer']);
+        return new UnloadingResource($unloading);
     }
 
     /**

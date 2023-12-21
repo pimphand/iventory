@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProsesRequest;
+use App\Http\Resources\ProsesResource;
+use App\Http\Resources\UnloadingResource;
+use App\Models\Customer;
 use App\Models\Proses;
 use App\Models\Unloading;
 use Illuminate\Http\Request;
@@ -44,8 +47,9 @@ class ProsesController extends Controller
         foreach ($records as $i => $record) {
             $index = $i + 1;
             $id = $record->id;
-            $customer_id = $record->customer_id;
+            $customer_id = $record->customer->nama;
             $unloading_id = $record->unloading_id;
+            // $unloading_id = $record->unloading->tanggal_bongkar;
             $waktu_mulai = $record->waktu_mulai;
             $waktu_selesai = $record->waktu_selesai;
             $tipe_produk = $record->tipe_produk;
@@ -79,11 +83,9 @@ class ProsesController extends Controller
         return $response;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(ProsesRequest $request)
     {
+        // dd($request->all());
         $proses = Proses::create($request->validated());
         if (!$proses) {
             return response([
@@ -95,18 +97,13 @@ class ProsesController extends Controller
             "success" => true,
         ], 200);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $proses = Proses::findOrFail($id);
+        $proses->load(['customer', 'unloading']);
+        return new ProsesResource($proses);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ProsesRequest $request, Proses $proses)
     {
         $proses->update($request->validated());
@@ -121,32 +118,33 @@ class ProsesController extends Controller
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Proses $proses)
     {
-        $proses->delete();
-        if (!$proses) {
+        try {
+            $proses->delete();
+
+            return response([
+                "success" => true,
+            ], 200);
+        } catch (\Throwable $th) {
             return response([
                 "success" => false,
             ], 400);
         }
-
-        return response([
-            "success" => true,
-        ], 200);
     }
 
     public function getUnloading(Request $request)
     {
         if ($request->unloading_id) {
-            $d = Unloading::findOrFail($request->unloading_id);
-            return response()->json($d->muatan);
+            $unloading = Unloading::findOrFail($request->unloading_id);
+            return new UnloadingResource($unloading);
+        }
+        if ($request->proses_id) {
+            $d = Proses::findOrFail($request->proses_id);
+            return response()->json($d);
         }
 
         $unloading = Unloading::where('customer_id', $request->customer_id)->get();
-        $unloading->load('muatan');
-        return response()->json($unloading);
+        return UnloadingResource::collection($unloading);
     }
 }

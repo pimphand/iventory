@@ -187,8 +187,8 @@
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
                 <h5 class="modal-1">
-                    <strong id="customer">PT. GLOBAL FARMINDO LESTARI</strong><br><br>
-                    <strong id="tanggal_pengiriman" class="mt-2">SABTU,10 DESEMBER 2022</strong>
+                    <strong id="customer"></strong><br><br>
+                    <strong id="tanggal_pengiriman" class="mt-2"></strong>
                 </h5>
 
             </div>
@@ -222,8 +222,10 @@
                             class: 'fa fa-info-circle'
                         }).prop('outerHTML'),
                         class: 'btn btn-warning btn-detail',
+                        attr:"hidden",
                         'data-id': id,
                         title: `Detail Data`,
+                        hidden: row.muatan.length == 0 ?true:false,
                     })
                     const button_edit = $('<button>', {
                         html: $('<i>', {
@@ -241,6 +243,7 @@
                         class: 'btn btn-danger btn-delete',
                         'data-data': id,
                         title: `Hapus Data`,
+                        hidden: row.muatan.length != 0 ?true:false,
                     })
 
                     const button_group = $('<div>', {
@@ -253,13 +256,13 @@
             },
     ]);
 
-        table.init();
-     
-        $("#unloading").on('click', ' .btn-delete', (e) => {
-            const id = $(e.currentTarget).data("data");
-            let url = "{{ route('api.unloading.destroy', ':id') }}".replace(':id', id);
-            table.delete(url);
-        });
+    table.init();
+    
+    $("#unloading").on('click', ' .btn-delete', (e) => {
+        const id = $(e.currentTarget).data("data");
+        let url = "{{ route('api.unloading.destroy', ':id') }}".replace(':id', id);
+        table.delete(url);
+    });
         $("#unloading").on('click', ' .btn-detail', (e) => {
             const id = $(e.currentTarget).data("id"); // Mengambil nilai atribut data dengan menggunakan jQuery
             let url = "{{ route('api.unloading.show', ':id') }}".replace(':id', id);
@@ -269,9 +272,9 @@
                 success: function (data) {
                     $('#modal-detail').modal('show');
                     $('#show-detail').html('');
-                    $('#customer').text(data.nama_customer)
-                    $('#tanggal_pengiriman').text(data.tanggal)
-                    $.each(data.muatan, function (i, v) { 
+                    $('#customer').text(data.data.customer.nama)
+                    $('#tanggal_pengiriman').text(data.data.tanggal)
+                    $.each(data.data.muatan, function (i, v) { 
                         let content = `
                             <div class="col-6 mt-2 mb-2">
                                 <div class="example">
